@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Dancing+Script:wght@700&family=Tangerine:wght@700&display=swap');
+
+*{
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+body {
+    /* background-attachment: fixed;
+    background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 6%, rgba(0,212,255,1) 100%); */
+
+    background: black;
+    background: -moz-linear-gradient(top, rgba(1,179,233,100) 0%, rgba(9,9,121,1) 87%, rgba(2,0,36,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(1,179,233,100)), color-stop(87%, rgba(9,9,121,1)), color-stop(100%, rgba(2,0,36,1)));
+    background: -webkit-linear-gradient(top, rgba(1,179,233,100) 0%, rgba(9,9,121,1) 87%, rgba(2,0,36,1) 100%);
+    background: -o-linear-gradient(top, rgba(1,179,233,100) 0%, rgba(9,9,121,1) 87%, rgba(2,0,36,1) 100%);
+    background: -ms-linear-gradient(top, rgba(1,179,233,100) 0%, rgba(9,9,121,1) 87%, rgba(2,0,36,1) 100%);
+    background: linear-gradient(to bottom, rgba(1,179,233,100) 0%, rgba(9,9,121,1) 87%, rgba(2,0,36,1) 100%);
+}
+
+/** start of styling for text */
+.main-container{
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome{
+    color: white;
+    font-size: 100px;
+    font-family: 'Dancing Script', cursive;
+    margin-bottom: 3px;
+}
+
+.nama {
+    margin-top: 1px;
+    font-family: 'Dancing Script', cursive;
+    color: white;
+    font-size: 5em;
+    font-weight: bold;
+    /* text-transform: uppercase; */
+    /* letter-spacing: 0.5em; */
+    /* font-weight: 600; */
+}
+
+.nama .letter {
+    display: inline-block;
+    line-height: 1em;
+}
+
+.komentar {
+    margin-top: 1px;
+    font-family: 'Dancing Script', cursive;
+    color: white;
+    font-size: 5em;
+    font-weight: bold;
+    /* text-transform: uppercase; */
+    /* letter-spacing: 0.5em; */
+    /* font-weight: 600; */
+}
+
+.komentar .letter {
+    display: inline-block;
+    line-height: 1em;
+}
+/** end of styling for text */
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: url('#goo');
+}
+
+footer {
+    position: absolute;
+    height: 50px;
+    left: 0;
+    bottom: 0;
+    line-height: 50px;
+    width: 100%;
+    text-align: right;
+}
