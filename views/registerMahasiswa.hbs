@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{> header}}
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    {{> preloader}}
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <section id="wrapper">
+        <div class="login-register" style="background-image:url(/images/background/login.jpg);">        
+            <div class="login-box card">
+            <div class="card-block">
+                {{!-- Start of Notifikasi --}}
+                {{#if sessionFlash.message}}
+                    <div class="alert alert-danger"> 
+                        {{sessionFlash.message}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                    </div>
+                {{/if}}
+                {{#if sessionFlash2.message}}
+                    <div class="alert alert-success"> 
+                        {{sessionFlash2.message}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                    </div>
+                {{/if}}
+                {{!-- End of Notifikasi --}}
+                <form class="form-horizontal form-material" id="loginform" action="/auth/register" method="POST">
+                    <h3 class="box-title m-b-20">Sign Up</h3>
+                    {{!-- {{#if message }}
+                        <h6 class="alert alert-danger mt-4"> {{message}} </h6>
+                    {{/if}} --}}
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input class="form-control" type="text" required="" name="nama" id="nama" placeholder="Nama">
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <input class="form-control" type="text" required="" name="username" id="username" placeholder="Username">
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <input class="form-control" type="password" required="" name="password" id="password" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input class="form-control" type="password" required="" name="password2" id="password2" placeholder="Confirm Password">
+                        </div>
+                    </div>
+                    {{!-- <div class="form-group">
+                        <div class="col-md-12">
+                            <div class="checkbox checkbox-success p-t-0 p-l-10">
+                                <input id="checkbox-signup" type="checkbox">
+                                <label for="checkbox-signup"> I agree to all <a href="#">Terms</a></label>
+                            </div>
+                        </div>
+                    </div> --}}
+                    <div class="form-group text-center m-t-20">
+                        <div class="col-xs-12">
+                            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Sign Up</button>
+                        </div>
+                    </div>
+                    <div class="form-group m-b-0">
+                        <div class="col-sm-12 text-center">
+                            <p>Already have an account? <a href="/login" class="text-info m-l-5"><b>Sign In</b></a></p>
+                        </div>
+                    </div>
+                </form>
+                
+            </div>
+          </div>
+        </div>
+        
+    </section>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    {{> plugins}}
+</body>
+
+</html>

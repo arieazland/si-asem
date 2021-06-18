@@ -16,6 +16,11 @@ Router.get('/login', (req, res) => {
     }
 });
 
+/** Route for Login */
+Router.get('/registermahasiswa', (req, res) => {
+    res.render("registerMahasiswa");
+});
+
 /** Route for Home */
 Router.get('/', (req, res) => {
     if(req.session.loggedIn){
