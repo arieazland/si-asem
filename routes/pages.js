@@ -16,7 +16,7 @@ Router.get('/login', (req, res) => {
     }
 });
 
-/** Route for Login */
+/** Route for Register Mahasiswa */
 Router.get('/registermahasiswa', (req, res) => {
     res.render("registerMahasiswa");
 });
@@ -24,33 +24,59 @@ Router.get('/registermahasiswa', (req, res) => {
 /** Route for Home */
 Router.get('/', (req, res) => {
     if(req.session.loggedIn){
-        // idu = req.session.iduser
-        // username = req.session.username
-        // nama = req.session.nama
-        // tipe = req.session.type
-        // if(tipe === 'peserta' || tipe === 'peserta_event'){
-        //     /** login page di arhkan ke page user */
-        //     res.render("indexuser",{
-        //         username, nama, idu
-        //     });
-        // } else if(tipe === 'psikologis'){
-        //     /** login page di arhkan ke page psikolog */
-        //     res.render("listsoalpsikolog",{
-        //         username, nama, idu
-        //     });
-        // } else if(tipe === 'admin'){
-        //     /** login page di arhkan ke page admin */
-        //     res.render("index",{
-        //         username, nama, idu
-        //     });
-        // }
-
-        
+        idu = req.session.iduser
+        username = req.session.username
+        nama = req.session.nama
+        tipe = req.session.type
+        if(tipe === 'mahasiswa'){
+            /** login page di arhkan ke page user */
+            res.render("indexmahasiswa",{
+                username, nama, idu
+            });
+        } else if(tipe === 'psikolog'){
+            /** login page di arhkan ke page psikolog */
+            res.render("indexpsikolog",{
+                username, nama, idu
+            });
+        } else if(tipe === 'admin'){
+            /** login page di arhkan ke page admin */
+            res.render("index",{
+                username, nama, idu
+            });
+        }
     } else {
         res.redirect('/login');
     }
 });
 
+Router.get('/users', (req, res) => {
+    if(req.session.loggedIn){
+        idu = req.session.iduser
+        username = req.session.username
+        nama = req.session.nama
+        tipe = req.session.type
+        if(tipe === 'admin'){
+            /** render page users */
+            res.render("users",{
+                username, nama, idu
+            });
+        } else {
+            /** di redirect ke login dengan status unauthorized */
+            req.session.sessionFlash = {
+                type: 'error',
+                message: 'Un-Authorized'
+            }
+            res.redirect('/login');
+        }
+    }
+});
 
+
+/** Router for logout */
+Router.get('/logout', (req, res) =>{
+    req.session.destroy((err) => {
+        res.redirect("/login");
+    })
+})
 
 module.exports = Router;

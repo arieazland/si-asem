@@ -31,29 +31,44 @@
                     </div>
                 {{/if}}
                 {{!-- End of Notifikasi --}}
-                <form class="form-horizontal form-material" id="loginform" action="/auth/register" method="POST">
-                    <h3 class="box-title m-b-20">Sign Up</h3>
+                <form class="form-horizontal form-material" id="loginform" action="/auth/registermahasiswa" method="POST">
+                    <h3 class="box-title m-b-20">Register Mahasiswa</h3>
                     {{!-- {{#if message }}
                         <h6 class="alert alert-danger mt-4"> {{message}} </h6>
                     {{/if}} --}}
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <input class="form-control" type="text" required="" name="nama" id="nama" placeholder="Nama">
+                            <select class="select2" id="selectfakultas" name="selectfakultas" style="width: 100%" required>
+                                <option value="-- Pilih Fakultas --">-- Pilih Fakultas --</option>
+                                {{!-- {{#each datakonsul}}
+                                    <option value="{{ id }}" {{#if ../selectkonsul}}{{#compare id ../selectkonsul operator="=="}}selected{{/compare}}{{/if}}>{{ nama }}</option>
+                                {{/each}} --}}
+                                <option value="ekonomi">Fakultas Ekonomi</option>
+                                <option value="hukum">Fakultas Hukum</option>
+                                <option value="teknik">Fakultas Teknik</option>
+                                <option value="kedokteran">Fakultas Kedokteran</option>
+                                <option value="pertanian">Fakultas Pertanian</option>
+                                <option value="fkip">Fakultas Keguruan dan Ilmu Pendidikan</option>
+                                <option value="fisip">Fakultas Ilmu Sosial dan Ilmu Politik</option>
+                                <option value="fmipa">Fakultas Matematika dan Ilmu Pengetahuan Alam</option>
+                                <option value="fasilkom">Fakultas Ilmu Komputer</option>
+                                <option value="fkm">Fakultas Kesehatan Masyarakat</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group ">
                         <div class="col-xs-12">
-                            <input class="form-control" type="text" required="" name="username" id="username" placeholder="Username">
+                            <input class="form-control" type="text" required="required" name="nim" id="nim" placeholder="NIM">
                         </div>
                     </div>
                     <div class="form-group ">
                         <div class="col-xs-12">
-                            <input class="form-control" type="password" required="" name="password" id="password" placeholder="Password">
+                            <input class="form-control" type="password" required="required" name="password" id="password" placeholder="Password">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <input class="form-control" type="password" required="" name="password2" id="password2" placeholder="Confirm Password">
+                            <input class="form-control" type="password" required="required" name="password2" id="password2" placeholder="Konfirmasi Password">
                         </div>
                     </div>
                     {{!-- <div class="form-group">
@@ -66,12 +81,12 @@
                     </div> --}}
                     <div class="form-group text-center m-t-20">
                         <div class="col-xs-12">
-                            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Sign Up</button>
+                            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Daftar</button>
                         </div>
                     </div>
                     <div class="form-group m-b-0">
                         <div class="col-sm-12 text-center">
-                            <p>Already have an account? <a href="/login" class="text-info m-l-5"><b>Sign In</b></a></p>
+                            <p>Sudah Terdaftar? <a href="/login" class="text-info m-l-5"><b>Login</b></a></p>
                         </div>
                     </div>
                 </form>

@@ -106,7 +106,7 @@ Hbs.registerHelper('compare', function(lvalue, rvalue, options) {
 
 /** define router */
 app.use('/', require('./routes/pages'));
-// app.use('/auth', require('./routes/auth'));
+app.use('/auth', require('./routes/auth'));
 // app.use('/konsultasi', require('./routes/konsultasi'));
 // app.use('/partisipant', require('./routes/partisipant'));
 // app.use('/soal', require('./routes/soal'));
