@@ -11,6 +11,8 @@
 
 > $ npm init
 
+> $ npm i axios
+
 > $ npm i bcrypt
 
 > $ npm i body-parser
