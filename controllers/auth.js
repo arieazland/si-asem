@@ -53,7 +53,7 @@ exports.login = async (req, res, dataputs) => {
         /** catch */
         req.session.sessionFlash = {
             type: 'error',
-            message: 'Error please contact developer!!!'
+            message: error
         }
         res.redirect("/login");
     }        
@@ -220,8 +220,12 @@ exports.regMahasiswa = async (req, res, dataputs) => {
             }
             res.redirect("/registermahasiswa");
         }
-    } catch(err){
-        console.log(err);
+    } catch(error){
+        req.session.sessionFlash = {
+            type: 'error',
+            message: error
+        }
+        res.redirect("/registermahasiswa");
     }
 }
 
@@ -280,8 +284,12 @@ exports.edit = async (req, res, dataputs) => {
             }
             res.redirect("/users");
         }
-    } catch(err){
-        console.log(err);
+    } catch(error){
+        req.session.sessionFlash = {
+            type: 'error',
+            message: error
+        }
+        res.redirect("/users");
     }
 }
 
@@ -319,7 +327,11 @@ exports.delete = async (req, res, dataputs) => {
             }
             res.redirect("/users");
         }
-    } catch(err){
-        console.log(err);
+    } catch(error){
+        req.session.sessionFlash = {
+            type: 'error',
+            message: error
+        }
+        res.redirect("/users");
     }
 }
