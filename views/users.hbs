@@ -139,7 +139,7 @@
                                                 <td>{{ uemail }}</td>
                                                 <td>{{ uphone }}</td>
                                                 <td>{{ utempat_lahir }}</td>
-                                                {{#if utanggal_lahir}} <td>{{formatDate utanggal_lahir }}</td> {{else}} <td></td> {{/if}}
+                                                <td>{{#if utanggal_lahir}} {{#compare utanggal_lahir "0000-00-00" operator="!="}} {{formatDate utanggal_lahir }} {{/compare}} {{else}} {{/if}} </td>
                                                 <td>{{ ualamat }}</td>
                                                 <td>{{ ufakultas }}</td>
                                                 <td>{{ uprodi }}</td>
@@ -182,7 +182,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="modaltelepon" class="control-label">No Telepon:</label>
-                                        <input type="number" class="form-control modaltelepon" id="modaltelepon" name="modaltelepon">
+                                        <input type="text" class="form-control modaltelepon" id="modaltelepon" name="modaltelepon">
                                     </div>
                                     <div class="form-group">
                                         <label for="modaltempatlahir" class="control-label">Tempat Lahir:</label>
@@ -199,7 +199,7 @@
                                     <div class="form-group">
                                         <label for="modaltipe" class="control-label">Tipe Akun:</label>
                                         <select class="select2 modaltipe" id="modaltipe" name="modaltipe" style="width: 100%" required>
-                                            <option value="-- Pilih Account Type --">-- Pilih Account Type --</option>
+                                            <option value="-- Pilih Tipe Akun --">-- Pilih Tipe Akun --</option>
                                             <option value="admin">Admin</option>
                                             <option value="psikolog">Psikolog</option>
                                         </select>
@@ -242,7 +242,7 @@
                         <div class="card">
                             <div class="card-block">
                                 {{!-- start of form tambah data psikolog --}}
-                                <form action="/auth/reg" method="POST">
+                                <form action="/auth/register" method="POST">
                                     <div class="form-body">
                                         <h4 class="card-title">Form Input Data User</h4>
                                         <hr>
@@ -295,7 +295,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Tanggal Lahir</label>
-                                                    <input type="date" id="tanggallahir" name="tanggallahir" class="form-control" placeholder="Tanggal Lahir">
+                                                    <input type="date" id="tanggallahir" name="tanggallahir" class="form-control">
                                                 </div>
                                             </div>
                                             <!--/span-->
@@ -329,9 +329,9 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="control-label">Account Type</label>
+                                                    <label class="control-label">Tipe Akun</label>
                                                     <select class="select2" id="tipeakun" name="tipeakun" style="width: 100%" required>
-                                                        <option value="0">-- Pilih Account Type --</option>
+                                                        <option value="-- Pilih Tipe Akun --">-- Pilih Tipe Akun --</option>
                                                         <option value="admin">Admin</option>
                                                         <option value="psikolog">Psikolog</option>
                                                     </select>

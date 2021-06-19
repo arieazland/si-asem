@@ -59,6 +59,89 @@ exports.login = async (req, res, dataputs) => {
     }        
 };
 
+exports.register = async (req, res, dataputs) => {
+    try{
+        const { username, email, nama, telp, tempatlahir, tanggallahir, alamat, tipeakun, password, password2 } = req.body;
+
+        if(email && nama && password && password2 && tipeakun ){
+            if(tipeakun === 'admin' || tipeakun === 'psikolog'){
+                if(password == password2){
+                    if(tanggallahir){
+                        var ulangtahun = tanggallahir
+                    } else {
+                        var ulangtahun = "0000-00-00"
+                    }
+                    params = {
+                        username: username,
+                        email: email,
+                        nama: nama,
+                        phone: telp,
+                        tempat_lahir: tempatlahir,
+                        tanggal_lahir: ulangtahun,
+                        alamat: alamat,
+                        password: password,
+                        password2: password2,
+                        tipeakun: tipeakun
+                      }
+                    var res1 = res;
+                    url =  MAIN_URL + '/auth/reg'+tipeakun;
+                    var dataputs = await axios.post(url, params)
+                    .then(function (res) {
+                        var message = res.data.message;
+                        req.session.sessionFlash2 = {
+                            type: 'success',
+                            message: message
+                        }
+                        res1.redirect('/users');
+                    })
+                    .catch(function (err) {
+                        /** get message from API */
+                        var message = err.response.data.message;
+                        req.session.sessionFlash = {
+                            type: 'error',
+                            message: message
+                        }
+                        res1.redirect("/users");
+                    })
+                } else {
+                    req.session.sessionFlash = {
+                        type: 'error',
+                        message: 'Password dan konfirmasi password tidak sama'
+                    }
+                    res.redirect("/users");
+                }
+            } else if(tipeakun === '-- Pilih Tipe Akun --'){
+                req.session.sessionFlash = {
+                    type: 'error',
+                    message: 'Harap pilih tipe akun terlebih dahulu!'
+                }
+                res.redirect("/users");
+            }else {
+                req.session.sessionFlash = {
+                    type: 'error',
+                    message: 'Tipe akun tidak tepat!'
+                }
+                res.redirect("/users");
+            }
+        } else {
+            req.session.sessionFlash = {
+                type: 'error',
+                message: 'Field email, nama, tipe akun, paswword dan konfirmasi password tidak boleh kosong!'
+            }
+            res.redirect("/users");
+        }
+
+    } catch (error) {
+        // console.log(error);
+        /** catch */
+        req.session.sessionFlash = {
+            type: 'error',
+            message: error
+        }
+        res.redirect("/users");
+    }
+};
+
 exports.regMahasiswa = async (req, res, dataputs) => {
     try{
         const { selectfakultas, nim, password, password2 } = req.body;
@@ -147,13 +230,18 @@ exports.edit = async (req, res, dataputs) => {
     try{
         const { modalid, modalusername, modalemail, modalnama, modaltelepon, modaltempatlahir, modaltanggallahir, modalalamat, modaltipe} = req.body;
         if(modalid && modalemail && modalnama && modaltipe){
-            if(modaltipe == "-- Pilih Account Type --"){
+            if(modaltipe == "-- Pilih Tipe Akun --"){
                 req.session.sessionFlash = {
                     type: 'error',
                     message: 'Harap Pilih Tipe Akun Terlebih Dahulu!'
                 }
                 res.redirect("/users");
             } else {
+                if(modaltanggallahir){
+                    var ulangtahun = modaltanggallahir
+                } else {
+                    var ulangtahun = "0000-00-00"
+                }
                 params = {
                     id: modalid,
                     username: modalusername,
@@ -161,12 +249,12 @@ exports.edit = async (req, res, dataputs) => {
                     nama: modalnama,
                     telepon: modaltelepon,
                     tempatlahir: modaltempatlahir,
-                    tanggallahir: modaltanggallahir,
+                    tanggallahir: ulangtahun,
                     alamat: modalalamat,
                     tipe: modaltipe
                 }
                 var res1 = res;
-                url =  MAIN_URL + '/auth/edit';
+                url =  MAIN_URL + '/auth/edituser';
                 var dataputs = await axios.put(url, params)
                     .then(function (res) {
                         var message = res.data.message;
@@ -199,39 +287,39 @@ exports.edit = async (req, res, dataputs) => {
 
 /** Delete User */
 exports.delete = async (req, res, dataputs) => {
-    // try{
-    //     const { modalidhapus } = req.body;
-    //     if(modalidhapus){
-    //         params = {
-    //             id: modalidhapus
-    //         }
-    //         var res1 = res;
-    //         url =  MAIN_URL + '/auth/deleteuser';
-    //         var dataputs = await axios.put(url, params)
-    //             .then(function (res) {
-    //                 var message = res.data.message
-    //                 req.session.sessionFlash2 = {
-    //                     type: 'success',
-    //                     message: message
-    //                 }
-    //                 res1.redirect('/users');
-    //             })
-    //             .catch(function (err) {
-    //                 var message = err.response.data.message;
-    //                 req.session.sessionFlash = {
-    //                     type: 'error',
-    //                     message: message
-    //                 }
-    //                 res1.redirect("/users");
-    //             })
-    //     } else {
-    //         req.session.sessionFlash = {
-    //             type: 'error',
-    //             message: 'Field tidak boleh kosong!'
-    //         }
-    //         res.redirect("/users");
-    //     }
-    // } catch(err){
-    //     console.log(err);
-    // }
+    try{
+        const { modalidhapus } = req.body;
+        if(modalidhapus){
+            params = {
+                id: modalidhapus
+            }
+            var res1 = res;
+            url =  MAIN_URL + '/auth/deleteuser';
+            var dataputs = await axios.put(url, params)
+                .then(function (res) {
+                    var message = res.data.message
+                    req.session.sessionFlash2 = {
+                        type: 'success',
+                        message: message
+                    }
+                    res1.redirect('/users');
+                })
+                .catch(function (err) {
+                    var message = err.response.data.message;
+                    req.session.sessionFlash = {
+                        type: 'error',
+                        message: message
+                    }
+                    res1.redirect("/users");
+                })
+        } else {
+            req.session.sessionFlash = {
+                type: 'error',
+                message: 'Field tidak boleh kosong!'
+            }
+            res.redirect("/users");
+        }
+    } catch(err){
+        console.log(err);
+    }
 }
