@@ -144,45 +144,57 @@ exports.regMahasiswa = async (req, res, dataputs) => {
 
 /** Edit User */
 exports.edit = async (req, res, dataputs) => {
-    // try{
-    //     const { modalid, modalnama, modalemail } = req.body;
-    //     if(modalid && modalemail && modalnama){
-    //         params = {
-    //             id: modalid,
-    //             nama: modalnama,
-    //             email: modalemail
-    //         }
-    //         var res1 = res;
-    //         url =  MAIN_URL + '/auth/edituser';
-    //         var dataputs = await axios.put(url, params)
-    //             .then(function (res) {
-    //                 var message = res.data.message;
-    //                 req.session.sessionFlash2 = {
-    //                     type: 'success',
-    //                     message: message
-    //                 }
-    //                 res1.redirect('/users');
-    //             })
-    //             .catch(function (err) {
-    //                 var message = err.response.data.message;
-    //                 req.session.sessionFlash = {
-    //                     type: 'error',
-    //                     message: message
-    //                 }
-    //                 res1.redirect("/users");
-    //             })
-
-    //     } else {
-    //         req.session.sessionFlash = {
-    //             type: 'error',
-    //             message: 'Field tidak boleh kosong!'
-    //         }
-    //         res.redirect("/users");
-    //     }
-
-    // } catch(err){
-    //     console.log(err);
-    // }
+    try{
+        const { modalid, modalusername, modalemail, modalnama, modaltelepon, modaltempatlahir, modaltanggallahir, modalalamat, modaltipe} = req.body;
+        if(modalid && modalemail && modalnama && modaltipe){
+            if(modaltipe == "-- Pilih Account Type --"){
+                req.session.sessionFlash = {
+                    type: 'error',
+                    message: 'Harap Pilih Tipe Akun Terlebih Dahulu!'
+                }
+                res.redirect("/users");
+            } else {
+                params = {
+                    id: modalid,
+                    username: modalusername,
+                    email: modalemail,
+                    nama: modalnama,
+                    telepon: modaltelepon,
+                    tempatlahir: modaltempatlahir,
+                    tanggallahir: modaltanggallahir,
+                    alamat: modalalamat,
+                    tipe: modaltipe
+                }
+                var res1 = res;
+                url =  MAIN_URL + '/auth/edit';
+                var dataputs = await axios.put(url, params)
+                    .then(function (res) {
+                        var message = res.data.message;
+                        req.session.sessionFlash2 = {
+                            type: 'success',
+                            message: message
+                        }
+                        res1.redirect('/users');
+                    })
+                    .catch(function (err) {
+                        var message = err.response.data.message;
+                        req.session.sessionFlash = {
+                            type: 'error',
+                            message: message
+                        }
+                        res1.redirect("/users");
+                    })
+            }
+        } else {
+            req.session.sessionFlash = {
+                type: 'error',
+                message: 'Field email, nama dan tipe akun tidak boleh kosong!'
+            }
+            res.redirect("/users");
+        }
+    } catch(err){
+        console.log(err);
+    }
 }
 
 /** Delete User */
