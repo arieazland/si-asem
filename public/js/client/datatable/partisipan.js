@@ -46,5 +46,5 @@ function Table(idtable){
 };
     
 // tabel users
-var idtable = "listPartisipant";
+var idtable = "listPartisipan";
 Table(idtable);

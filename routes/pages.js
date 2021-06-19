@@ -24,7 +24,7 @@ Router.get('/registermahasiswa', (req, res) => {
 });
 
 /** Route for dashboard */
-Router.get('/', (req, res) => {
+Router.get('/', async (req, res) => {
     if(req.session.loggedIn){
         idu = req.session.iduser
         username = req.session.username
@@ -53,7 +53,7 @@ Router.get('/', (req, res) => {
 });
 
 /** Route for users */
-Router.get('/users', (req, res) => {
+Router.get('/users', async (req, res, dataputs) => {
     if(req.session.loggedIn){
         idu = req.session.iduser
         username = req.session.username
@@ -62,7 +62,7 @@ Router.get('/users', (req, res) => {
         if(tipe == 'admin'){
             let res1 = res;
             url =  MAIN_URL + '/userlist';
-            axios.get(url)
+            dataputs = await axios.get(url)
             .then(function (res) {
                 var users = res.data;
                 /** render page users */
@@ -95,7 +95,7 @@ Router.get('/users', (req, res) => {
 });
 
 /** Route for acara */
-Router.get('/acara', (req, res) => {
+Router.get('/acara', async (req, res, dataputs) => {
     if(req.session.loggedIn){
         idu = req.session.iduser
         username = req.session.username
@@ -104,7 +104,7 @@ Router.get('/acara', (req, res) => {
         if(tipe == 'admin'){
             let res1 = res;
             url =  MAIN_URL + '/acaralist';
-            axios.get(url)
+            dataputs = await axios.get(url)
             .then(function (res) {
                 var acara = res.data;
                 /** render page acara */
@@ -129,6 +129,150 @@ Router.get('/acara', (req, res) => {
                 message: 'Un-Authorized'
             }
             res.redirect("/login");
+        }
+    } else {
+        /** di redirect ke login */
+        res.redirect("/login");
+    }
+});
+
+/** Route for partisipan */
+Router.get('/partisipan', async (req, res, dataputs) => {
+    if(req.session.loggedIn){
+        idu = req.session.iduser
+        username = req.session.username
+        nama = req.session.nama
+        tipe = req.session.type
+        if(tipe == 'admin'){
+            if(req.session.idacara != null){
+                /** get data acara berdasarkan id yang di pilih */
+                params = {
+                    selectacara: req.session.idacara,
+                }
+                let res1 = res;
+                url =  MAIN_URL + '/partisipant';
+                var dataputs = await axios.post(url, params)
+                .then(function (res) {
+                    req.session.sessionFlash2 = {
+                        type: 'success',
+                        message: 'User berhasil didaftarkan'
+                    }
+                    var partisipant = res.data.results;
+                    var dataacara = res.data.acara;
+                    var pilihacara = res.data.pilihacara;
+                    var psikolog = res.data.psikolog;
+                    var selectacara = res.data.selectacara;
+                    res1.render('partisipant', {
+                        partisipant: partisipant,
+                        dataacara: dataacara,
+                        pilihacara: pilihacara,
+                        psikolog: psikolog,
+                        selectacara: selectacara
+                    })
+                    req.session.idacara = null
+                })
+                .catch(function (err) {
+                    // console.log(err.response.data)
+                    // var message = err.response.data.message;
+                    req.session.sessionFlash = {
+                        type: 'error',
+                        message: 'Error, please contact developer'
+                    }
+                    res1.redirect("/partisipant");
+                    req.session.idkonsul = null
+                })
+            } else {
+                let res1 = res;
+                url =  MAIN_URL + '/acaralist';
+                dataputs = await axios.get(url)
+                .then(function (res) {
+                    var acara = res.data;
+                    /** render page partisipan */
+                    res1.render('partisipan', {
+                        username, nama, idu,
+                        dataacara: acara.data
+                    })
+                })
+                .catch(function (err) {
+                    // console.log(err);
+                    var message = err.response.data.message;
+                    req.session.sessionFlash = {
+                        type: 'error',
+                        message: message
+                    }
+                    res1.redirect("/partisipan");
+                })
+            }
+        } else {
+            /** di redirect ke login dengan status unauthorized */
+            req.session.sessionFlash = {
+                type: 'error',
+                message: 'Un-Authorized'
+            }
+            res.redirect("/login");
+        }
+    } else {
+        /** di redirect ke login */
+        res.redirect("/login");
+    }
+});
+
+Router.post('/partisipan', async (req, res, dataputs) => {
+    if(req.session.loggedIn){
+        idu = req.session.iduser
+        username = req.session.username
+        nama = req.session.nama
+        tipe = req.session.type
+        if(tipe == 'admin'){
+            const { selectacara } = req.body;
+
+            if( selectacara ){
+                if(selectacara == "-- Pilih Acara --"){
+                    req.session.sessionFlash = {
+                        type: 'error',
+                        message: 'Harap pilih acara terlebih dahulu!'
+                    }
+                    res.redirect("/partisipan");
+                } else {
+                    /** get data acara berdasarkan id yang di pilih */
+                    params = {
+                        selectacara: selectacara,
+                    }
+                    let res1 = res;
+                    url =  MAIN_URL + '/partisipant';
+                    var dataputs = await axios.post(url, params)
+                    .then(function (res) {
+                        var partisipant = res.data.results;
+                        var dataacara = res.data.acara;
+                        var pilihacara = res.data.pilihacara;
+                        var psikolog = res.data.psikolog;
+                        var selectacara = res.data.selectacara;
+                        res1.render('partisipan', {
+                            partisipant: partisipant,
+                            dataacara: dataacara,
+                            pilihacara: pilihacara,
+                            psikolog: psikolog,
+                            selectacara: selectacara
+                        })
+                    })
+                    .catch(function (err) {
+                        // console.log(err.response.data)
+                        var message = err.response.data.message;
+                        req.session.sessionFlash = {
+                            type: 'error',
+                            message: message
+                        }
+                        res1.redirect("/partisipan");
+                    })
+                }
+            } else {
+                /** field id acara kosong */
+                req.session.sessionFlash = {
+                    type: 'error',
+                    message: 'Field tidak boleh kosong'
+                }
+                res.redirect("/partisipan");
+            }
         }
     } else {
         /** di redirect ke login */

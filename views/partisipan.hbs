@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+{{> header}}
+</head>
+
+<body class="fix-header fix-sidebar card-no-border">
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    {{> preloader}}
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        {{> topbar}}
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        {{> navbar}}
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row page-titles">
+                    <div class="col-md-6 col-8 align-self-center">
+                        <h3 class="text-themecolor m-b-0 m-t-0">Partisipan</h3>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                            <li class="breadcrumb-item active">Partisipan</li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <!-- Row -->
+                {{!-- Start of Notifikasi --}}
+                {{#if sessionFlash.message}}
+                    <div class="alert alert-danger"> 
+                        {{sessionFlash.message}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                    </div>
+                {{/if}}
+                {{#if sessionFlash2.message}}
+                    <div class="alert alert-success"> 
+                        {{sessionFlash2.message}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                    </div>
+                {{/if}}
+                {{!-- End of Notifikasi --}}
+                {{!-- start of row --}}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card card-outline-info">
+                            <div class="card-header">
+                                <h4 class="m-b-0 text-white">Partisipant</h4>
+                            </div>
+                            <div class="card-block">
+                                {{!-- start of form pilih acara --}}
+                                <form action="/partisipan" method="POST">
+                                    <div class="form-body">
+                                        <h4 class="card-title">Pilih Acara</h4>
+                                        <h6 class="card-subtitle"> Pilih acara terlebih dahulu untuk menampilkan data partisipan</h6>
+                                        <hr>
+                                        {{!-- <h5 class="m-t-30">Single select2</h5> --}}
+                                        <select class="select2" id="selectacara" name="selectacara" style="width: 100%" required>
+                                            <option>-- Pilih Acara --</option>
+                                            {{#each dataacara}}
+                                                <option value="{{ id }}" {{#if ../selectacara}}{{#compare id ../selectacara operator="=="}}selected{{/compare}}{{/if}}>{{ nama }}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                    <hr>
+                                    <div class="form-actions text-right">
+                                        <button type="submit" class="btn btn-block btn-outline-success"> <i class="fa fa-check"></i> Pilih</button>
+                                        <button type="reset" class="btn btn-block btn-outline-warning">Batal</button>
+                                    </div>
+                                </form>
+                                {{!-- end of form pilih acara --}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{#if selectacara}}
+                {{!-- start of row --}}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card card-outline-info">
+                            {{!-- <div class="card-header">
+                                <h4 class="m-b-0 text-white">Form Partisipant</h4>
+                            </div> --}}
+                            <div class="card-block">
+                                {{!-- Start of tabel list partisipant --}}
+                                <h4 class="card-title">List Partisipan</h4>
+                                <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
+                                <hr>
+                                <div class="table-responsive m-t-40">
+                                    <table id="listPartisipan" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">No.</th>
+                                                <th class="text-center">Nama</th>
+                                                <th class="text-center notexport">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th class="text-center">No.</th>
+                                                <th class="text-center">Nama</th>
+                                                <th class="text-center notexport">Aksi</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            {{#each partisipant}}
+                                                <tr>
+                                                    <td class="text-center">{{counter @index}}</td>
+                                                    <td>{{ namauser }}</td>
+                                                    <td class="text-center notexport">
+                                                        <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn delete" data-toggle="tooltip" data-original-title="Hapus Dari Partisipan" data-id="{{ idpartisipan }}" data-nama="{{ namauser }}"><i class="fa fa-trash" aria-hidden="true"></i></button></a>
+                                                    </td>
+                                                </tr>
+                                            {{/each}}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {{!-- end of tabel list partisipant --}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{!-- end of row --}}
+                <!-- start of modal delete partisipant -->
+                <form action="/partisipan/delete" method="post">
+                    <div class="modal fade" id="modalHapuspartisipan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="exampleModalLabel1">Hapus Partisipan</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <strong>Anda yakin mau menghapus partisipan berikut <label class="font-weight-bold judul"></label>?</strong>
+                                    <input type="hidden" class="form-control modalidpartisipanhapus" id="modalidpartisipanhapus" name="modalidpartisipanhapus">
+                                    <input type="hidden" class="form-control selectacara" id="selectacara" name="selectacara" value="{{ selectacara }}">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="reset" class="btn btn-warning" data-dismiss="modal">Batal</button>
+                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- end of modal delete partisipant -->
+                {{!-- start of row --}}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-block">
+                                {{!-- start of form tambah partisipant --}}
+                                <form action="/partisipan/input" method="POST">
+                                    <div class="form-body">
+                                        <h4 class="card-title">Form Input Partisipan</h4>
+                                        <hr>
+                                        <div class="row p-t-20">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Psikolog</label>
+                                                    {{!-- <select class="select2" id="selectpartisipant" name="selectpartisipant" style="width: 100%" required>
+                                                        <option>-- Pilih Psikolog --</option>
+                                                        {{#each psikolog}}
+                                                            <option value="{{ id }}">{{ unama }}</option>
+                                                        {{/each}}
+                                                    </select> --}}
+                                                    <input type="hidden" class="form-control selectacara" id="selectacara" name="selectacara" value="{{ selectacara }}">
+                                                    <select class="select2 m-b-10 select2-multiple" id="selectpartisipant" name="selectpartisipant" style="width: 100%" multiple="multiple" data-placeholder=" Pilih Psikolog">
+                                                        {{#each psikolog}}
+                                                            <option value="{{ id }}">{{ unama }}</option>
+                                                        {{/each}}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/row-->
+                                    </div>
+                                    
+                                    <div class="form-actions text-right">
+                                        <button type="submit" class="btn btn-block btn-outline-success"> <i class="fa fa-check"></i> Simpan</button>
+                                        <button type="reset" class="btn btn-block btn-outline-warning">Batal</button>
+                                    </div>
+                                </form>
+                                {{!-- end of form tambah partisipant --}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{!-- end of row --}}
+                {{/if}}
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            {{> footer}}
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    {{> plugins}}
+    <script src="/js/client/datatable/partisipan.js"></script>
+    <script src="/js/client/modal/partisipan.js"></script>
+</body>
+
+</html>
