@@ -59,6 +59,7 @@ exports.login = async (req, res, dataputs) => {
     }        
 };
 
+/** Register Admin/Psikolog Process */
 exports.register = async (req, res, dataputs) => {
     try{
         const { username, email, nama, telp, tempatlahir, tanggallahir, alamat, tipeakun, password, password2 } = req.body;
@@ -142,6 +143,7 @@ exports.register = async (req, res, dataputs) => {
     }
 };
 
+/** Register Mahasiswa Process */
 exports.regMahasiswa = async (req, res, dataputs) => {
     try{
         const { selectfakultas, nim, password, password2 } = req.body;

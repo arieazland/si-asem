@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+{{> header}}
+</head>
+
+<body class="fix-header fix-sidebar card-no-border">
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    {{> preloader}}
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        {{> topbar}}
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        {{> navbar}}
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row page-titles">
+                    <div class="col-md-6 col-8 align-self-center">
+                        <h3 class="text-themecolor m-b-0 m-t-0">Acara</h3>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                            <li class="breadcrumb-item active">Acara</li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <!-- Row -->
+                {{!-- Start of Notifikasi --}}
+                {{#if sessionFlash.message}}
+                    <div class="alert alert-danger"> 
+                        {{sessionFlash.message}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                    </div>
+                {{/if}}
+                {{#if sessionFlash2.message}}
+                    <div class="alert alert-success"> 
+                        {{sessionFlash2.message}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                    </div>
+                {{/if}}
+                {{!-- End of Notifikasi --}}
+                {{!-- start of row --}}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card card-outline-info">
+                            <div class="card-header">
+                                <h4 class="m-b-0 text-white">Acara</h4>
+                            </div>
+                            <div class="card-block">
+                                {{!-- Start of tabel list acara --}}
+                                <h4 class="card-title">List Acara</h4>
+                                <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
+                                <hr>
+                                <div class="table-responsive m-t-40">
+                                    <table id="listAcara" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Nama Acara</th>
+                                                <th>Tanggal Acara</th>
+                                                <th>Status</th>
+                                                <th class="notexport">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Nama Acara</th>
+                                                <th>Tanggal Acara</th>
+                                                <th>Status</th>
+                                                <th class="notexport">Aksi</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            {{#each data}}
+                                                <tr>
+                                                    <td>{{counter @index}}</td>
+                                                    <td>{{loud nama }}</td>
+                                                    <td>{{formatDate start }} - {{formatDate end }}</td>
+                                                    <td>{{loud status }}</td>
+                                                    <td class="notexport">
+                                                        <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn edit" data-toggle="tooltip" data-original-title="Ubah" data-id="{{ id }}" data-nama="{{ nama }}" data-tanggalmulai="{{formatDateDefault start }}" data-tanggalberakhir="{{formatDateDefault end }}" data-status="{{status}}"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
+                                                        
+                                                        <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn delete" data-toggle="tooltip" data-original-title="Hapus" data-id="{{ id }}" data-nama="{{ nama }}"><i class="fa fa-ban" aria-hidden="true"></i></button></a>
+                                                    </td>
+                                                </tr>
+                                            {{/each}}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {{!-- end of tabel list acara --}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{!-- end of row --}}
+                {{!-- start of modal update acara --}}
+                <form action="/acara/edit" method="post">
+                    <div class="modal fade" id="modalEditacara" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="exampleModalLabel1">Ubah Data Acara</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="modalnamaacara" class="control-label">Nama Acara:</label>
+                                        <input type="text" class="form-control modalnamaacara" id="modalnamaacara" name="modalnamaacara">
+                                        <input type="hidden" class="form-control modalidacara" id="modalidacara" name="modalidacara">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="modaltanggalmulaiacara" class="control-label">Tanggal Mulai Acara:</label>
+                                        <input type="date" class="form-control modaltanggalmulaiacara" id="modaltanggalmulaiacara" name="modaltanggalmulaiacara">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="modaltanggalberakhiracara" class="control-label">Tanggal Berakhir Acara:</label>
+                                        <input type="date" class="form-control modaltanggalberakhiracara" id="modaltanggalberakhiracara" name="modaltanggalberakhiracara">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Status Acara</label>
+                                        <select class="select2 modalstatusacara" id="modalstatusacara" name="modalstatusacara" style="width: 100%" required>
+                                            <option value="-- Pilih Status Acara --">-- Pilih Status Acara --</option>
+                                            <option value="aktif">Aktif</option>
+                                            <option value="nonaktif">Nonaktif</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="reset" class="btn btn-warning" data-dismiss="modal">Batal</button>
+                                    <button type="submit" class="btn btn-success">Ubah</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- end of modal update acara -->
+                <!-- start of modal delete acara -->
+                <form action="/acara/delete" method="post">
+                    <div class="modal fade" id="modalHapusacara" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="exampleModalLabel1">Hapus Data Acara</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <strong>Anda yakin mau menghapus Acara <label class="font-weight-bold judul"></label>?</strong>
+                                    <input type="hidden" class="form-control modalidacarahapus" id="modalidacarahapus" name="modalidacarahapus">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="reset" class="btn btn-warning" data-dismiss="modal">Batal</button>
+                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- end of modal delete acara -->
+                {{!-- start of row --}}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-block">
+                                {{!-- start of form tambah data acara --}}
+                                <form action="/acara/register" method="POST">
+                                    <div class="form-body">
+                                        <h4 class="card-title">Form Input Data Acara</h4>
+                                        <hr>
+                                        <div class="row p-t-20">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Nama Acara</label>
+                                                    <input type="text" id="nama" name="nama" class="form-control" placeholder="Nama Acara" required="required">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/row-->
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Tanggal Mulai</label>
+                                                    <input type="date" id="tanggalmulai" name="tanggalmulai" class="form-control" required="required">
+                                                </div>
+                                            </div>
+                                            <!--/span-->
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Tanggal Berakhir</label>
+                                                    <input type="date" id="tanggalakhir" name="tanggalakhir" class="form-control" required="required">
+                                                </div>
+                                            </div>
+                                            <!--/span-->
+                                        </div>
+                                        <!--/row-->
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Status Acara</label>
+                                                    <select class="select2" id="status" name="status" style="width: 100%" required>
+                                                        <option value="-- Pilih Status Acara --">-- Pilih Status Acara --</option>
+                                                        <option value="aktif">Aktif</option>
+                                                        <option value="nonaktif">Nonaktif</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/row-->
+                                    </div>
+                                    <hr>
+                                    <div class="form-actions text-right">
+                                        <button type="submit" class="btn btn-block btn-outline-success"> <i class="fa fa-check"></i> Simpan</button>
+                                        <button type="reset" class="btn btn-block btn-outline-warning">Batal</button>
+                                    </div>
+                                </form>
+                                {{!-- end of form tambah data acara --}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{!-- end of row --}}
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            {{> footer}}
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    {{> plugins}}
+    <script src="/js/client/datatable/acara.js"></script>
+    <script src="/js/client/modal/acara.js"></script>
+</body>
+
+</html>
