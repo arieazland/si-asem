@@ -322,7 +322,30 @@ Router.get('/part', async (req, res, dataputs) => {
     }
 });
 
-/** Router for logout */
+/** Route for aspek */
+Router.get('/aspek', (req, res) =>{
+    if(req.session.loggedIn){
+        idu = req.session.iduser
+        username = req.session.username
+        nama = req.session.nama
+        tipe = req.session.type
+        if(tipe == 'admin'){
+            res.render('aspek')
+        } else {
+            /** di redirect ke login dengan status unauthorized */
+            req.session.sessionFlash = {
+                type: 'error',
+                message: 'Un-Authorized'
+            }
+            res.redirect("/login");
+        }
+    } else {
+        /** di redirect ke login */
+        res.redirect("/login");
+    }
+})
+
+/** Route for logout */
 Router.get('/logout', (req, res) =>{
     req.session.destroy((err) => {
         res.redirect("/login");

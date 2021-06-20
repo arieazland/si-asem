@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+{{> header}}
+</head>
+
+<body class="fix-header fix-sidebar card-no-border">
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    {{> preloader}}
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        {{> topbar}}
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        {{> navbar}}
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row page-titles">
+                    <div class="col-md-6 col-8 align-self-center">
+                        <h3 class="text-themecolor m-b-0 m-t-0">Aspek</h3>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Soal</a></li>
+                            <li class="breadcrumb-item active">Aspek</li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <!-- Row -->
+                {{!-- Start of Notifikasi --}}
+                {{#if sessionFlash.message}}
+                    <div class="alert alert-danger"> 
+                        {{sessionFlash.message}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                    </div>
+                {{/if}}
+                {{#if sessionFlash2.message}}
+                    <div class="alert alert-success"> 
+                        {{sessionFlash2.message}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                    </div>
+                {{/if}}
+                {{!-- End of Notifikasi --}}
+                {{!-- start of row --}}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card card-outline-info">
+                            <div class="card-header">
+                                <h4 class="m-b-0 text-white">Aspek</h4>
+                            </div>
+                            <div class="card-block">
+                                {{!-- start of form pilih part --}}
+                                <form action="/aspek" method="POST">
+                                    <div class="form-body">
+                                        <h4 class="card-title">Pilih Part</h4>
+                                        <h6 class="card-subtitle"> Pilih part terlebih dahulu untuk menampilkan data aspek</h6>
+                                        <hr>
+                                        {{!-- <h5 class="m-t-30">Single select2</h5> --}}
+                                        <select class="select2" id="selectpart" name="selectpart" style="width: 100%" required>
+                                            <option>-- Pilih Part --</option>
+                                            {{#each datapart}}
+                                                <option value="{{ id }}" {{#if ../selectpart}}{{#compare id ../selectpart operator="=="}}selected{{/compare}}{{/if}}>{{ nama }}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                    <hr>
+                                    <div class="form-actions text-right">
+                                        <button type="submit" class="btn btn-block btn-outline-success"> <i class="fa fa-check"></i> Pilih</button>
+                                        <button type="reset" class="btn btn-block btn-outline-warning">Batal</button>
+                                    </div>
+                                </form>
+                                {{!-- end of form pilih part --}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{!-- {{#if selectpart}} --}}
+                {{!-- start of row --}}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card card-outline-info">
+                            {{!-- <div class="card-header">
+                                <h4 class="m-b-0 text-white">Form Aspek</h4>
+                            </div> --}}
+                            <div class="card-block">
+                                {{!-- Start of tabel list aspek --}}
+                                <h4 class="card-title">List Aspek</h4>
+                                <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
+                                <hr>
+                                <div class="table-responsive m-t-40">
+                                    <table id="listAspek" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th class="">No.</th>
+                                                <th class="">Aspek</th>
+                                                <th class="notexport">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th class="">No.</th>
+                                                <th class="">Aspek</th>
+                                                <th class="notexport">Aksi</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            <tr>
+                                                <td>1. </td>
+                                                <td>Aspek 1</td>
+                                                <td class="notexport">
+                                                    <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn delete" data-toggle="tooltip" data-original-title="Hapus Dari Aspek" data-id="{{ idaspek }}" data-idpart="{{ idpart }}" data-nama="{{ namaaspek }}"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
+
+                                                    <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn delete" data-toggle="tooltip" data-original-title="Hapus Dari Partisipan" data-id="{{ idaspek }}" data-idpart="{{ idpart }}" data-nama="{{ namaaspek }}"><i class="fa fa-trash" aria-hidden="true"></i></button></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>2. </td>
+                                                <td>Aspek 2</td>
+                                                <td class="notexport">
+                                                    <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn delete" data-toggle="tooltip" data-original-title="Hapus Dari Partisipan" data-id="{{ idaspek }}" data-idpart="{{ idpart }}" data-nama="{{ namaaspek }}" data-status="{{ statusaspek }}"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
+
+                                                    <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn delete" data-toggle="tooltip" data-original-title="Hapus Dari Partisipan" data-id="{{ idaspek }}" data-idpart="{{ idpart }}" data-nama="{{ namaaspek }}"><i class="fa fa-trash" aria-hidden="true"></i></button></a>
+                                                </td>
+                                            </tr>
+                                            {{!-- {{#each aspek}}
+                                                <tr>
+                                                    <td class="text-center">{{counter @index}}</td>
+                                                    <td>{{ namaaspek }}</td>
+                                                    <td class="text-center notexport">
+                                                        <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn delete" data-toggle="tooltip" data-original-title="Hapus Dari Partisipan" data-id="{{ idaspek }}" data-idpart="{{ idpart }}" data-nama="{{ namaaspek }}"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
+
+                                                        <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn delete" data-toggle="tooltip" data-original-title="Hapus Dari Partisipan" data-id="{{ idaspek }}" data-idpart="{{ idpart }}" data-nama="{{ namaaspek }}"><i class="fa fa-trash" aria-hidden="true"></i></button></a>
+                                                    </td>
+                                                </tr>
+                                            {{/each}} --}}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {{!-- end of tabel list aspek --}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{!-- end of row --}}
+                {{!-- start of modal update aspek --}}
+                <form action="/aspek/edit" method="post">
+                    <div class="modal fade" id="modalEditaspek" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="exampleModalLabel1">Ubah Data Aspek Soal</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="modalnamaaspek" class="control-label">Nama Aspek:</label>
+                                        <input type="text" class="form-control modalnamaaspek" id="modalnamaaspek" name="modalnamaaspek">
+                                        <input type="hidden" class="form-control modalidaspek" id="modalidaspek" name="modalidaspek">
+                                        <input type="hidden" class="form-control modalidpart" id="modalidpart" name="modalidpart">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Status Aspek</label>
+                                        <select class="select2 modalstatusaspek" id="modalstatusaspek" name="modalstatusaspek" style="width: 100%" required>
+                                            <option value="-- Pilih Status Aspek --">-- Pilih Status Aspek --</option>
+                                            <option value="aktif">Aktif</option>
+                                            <option value="nonaktif">Nonaktif</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="reset" class="btn btn-warning" data-dismiss="modal">Batal</button>
+                                    <button type="submit" class="btn btn-success">Ubah</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- end of modal update aspek -->
+                <!-- start of modal delete aspek -->
+                <form action="/aspek/delete" method="post">
+                    <div class="modal fade" id="modalHapusaspek" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="exampleModalLabel1">Hapus Data Aspek</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <strong>Anda yakin mau menghapus Aspek berikut <label class="font-weight-bold judul"></label>?</strong>
+                                    <input type="hidden" class="form-control modalidaspekhapus" id="modalidaspekhapus" name="modalidaspekhapus">
+                                    <input type="hidden" class="form-control modalidparthapus" id="modalidparthapus" name="modalidparthapus">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="reset" class="btn btn-warning" data-dismiss="modal">Batal</button>
+                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- end of modal delete aspek -->
+                {{!-- start of row --}}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-block">
+                                {{!-- start of form tambah aspek --}}
+                                <form action="/aspek/register" method="POST">
+                                    <div class="form-body">
+                                        <h4 class="card-title">Form Input Aspek</h4>
+                                        <hr>
+                                        <div class="row p-t-20">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Nama Aspek</label>
+                                                    <input type="text" id="nama" name="nama" class="form-control" placeholder="Nama Aspek" required="required">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/row-->
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Status Aspek</label>
+                                                    <select class="select2" id="status" name="status" style="width: 100%" required>
+                                                        <option value="-- Pilih Status Aspek --">-- Pilih Status Aspek --</option>
+                                                        <option value="aktif">Aktif</option>
+                                                        <option value="nonaktif">Nonaktif</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/row-->
+                                    </div>
+                                    
+                                    <div class="form-actions text-right">
+                                        <button type="submit" class="btn btn-block btn-outline-success"> <i class="fa fa-check"></i> Simpan</button>
+                                        <button type="reset" class="btn btn-block btn-outline-warning">Batal</button>
+                                    </div>
+                                </form>
+                                {{!-- end of form tambah aspek --}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{!-- end of row --}}
+                {{!-- {{/if}} --}}
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            {{> footer}}
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    {{> plugins}}
+    <script src="/js/client/datatable/partisipan.js"></script>
+    <script src="/js/client/modal/partisipan.js"></script>
+</body>
+
+</html>

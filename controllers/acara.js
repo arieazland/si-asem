@@ -19,7 +19,7 @@ exports.register = async (req, res, dataputs) => {
                     statusacara: status
                     }
                 var res1 = res;
-                url =  MAIN_URL + '/acara/regAcara';
+                url =  MAIN_URL + '/acara/regacara';
                 var dataputs = await axios.post(url, params)
                 .then(function (res) {
                     var message = res.data.message;
