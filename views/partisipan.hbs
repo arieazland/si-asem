@@ -137,7 +137,7 @@
                                                     <td class="text-center">{{counter @index}}</td>
                                                     <td>{{ namauser }}</td>
                                                     <td class="text-center notexport">
-                                                        <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn delete" data-toggle="tooltip" data-original-title="Hapus Dari Partisipan" data-id="{{ idpartisipan }}" data-nama="{{ namauser }}"><i class="fa fa-trash" aria-hidden="true"></i></button></a>
+                                                        <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn delete" data-toggle="tooltip" data-original-title="Hapus Dari Partisipan" data-id="{{ idpartisipan }}" data-iduser="{{ iduser }}" data-nama="{{ namauser }}"><i class="fa fa-trash" aria-hidden="true"></i></button></a>
                                                     </td>
                                                 </tr>
                                             {{/each}}
@@ -163,6 +163,7 @@
                                     <strong>Anda yakin mau menghapus partisipan berikut <label class="font-weight-bold judul"></label>?</strong>
                                     <input type="hidden" class="form-control modalidpartisipanhapus" id="modalidpartisipanhapus" name="modalidpartisipanhapus">
                                     <input type="hidden" class="form-control selectacara" id="selectacara" name="selectacara" value="{{ selectacara }}">
+                                    <input type="hidden" class="form-control selectuser" id="selectuser" name="selectuser">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="reset" class="btn btn-warning" data-dismiss="modal">Batal</button>

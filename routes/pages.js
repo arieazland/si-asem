@@ -162,7 +162,7 @@ Router.get('/partisipan', async (req, res, dataputs) => {
                     var pilihacara = res.data.pilihacara;
                     var psikolog = res.data.psikolog;
                     var selectacara = res.data.selectacara;
-                    res1.render('partisipant', {
+                    res1.render('partisipan', {
                         partisipant: partisipant,
                         dataacara: dataacara,
                         pilihacara: pilihacara,
@@ -178,7 +178,7 @@ Router.get('/partisipan', async (req, res, dataputs) => {
                         type: 'error',
                         message: 'Error, please contact developer'
                     }
-                    res1.redirect("/partisipant");
+                    res1.redirect("/partisipan");
                     req.session.idkonsul = null
                 })
             } else {
