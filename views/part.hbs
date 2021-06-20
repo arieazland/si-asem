@@ -41,10 +41,10 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-6 col-8 align-self-center">
-                        <h3 class="text-themecolor m-b-0 m-t-0">Acara</h3>
+                        <h3 class="text-themecolor m-b-0 m-t-0">Part</h3>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">Acara</a></li>
-                            <li class="breadcrumb-item active">Acara</li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Soal</a></li>
+                            <li class="breadcrumb-item active">Part</li>
                         </ol>
                     </div>
                 </div>
@@ -74,20 +74,19 @@
                     <div class="col-12">
                         <div class="card card-outline-info">
                             <div class="card-header">
-                                <h4 class="m-b-0 text-white">Acara</h4>
+                                <h4 class="m-b-0 text-white">Part Soal</h4>
                             </div>
                             <div class="card-block">
-                                {{!-- Start of tabel list acara --}}
-                                <h4 class="card-title">List Acara</h4>
+                                {{!-- Start of tabel list part --}}
+                                <h4 class="card-title">List Part Soal</h4>
                                 <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
                                 <hr>
                                 <div class="table-responsive m-t-40">
-                                    <table id="listAcara" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                    <table id="listPart" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>Nama Acara</th>
-                                                <th>Tanggal Acara</th>
+                                                <th>Nama Part</th>
                                                 <th>Status</th>
                                                 <th class="notexport">Aksi</th>
                                             </tr>
@@ -95,8 +94,7 @@
                                         <tfoot>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>Nama Acara</th>
-                                                <th>Tanggal Acara</th>
+                                                <th>Nama Part</th>
                                                 <th>Status</th>
                                                 <th class="notexport">Aksi</th>
                                             </tr>
@@ -106,10 +104,9 @@
                                                 <tr>
                                                     <td>{{counter @index}}</td>
                                                     <td>{{loud nama }}</td>
-                                                    <td>{{formatDate start }} - {{formatDate end }}</td>
                                                     <td>{{loud status }}</td>
                                                     <td class="notexport">
-                                                        <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn edit" data-toggle="tooltip" data-original-title="Ubah" data-id="{{ id }}" data-nama="{{ nama }}" data-tanggalmulai="{{formatDateDefault start }}" data-tanggalberakhir="{{formatDateDefault end }}" data-status="{{status}}"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
+                                                        <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn edit" data-toggle="tooltip" data-original-title="Ubah" data-id="{{ id }}" data-nama="{{ nama }}" data-status="{{status}}"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
                                                         
                                                         <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn delete" data-toggle="tooltip" data-original-title="Hapus" data-id="{{ id }}" data-nama="{{ nama }}"><i class="fa fa-ban" aria-hidden="true"></i></button></a>
                                                     </td>
@@ -118,39 +115,31 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                {{!-- end of tabel list acara --}}
+                                {{!-- end of tabel list part --}}
                             </div>
                         </div>
                     </div>
                 </div>
                 {{!-- end of row --}}
-                {{!-- start of modal update acara --}}
-                <form action="/acara/edit" method="post">
-                    <div class="modal fade" id="modalEditacara" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                {{!-- start of modal update part --}}
+                <form action="/part/edit" method="post">
+                    <div class="modal fade" id="modalEditpart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h4 class="modal-title" id="exampleModalLabel1">Ubah Data Acara</h4>
+                                    <h4 class="modal-title" id="exampleModalLabel1">Ubah Data Part Soal</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 </div>
                                 <div class="modal-body">
                                     <div class="form-group">
-                                        <label for="modalnamaacara" class="control-label">Nama Acara:</label>
-                                        <input type="text" class="form-control modalnamaacara" id="modalnamaacara" name="modalnamaacara">
-                                        <input type="hidden" class="form-control modalidacara" id="modalidacara" name="modalidacara">
+                                        <label for="modalnamapart" class="control-label">Nama Part:</label>
+                                        <input type="text" class="form-control modalnamapart" id="modalnamapart" name="modalnamapart">
+                                        <input type="hidden" class="form-control modalidpart" id="modalidpart" name="modalidpart">
                                     </div>
                                     <div class="form-group">
-                                        <label for="modaltanggalmulaiacara" class="control-label">Tanggal Mulai Acara:</label>
-                                        <input type="date" class="form-control modaltanggalmulaiacara" id="modaltanggalmulaiacara" name="modaltanggalmulaiacara">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="modaltanggalberakhiracara" class="control-label">Tanggal Berakhir Acara:</label>
-                                        <input type="date" class="form-control modaltanggalberakhiracara" id="modaltanggalberakhiracara" name="modaltanggalberakhiracara">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Status Acara</label>
-                                        <select class="select2 modalstatusacara" id="modalstatusacara" name="modalstatusacara" style="width: 100%" required>
-                                            <option value="-- Pilih Status Acara --">-- Pilih Status Acara --</option>
+                                        <label class="control-label">Status Part</label>
+                                        <select class="select2 modalstatuspart" id="modalstatuspart" name="modalstatuspart" style="width: 100%" required>
+                                            <option value="-- Pilih Status Part --">-- Pilih Status Part --</option>
                                             <option value="aktif">Aktif</option>
                                             <option value="nonaktif">Nonaktif</option>
                                         </select>
@@ -164,19 +153,19 @@
                         </div>
                     </div>
                 </form>
-                <!-- end of modal update acara -->
-                <!-- start of modal delete acara -->
-                <form action="/acara/delete" method="post">
-                    <div class="modal fade" id="modalHapusacara" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                <!-- end of modal update part -->
+                <!-- start of modal delete part -->
+                <form action="/part/delete" method="post">
+                    <div class="modal fade" id="modalHapuspart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h4 class="modal-title" id="exampleModalLabel1">Hapus Data Acara</h4>
+                                    <h4 class="modal-title" id="exampleModalLabel1">Hapus Data Part</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 </div>
                                 <div class="modal-body">
-                                    <strong>Anda yakin mau menghapus Acara <label class="font-weight-bold judul"></label>?</strong>
-                                    <input type="hidden" class="form-control modalidacarahapus" id="modalidacarahapus" name="modalidacarahapus">
+                                    <strong>Anda yakin mau menghapus Part berikut <label class="font-weight-bold judul"></label>?</strong>
+                                    <input type="hidden" class="form-control modalidparthapus" id="modalidparthapus" name="modalidparthapus">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="reset" class="btn btn-warning" data-dismiss="modal">Batal</button>
@@ -186,49 +175,32 @@
                         </div>
                     </div>
                 </form>
-                <!-- end of modal delete acara -->
+                <!-- end of modal delete part -->
                 {{!-- start of row --}}
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-block">
-                                {{!-- start of form tambah data acara --}}
-                                <form action="/acara/register" method="POST">
+                                {{!-- start of form tambah data part --}}
+                                <form action="/part/register" method="POST">
                                     <div class="form-body">
-                                        <h4 class="card-title">Form Input Data Acara</h4>
+                                        <h4 class="card-title">Form Input Data Part Soal</h4>
                                         <hr>
                                         <div class="row p-t-20">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="control-label">Nama Acara</label>
-                                                    <input type="text" id="nama" name="nama" class="form-control" placeholder="Nama Acara" required="required">
+                                                    <label class="control-label">Nama Part</label>
+                                                    <input type="text" id="nama" name="nama" class="form-control" placeholder="Nama part" required="required">
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!--/row-->
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Tanggal Mulai</label>
-                                                    <input type="date" id="tanggalmulai" name="tanggalmulai" class="form-control" required="required">
-                                                </div>
-                                            </div>
-                                            <!--/span-->
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Tanggal Berakhir</label>
-                                                    <input type="date" id="tanggalakhir" name="tanggalakhir" class="form-control" required="required">
-                                                </div>
-                                            </div>
-                                            <!--/span-->
                                         </div>
                                         <!--/row-->
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="control-label">Status Acara</label>
+                                                    <label class="control-label">Status Part</label>
                                                     <select class="select2" id="status" name="status" style="width: 100%" required>
-                                                        <option value="-- Pilih Status Acara --">-- Pilih Status Acara --</option>
+                                                        <option value="-- Pilih Status Part --">-- Pilih Status Part --</option>
                                                         <option value="aktif">Aktif</option>
                                                         <option value="nonaktif">Nonaktif</option>
                                                     </select>
@@ -243,7 +215,7 @@
                                         <button type="reset" class="btn btn-block btn-outline-warning">Batal</button>
                                     </div>
                                 </form>
-                                {{!-- end of form tambah data acara --}}
+                                {{!-- end of form tambah data part --}}
                             </div>
                         </div>
                     </div>
@@ -283,8 +255,8 @@
     <!-- All Jquery -->
     <!-- ============================================================== -->
     {{> plugins}}
-    <script src="/js/client/datatable/acara.js"></script>
-    <script src="/js/client/modal/acara.js"></script>
+    <script src="/js/client/datatable/part.js"></script>
+    <script src="/js/client/modal/part.js"></script>
 </body>
 
 </html>

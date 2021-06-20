@@ -280,6 +280,48 @@ Router.post('/partisipan', async (req, res, dataputs) => {
     }
 });
 
+/** Route for part */
+Router.get('/part', async (req, res, dataputs) => {
+    if(req.session.loggedIn){
+        idu = req.session.iduser
+        username = req.session.username
+        nama = req.session.nama
+        tipe = req.session.type
+        if(tipe == 'admin'){
+            let res1 = res;
+            url =  MAIN_URL + '/partlist';
+            dataputs = await axios.get(url)
+            .then(function (res) {
+                var part = res.data;
+                /** render page part */
+                res1.render('part', {
+                    username, nama, idu,
+                    data: part.data
+                })
+            })
+            .catch(function (err) {
+                // console.log(err);
+                var message = err.response.data.message;
+                req.session.sessionFlash = {
+                    type: 'error',
+                    message: message
+                }
+                res1.redirect("/part");
+            })
+        } else {
+            /** di redirect ke login dengan status unauthorized */
+            req.session.sessionFlash = {
+                type: 'error',
+                message: 'Un-Authorized'
+            }
+            res.redirect("/login");
+        }
+    } else {
+        /** di redirect ke login */
+        res.redirect("/login");
+    }
+});
+
 /** Router for logout */
 Router.get('/logout', (req, res) =>{
     req.session.destroy((err) => {
