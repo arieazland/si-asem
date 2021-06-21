@@ -142,7 +142,7 @@
                                                     <td class="text-center notexport">
                                                         <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn edit" data-toggle="tooltip" data-original-title="Ubah" data-id="{{ idaspek }}" data-idpart="{{ idpart }}" data-nama="{{ namaaspek }}" data-status="{{ statusaspek }}"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
 
-                                                        <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn delete" data-toggle="tooltip" data-original-title="Hapus Dari Partisipan" data-id="{{ idaspek }}" data-idpart="{{ idpart }}" data-nama="{{ namaaspek }}"><i class="fa fa-trash" aria-hidden="true"></i></button></a>
+                                                        <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn delete" data-toggle="tooltip" data-original-title="Hapus Dari Aspek" data-id="{{ idaspek }}" data-idpart="{{ idpart }}" data-nama="{{ namaaspek }}"><i class="fa fa-trash" aria-hidden="true"></i></button></a>
                                                     </td>
                                                 </tr>
                                             {{/each}}
@@ -167,7 +167,8 @@
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label for="modalnamaaspek" class="control-label">Nama Aspek:</label>
-                                        <input type="text" class="form-control modalnamaaspek" id="modalnamaaspek" name="modalnamaaspek">
+                                        {{!-- <input type="text" class="form-control modalnamaaspek" id="modalnamaaspek" name="modalnamaaspek"> --}}
+                                        <textarea class="form-control modalnamaaspek" name="modalnamaaspek" id="modalnamaaspek"  rows="10"></textarea>
                                         <input type="hidden" class="form-control modalidaspek" id="modalidaspek" name="modalidaspek">
                                         <input type="hidden" class="form-control modalidpart" id="modalidpart" name="modalidpart">
                                     </div>
@@ -200,7 +201,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <strong>Anda yakin mau menghapus Aspek berikut <label class="font-weight-bold judul"></label>?</strong>
-                                    <input type="hidden" class="form-control modalidaspekhapus" id="modalidaspekhapus" name="modalidaspekhapus">
+                                    <input type="hidden" class="form-control modalidaspekhapus" id="modalidaspekhapus" name="modalidaspekhapus">                                    
                                     <input type="hidden" class="form-control modalidparthapus" id="modalidparthapus" name="modalidparthapus">
                                 </div>
                                 <div class="modal-footer">
@@ -227,6 +228,7 @@
                                                 <div class="form-group">
                                                     <label class="control-label">Nama Aspek</label>
                                                     <input type="text" id="nama" name="nama" class="form-control" placeholder="Nama Aspek" required="required">
+                                                    <input type="hidden" class="form-contril idpart" id="idpart" name="idpart" value="{{ selectpart }}" required="required">
                                                 </div>
                                             </div>
                                         </div>
@@ -292,8 +294,8 @@
     <!-- All Jquery -->
     <!-- ============================================================== -->
     {{> plugins}}
-    <script src="/js/client/datatable/partisipan.js"></script>
-    <script src="/js/client/modal/partisipan.js"></script>
+    <script src="/js/client/datatable/aspek.js"></script>
+    <script src="/js/client/modal/aspek.js"></script>
 </body>
 
 </html>

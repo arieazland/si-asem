@@ -330,26 +330,24 @@ Router.get('/aspek', async (req, res) =>{
         nama = req.session.nama
         tipe = req.session.type
         if(tipe == 'admin'){
-            if(req.session.idacara != null){
-
-
+            if(req.session.idpart != null){
                 /** get data aspek berdasarkan idpart yang di pilih */
                 params = {
-                    selectpart: req.session.idacara,
+                    selectpart: req.session.idpart,
                 }
                 let res1 = res;
                 url =  MAIN_URL + '/listaspek';
                 var dataputs = await axios.post(url, params)
                 .then(function (res) {
                     var message = res.data.message;
-                    req.session.sessionFlash2 = {
-                        type: 'success',
-                        message: message
-                    }
                     var aspek = res.data.results;
                     var datapart = res.data.resultpart;
                     var pilihpart = res.data.resultsidpart;
                     var selectpart = res.data.selectpart;
+                    req.session.sessionFlash2 = {
+                        type: 'success',
+                        message: message
+                    }
                     res1.render('aspek', {
                         aspek: aspek,
                         datapart: datapart,
@@ -368,11 +366,7 @@ Router.get('/aspek', async (req, res) =>{
                     res1.redirect("/aspek");
                     req.session.idpart = null
                 })
-
-
             } else {
-
-
                 let res1 = res;
                 url =  MAIN_URL + '/partlist';
                 dataputs = await axios.get(url)
@@ -433,7 +427,7 @@ Router.post('/aspek', async (req, res) => {
                             selectpart: selectpart,
                         }
                         let res1 = res;
-                        url =  MAIN_URL + '/aspeklist';
+                        url =  MAIN_URL + '/listaspek';
                         var dataputs = await axios.post(url, params)
                         .then(function (res) {
                             var aspek = res.data.results;

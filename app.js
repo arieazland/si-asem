@@ -110,6 +110,7 @@ app.use('/auth', require('./routes/auth'));
 app.use('/acara', require('./routes/acara'));
 app.use('/partisipan', require('./routes/partisipan'));
 app.use('/part', require('./routes/part'));
+app.use('/aspek', require('./routes/aspek'));
 // app.use('/soal', require('./routes/soal'));
 // app.use('/jawab', require('./routes/jawab'));
 
