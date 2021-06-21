@@ -179,7 +179,7 @@ Router.get('/partisipan', async (req, res, dataputs) => {
                         message: 'Error, please contact developer'
                     }
                     res1.redirect("/partisipan");
-                    req.session.idkonsul = null
+                    req.session.idacara = null
                 })
             } else {
                 let res1 = res;
@@ -323,14 +323,156 @@ Router.get('/part', async (req, res, dataputs) => {
 });
 
 /** Route for aspek */
-Router.get('/aspek', (req, res) =>{
+Router.get('/aspek', async (req, res) =>{
     if(req.session.loggedIn){
         idu = req.session.iduser
         username = req.session.username
         nama = req.session.nama
         tipe = req.session.type
         if(tipe == 'admin'){
-            res.render('aspek')
+            if(req.session.idacara != null){
+
+
+                /** get data aspek berdasarkan idpart yang di pilih */
+                params = {
+                    selectpart: req.session.idacara,
+                }
+                let res1 = res;
+                url =  MAIN_URL + '/listaspek';
+                var dataputs = await axios.post(url, params)
+                .then(function (res) {
+                    var message = res.data.message;
+                    req.session.sessionFlash2 = {
+                        type: 'success',
+                        message: message
+                    }
+                    var aspek = res.data.results;
+                    var datapart = res.data.resultpart;
+                    var pilihpart = res.data.resultsidpart;
+                    var selectpart = res.data.selectpart;
+                    res1.render('aspek', {
+                        aspek: aspek,
+                        datapart: datapart,
+                        pilihpart: pilihpart,
+                        selectpart: selectpart
+                    })
+                    req.session.idpart = null
+                })
+                .catch(function (err) {
+                    // console.log(err.response.data)
+                    // var message = err.response.data.message;
+                    req.session.sessionFlash = {
+                        type: 'error',
+                        message: 'Error, please contact developer'
+                    }
+                    res1.redirect("/aspek");
+                    req.session.idpart = null
+                })
+
+
+            } else {
+
+
+                let res1 = res;
+                url =  MAIN_URL + '/partlist';
+                dataputs = await axios.get(url)
+                .then(function (res) {
+                    var part = res.data;
+                    /** render page part */
+                    res1.render('aspek', {
+                        username, nama, idu,
+                        datapart: part.data
+                    })
+                })
+                .catch(function (err) {
+                    // console.log(err);
+                    var message = err.response.data.message;
+                    req.session.sessionFlash = {
+                        type: 'error',
+                        message: message
+                    }
+                    res1.redirect("/aspek");
+                })
+
+
+            }
+        } else {
+            /** di redirect ke login dengan status unauthorized */
+            req.session.sessionFlash = {
+                type: 'error',
+                message: 'Un-Authorized'
+            }
+            res.redirect("/login");
+        }
+    } else {
+        /** di redirect ke login */
+        res.redirect("/login");
+    }
+})
+
+Router.post('/aspek', async (req, res) => {
+    if(req.session.loggedIn){
+        idu = req.session.iduser
+        username = req.session.username
+        nama = req.session.nama
+        tipe = req.session.type
+        if(tipe == 'admin'){
+            try{
+                const {selectpart} = req.body;
+
+                if(selectpart){
+                    if(selectpart == "-- Pilih Part --"){
+                        req.session.sessionFlash = {
+                            type: 'error',
+                            message: 'Harap pilih part terlebih dahulu!'
+                        }
+                        res.redirect("/aspek");
+                    } else {
+                        /** get data acara berdasarkan id yang di pilih */
+                        params = {
+                            selectpart: selectpart,
+                        }
+                        let res1 = res;
+                        url =  MAIN_URL + '/aspeklist';
+                        var dataputs = await axios.post(url, params)
+                        .then(function (res) {
+                            var aspek = res.data.results;
+                            var datapart = res.data.resultpart;
+                            var pilihpart = res.data.resultsidpart;
+                            var selectpart = res.data.selectpart;
+                            res1.render('aspek', {
+                                aspek: aspek,
+                                datapart: datapart,
+                                pilihpart: pilihpart,
+                                selectpart: selectpart
+                            })
+                        })
+                        .catch(function (err) {
+                            // console.log(err.response.data)
+                            var message = err.response.data.message;
+                            req.session.sessionFlash = {
+                                type: 'error',
+                                message: message
+                            }
+                            res1.redirect("/aspek");
+                        })
+                    }
+                } else {
+                    /** field kosong */
+                    req.session.sessionFlash = {
+                        type: 'error',
+                        message: 'Field tidak boleh kosong'
+                    }
+                    res.redirect("/aspek");
+                }
+            } catch(error) {
+                /** send error */
+                req.session.sessionFlash = {
+                    type: 'error',
+                    message: error
+                }
+                res.redirect("/aspek");
+            }
         } else {
             /** di redirect ke login dengan status unauthorized */
             req.session.sessionFlash = {

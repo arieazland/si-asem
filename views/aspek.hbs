@@ -102,7 +102,7 @@
                         </div>
                     </div>
                 </div>
-                {{!-- {{#if selectpart}} --}}
+                {{#if selectpart}}
                 {{!-- start of row --}}
                 <div class="row">
                     <div class="col-12">
@@ -121,6 +121,7 @@
                                             <tr>
                                                 <th class="">No.</th>
                                                 <th class="">Aspek</th>
+                                                <th class="">Status</th>
                                                 <th class="notexport">Aksi</th>
                                             </tr>
                                         </thead>
@@ -128,39 +129,23 @@
                                             <tr>
                                                 <th class="">No.</th>
                                                 <th class="">Aspek</th>
+                                                <th class="">Status</th>
                                                 <th class="notexport">Aksi</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                            <tr>
-                                                <td>1. </td>
-                                                <td>Aspek 1</td>
-                                                <td class="notexport">
-                                                    <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn delete" data-toggle="tooltip" data-original-title="Hapus Dari Aspek" data-id="{{ idaspek }}" data-idpart="{{ idpart }}" data-nama="{{ namaaspek }}"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
-
-                                                    <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn delete" data-toggle="tooltip" data-original-title="Hapus Dari Partisipan" data-id="{{ idaspek }}" data-idpart="{{ idpart }}" data-nama="{{ namaaspek }}"><i class="fa fa-trash" aria-hidden="true"></i></button></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2. </td>
-                                                <td>Aspek 2</td>
-                                                <td class="notexport">
-                                                    <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn delete" data-toggle="tooltip" data-original-title="Hapus Dari Partisipan" data-id="{{ idaspek }}" data-idpart="{{ idpart }}" data-nama="{{ namaaspek }}" data-status="{{ statusaspek }}"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
-
-                                                    <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn delete" data-toggle="tooltip" data-original-title="Hapus Dari Partisipan" data-id="{{ idaspek }}" data-idpart="{{ idpart }}" data-nama="{{ namaaspek }}"><i class="fa fa-trash" aria-hidden="true"></i></button></a>
-                                                </td>
-                                            </tr>
-                                            {{!-- {{#each aspek}}
+                                            {{#each aspek}}
                                                 <tr>
                                                     <td class="text-center">{{counter @index}}</td>
                                                     <td>{{ namaaspek }}</td>
+                                                    <td>{{ statusaspek }}</td>
                                                     <td class="text-center notexport">
-                                                        <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn delete" data-toggle="tooltip" data-original-title="Hapus Dari Partisipan" data-id="{{ idaspek }}" data-idpart="{{ idpart }}" data-nama="{{ namaaspek }}"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
+                                                        <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn edit" data-toggle="tooltip" data-original-title="Ubah" data-id="{{ idaspek }}" data-idpart="{{ idpart }}" data-nama="{{ namaaspek }}" data-status="{{ statusaspek }}"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
 
                                                         <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn delete" data-toggle="tooltip" data-original-title="Hapus Dari Partisipan" data-id="{{ idaspek }}" data-idpart="{{ idpart }}" data-nama="{{ namaaspek }}"><i class="fa fa-trash" aria-hidden="true"></i></button></a>
                                                     </td>
                                                 </tr>
-                                            {{/each}} --}}
+                                            {{/each}}
                                         </tbody>
                                     </table>
                                 </div>
@@ -272,7 +257,7 @@
                     </div>
                 </div>
                 {{!-- end of row --}}
-                {{!-- {{/if}} --}}
+                {{/if}}
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
