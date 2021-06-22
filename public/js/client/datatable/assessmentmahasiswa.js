@@ -1,7 +1,7 @@
 function Table(idtable){
     $('#' + idtable).DataTable({
         dom: 'Bfrtip',
-        "pageLength": 5,
+        "pageLength": 5000,
         "searching": false,
         // "order": [
         //     [1, 'asc']

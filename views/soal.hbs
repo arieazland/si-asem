@@ -41,10 +41,10 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-6 col-8 align-self-center">
-                        <h3 class="text-themecolor m-b-0 m-t-0">Part</h3>
+                        <h3 class="text-themecolor m-b-0 m-t-0">Soal</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Soal</a></li>
-                            <li class="breadcrumb-item active">Part</li>
+                            <li class="breadcrumb-item active">Soal</li>
                         </ol>
                     </div>
                 </div>
@@ -71,69 +71,110 @@
                 {{!-- End of Notifikasi --}}
                 {{!-- start of row --}}
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-lg-12">
                         <div class="card card-outline-info">
                             <div class="card-header">
-                                <h4 class="m-b-0 text-white">Part Soal</h4>
+                                <h4 class="m-b-0 text-white">Soal</h4>
                             </div>
                             <div class="card-block">
-                                {{!-- Start of tabel list part --}}
-                                <h4 class="card-title">List Part Soal</h4>
+                                {{!-- start of form pilih part --}}
+                                <form action="/soal" method="POST">
+                                    <div class="form-body">
+                                        <h4 class="card-title">Pilih Aspek</h4>
+                                        <h6 class="card-subtitle"> Pilih aspek terlebih dahulu untuk menampilkan data soal</h6>
+                                        <hr>
+                                        {{!-- <h5 class="m-t-30">Single select2</h5> --}}
+                                        <select class="select2" id="selectaspek" name="selectaspek" style="width: 100%" required>
+                                            <option>-- Pilih Aspek --</option>
+                                            {{#each dataaspek}}
+                                                <option value="{{ idaspek }}" {{#if ../selectaspek}}{{#compare id ../selectaspek operator="=="}}selected{{/compare}}{{/if}}>{{ namaaspek }}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                    <hr>
+                                    <div class="form-actions text-right">
+                                        <button type="submit" class="btn btn-block btn-outline-success"> <i class="fa fa-check"></i> Pilih</button>
+                                        <button type="reset" class="btn btn-block btn-outline-warning">Batal</button>
+                                    </div>
+                                </form>
+                                {{!-- end of form pilih part --}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{#if selectaspek}}
+                {{!-- start of row --}}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card card-outline-info">
+                            {{!-- <div class="card-header">
+                                <h4 class="m-b-0 text-white">Form Aspek</h4>
+                            </div> --}}
+                            <div class="card-block">
+                                {{!-- Start of tabel list aspek --}}
+                                <h4 class="card-title">List Soal</h4>
                                 <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
                                 <hr>
                                 <div class="table-responsive m-t-40">
-                                    <table id="listPart" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                    <table id="listAspek" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
-                                                <th>No.</th>
-                                                <th>Nama Part</th>
-                                                <th>Status</th>
+                                                <th class="">No.</th>
+                                                <th class="">Soal</th>
+                                                <th class="">Aspek</th>
+                                                <th class="">Status</th>
                                                 <th class="notexport">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th>No.</th>
-                                                <th>Nama Part</th>
-                                                <th>Status</th>
+                                                <th class="">No.</th>
+                                                <th class="">Soal</th>
+                                                <th class="">Aspek</th>
+                                                <th class="">Status</th>
                                                 <th class="notexport">Aksi</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                            {{#each data}}
+                                            {{#each soal}}
                                                 <tr>
-                                                    <td>{{counter @index}}</td>
-                                                    <td>{{loud nama }}</td>
-                                                    <td>{{loud status }}</td>
-                                                    <td class="notexport">
-                                                        <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn edit" data-toggle="tooltip" data-original-title="Ubah" data-id="{{ id }}" data-nama="{{ nama }}" data-status="{{status}}"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
+                                                    <td class="text-center">{{counter @index}}</td>
+                                                    <td>{{ soal }}</td>
+                                                    <td>{{ namaaspek }}</td>
+                                                    <td>{{ statusaspek }}</td>
+                                                    <td class="text-center notexport">
+                                                        <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn edit" data-toggle="tooltip" data-original-title="Ubah" data-id="{{ idsoal }}" data-idaspek="{{ idaspek }}" data-idpart="{{ idpart }}" data-nama="{{ soal }}" data-status="{{ statussoal }}"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
                                                     </td>
                                                 </tr>
                                             {{/each}}
                                         </tbody>
                                     </table>
                                 </div>
-                                {{!-- end of tabel list part --}}
+                                {{!-- end of tabel list soal --}}
                             </div>
                         </div>
                     </div>
                 </div>
                 {{!-- end of row --}}
-                {{!-- start of modal update part --}}
-                <form action="/part/edit" method="post">
-                    <div class="modal fade" id="modalEditpart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                {{!-- start of modal update soal --}}
+                <form action="/soal/edit" method="post">
+                    <div class="modal fade" id="modalEditsoal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h4 class="modal-title" id="exampleModalLabel1">Ubah Data Part Soal</h4>
+                                    <h4 class="modal-title" id="exampleModalLabel1">Ubah Data Soal</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 </div>
                                 <div class="modal-body">
                                     <div class="form-group">
-                                        <label for="modalnamapart" class="control-label">Nama Part:</label>
-                                        <input type="text" class="form-control modalnamapart" id="modalnamapart" name="modalnamapart">
+                                        <label for="modalnamasoal" class="control-label">Nama soal:</label>
+                                        {{!-- <input type="text" class="form-control modalnamasoal" id="modalnamasoal" name="modalnamasoal"> --}}
+                                        <textarea class="form-control modalnamasoal" name="modalnamasoal" id="modalnamasoal"  rows="10"></textarea>
+                                        <input type="hidden" class="form-control modalidsoal" id="modalidsoal" name="modalidsoal">
+                                        <input type="hidden" class="form-control modalidaspek" id="modalidaspek" name="modalidaspek">
                                         <input type="hidden" class="form-control modalidpart" id="modalidpart" name="modalidpart">
                                     </div>
+                                    
                                 </div>
                                 <div class="modal-footer">
                                     <button type="reset" class="btn btn-warning" data-dismiss="modal">Batal</button>
@@ -143,13 +184,14 @@
                         </div>
                     </div>
                 </form>
-                <!-- end of modal update part -->
-                <!-- start of modal delete part -->
+                <!-- end of modal update soal -->
+                <!-- start of modal delete soal -->
                 
-                <!-- end of modal delete part -->
+                <!-- end of modal delete soal -->
                 {{!-- start of row --}}
                 
                 {{!-- end of row --}}
+                {{/if}}
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
@@ -184,8 +226,8 @@
     <!-- All Jquery -->
     <!-- ============================================================== -->
     {{> plugins}}
-    <script src="/js/client/datatable/part.js"></script>
-    <script src="/js/client/modal/part.js"></script>
+    <script src="/js/client/datatable/soal.js"></script>
+    <script src="/js/client/modal/soal.js"></script>
 </body>
 
 </html>

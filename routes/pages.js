@@ -484,6 +484,170 @@ Router.post('/aspek', async (req, res) => {
     }
 })
 
+/** Route for soal */
+Router.get('/soal', async (req, res) =>{
+    if(req.session.loggedIn){
+        idu = req.session.iduser
+        username = req.session.username
+        nama = req.session.nama
+        tipe = req.session.type
+        if(tipe == 'admin'){
+            if(req.session.idaspek != null){
+                /** get data soal berdasarkan idaspek yang di pilih */
+                params = {
+                    selectaspek: req.session.idaspek,
+                }
+                let res1 = res;
+                url =  MAIN_URL + '/listsoal';
+                var dataputs = await axios.post(url, params)
+                .then(function (res) {
+                    var message = res.data.message;
+                    var soal = res.data.results;
+                    var dataaspek = res.data.resultaspek;
+                    var pilihaspek = res.data.resultsidaspek;
+                    var selectaspek = res.data.selectaspek;
+                    req.session.sessionFlash2 = {
+                        type: 'success',
+                        message: message
+                    }
+                    res1.render('soal', {
+                        idu, nama, username,
+                        soal: soal,
+                        dataaspek: dataaspek,
+                        pilihaspek: pilihaspek,
+                        selectaspek: selectaspek
+                    })
+                    req.session.idaspek = null
+                })
+                .catch(function (err) {
+                    // console.log(err.response.data)
+                    // var message = err.response.data.message;
+                    req.session.sessionFlash = {
+                        type: 'error',
+                        message: 'Error, please contact developer'
+                    }
+                    res1.redirect("/soal");
+                    req.session.idpart = null
+                })
+            } else {
+                let res1 = res;
+                url =  MAIN_URL + '/listaspekall';
+                dataputs = await axios.get(url)
+                .then(function (res) {
+                    var aspek = res.data;
+                    /** render page part */
+                    res1.render('soal', {
+                        username, nama, idu,
+                        dataaspek: aspek.data
+                    })
+                })
+                .catch(function (err) {
+                    // console.log(err);
+                    var message = err.response.data.message;
+                    req.session.sessionFlash = {
+                        type: 'error',
+                        message: message
+                    }
+                    res1.redirect("/soal");
+                })
+            }
+        } else {
+            /** di redirect ke login dengan status unauthorized */
+            req.session.sessionFlash = {
+                type: 'error',
+                message: 'Un-Authorized'
+            }
+            res.redirect("/login");
+        }
+    } else {
+        /** di redirect ke login */
+        res.redirect("/login");
+    }
+})
+
+Router.post('/soal', async (req, res) => {
+    if(req.session.loggedIn){
+        idu = req.session.iduser
+        username = req.session.username
+        nama = req.session.nama
+        tipe = req.session.type
+        if(tipe == 'admin'){
+            try{
+                const {selectaspek} = req.body;
+
+                if(selectaspek){
+                    if(selectaspek == "-- Pilih Aspek --"){
+                        req.session.sessionFlash = {
+                            type: 'error',
+                            message: 'Harap pilih aspek terlebih dahulu!'
+                        }
+                        res.redirect("/soal");
+                    } else {
+                        /** get data acara berdasarkan id yang di pilih */
+                        params = {
+                            selectaspek: selectaspek,
+                        }
+                        let res1 = res;
+                        url =  MAIN_URL + '/listsoal';
+                        var dataputs = await axios.post(url, params)
+                        .then(function (res) {
+                            var message = res.data.message;
+                            var soal = res.data.results;
+                            var dataaspek = res.data.resultaspek;
+                            var pilihaspek = res.data.resultsidaspek;
+                            var selectaspek = res.data.selectaspek;
+                            req.session.sessionFlash2 = {
+                                type: 'success',
+                                message: message
+                            }
+                            res1.render('soal', {
+                                idu, nama, username,
+                                soal: soal,
+                                dataaspek: dataaspek,
+                                pilihaspek: pilihaspek,
+                                selectaspek: selectaspek
+                            })
+                        })
+                        .catch(function (err) {
+                            // console.log(err.response.data)
+                            var message = err.response.data.message;
+                            req.session.sessionFlash = {
+                                type: 'error',
+                                message: message
+                            }
+                            res1.redirect("/soal");
+                        })
+                    }
+                } else {
+                    /** field kosong */
+                    req.session.sessionFlash = {
+                        type: 'error',
+                        message: 'Field tidak boleh kosong'
+                    }
+                    res.redirect("/soal");
+                }
+            } catch(error) {
+                /** send error */
+                req.session.sessionFlash = {
+                    type: 'error',
+                    message: error
+                }
+                res.redirect("/soal");
+            }
+        } else {
+            /** di redirect ke login dengan status unauthorized */
+            req.session.sessionFlash = {
+                type: 'error',
+                message: 'Un-Authorized'
+            }
+            res.redirect("/login");
+        }
+    } else {
+        /** di redirect ke login */
+        res.redirect("/login");
+    }
+})
+
 /** Route for assessment mahasiswa */
 Router.get('/assessmentmahasiswa', async (req, res, dataputs) => {
     if(req.session.loggedIn){
@@ -496,45 +660,39 @@ Router.get('/assessmentmahasiswa', async (req, res, dataputs) => {
         if(tipe == 'mahasiswa'){
             if(req.session.idacara != null){
                 /** get data acara berdasarkan id yang di pilih */
-                // params = {
-                //     selectacara: req.session.idacara,
-                // }
-                // let res1 = res;
-                // url =  MAIN_URL + '/partisipant';
-                // var dataputs = await axios.post(url, params)
-                // .then(function (res) {
-                //     var message = res.data.message;
-                //     req.session.sessionFlash2 = {
-                //         type: 'success',
-                //         message: message
-                //     }
-                //     var partisipant = res.data.results;
-                //     var dataacara = res.data.acara;
-                //     var pilihacara = res.data.pilihacara;
-                //     var psikolog = res.data.psikolog;
-                //     var selectacara = res.data.selectacara;
-                //     res1.render('assessmentmahasiswa', {
-                //         partisipant: partisipant,
-                //         dataacara: dataacara,
-                //         pilihacara: pilihacara,
-                //         psikolog: psikolog,
-                //         selectacara: selectacara
-                //     })
-                //     req.session.idacara = null
-                // })
-                // .catch(function (err) {
-                //     // console.log(err.response.data)
-                //     // var message = err.response.data.message;
-                //     req.session.sessionFlash = {
-                //         type: 'error',
-                //         message: 'Error, please contact developer'
-                //     }
-                //     res1.redirect("/assessmentmahasiswa");
-                //     req.session.idacara = null
-                // })
+                params = {
+                    selectacara: req.session.idacara,
+                    idu: idu,
+                }
+                let res1 = res;
+                url =  MAIN_URL + '/listpertanyaan';
+                var dataputs = await axios.post(url, params)
+                .then(function (res) {
+                    var data = res.data.results;
+                    var selectacara = res.data.selectacara;
+                    var dataacara = res.data.dataacara;
+                    var partpertanyaan = res.data.partpertanyaan;
+                    res1.render('assessmentmahasiswa', {
+                        idu, username, nama, tipe, fakultas, prodi,
+                        data: data,
+                        selectacara,
+                        dataacara,
+                        partpertanyaan
+                    })
+                })
+                .catch(function (err) {
+                    // console.log(err.response.data)
+                    var message = err.response.data.message;
+                    req.session.sessionFlash = {
+                        type: 'error',
+                        message: message
+                    }
+                    res1.redirect("/assessmentmahasiswa");
+                    req.session.idacara = null
+                })
             } else {
                 let res1 = res;
-                url =  MAIN_URL + '/acaralist';
+                url =  MAIN_URL + '/acaralistmahasiswa';
                 dataputs = await axios.get(url)
                 .then(function (res) {
                     var acara = res.data;
@@ -589,22 +747,22 @@ Router.post('/assessmentmahasiswa', async (req, res, dataputs) => {
                     /** get data acara berdasarkan id yang di pilih */
                     params = {
                         selectacara: selectacara,
+                        idu: idu,
                     }
                     let res1 = res;
-                    url =  MAIN_URL + '/partisipant';
+                    url =  MAIN_URL + '/listpertanyaan';
                     var dataputs = await axios.post(url, params)
                     .then(function (res) {
-                        var partisipant = res.data.results;
-                        var dataacara = res.data.acara;
-                        var pilihacara = res.data.pilihacara;
-                        var psikolog = res.data.psikolog;
+                        var data = res.data.results;
                         var selectacara = res.data.selectacara;
+                        var dataacara = res.data.dataacara;
+                        var partpertanyaan = res.data.partpertanyaan;
                         res1.render('assessmentmahasiswa', {
-                            partisipant: partisipant,
-                            dataacara: dataacara,
-                            pilihacara: pilihacara,
-                            psikolog: psikolog,
-                            selectacara: selectacara
+                            idu, username, nama, tipe, fakultas, prodi,
+                            data: data,
+                            selectacara,
+                            dataacara,
+                            partpertanyaan
                         })
                     })
                     .catch(function (err) {

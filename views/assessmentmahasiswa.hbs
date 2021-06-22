@@ -105,6 +105,7 @@
                 {{!-- End Row --}}
                 {{#if selectacara}}
                 {{!-- Start Row --}}
+                {{#if partpertanyaan}}
                 <div class="row">
                     <div class="col-12">
                         <div class="card card-outline-info">
@@ -112,83 +113,161 @@
                                 <h4 class="m-b-0 text-white">Form Soal</h4>
                             </div> --}}
                             <div class="card-block">
-                                <form action="" method="post">
+                                <form 
+                                    {{#compare partpertanyaan '1' operator="=="}}
+                                        action="assessment/register1"
+                                    {{/compare}}
+                                    {{#compare partpertanyaan '2' operator="=="}}
+                                        action="assessment/register2"
+                                    {{/compare}}
+                                    {{#compare partpertanyaan '3' operator="=="}}
+                                        action="assessment/register3"
+                                    {{/compare}}
+                                    {{#compare partpertanyaan '4' operator="=="}}
+                                        action="assessment/register4"
+                                    {{/compare}}
+                                    {{#compare partpertanyaan '5' operator="=="}}
+                                        action="assessment/register5"
+                                    {{/compare}} 
+                                method="post">
+                                    <input type="hidden" class="form-control" id="idacara" name="idacara" value="{{ selectacara }}">
+                                    <input type="hidden" class="form-control" id="iduser" name="iduser" value="{{ idu }}">
                                     {{!-- Start of tabel list soal --}}
                                     <h4 class="card-title">Soal</h4>
-                                    <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
+                                    <h6 class="card-subtitle">Jawablah pertanyaan berikut</h6>
                                     <hr>
                                     <div class="table-responsive m-t-40">
                                         <table id="soalassessment" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                             <thead>
                                                 <tr>
-                                                    <th colspan="2"></th>
-                                                    <th class="text-center" colspan="4">Jawaban</th>
-                                                </tr>
-                                                <tr>
                                                     <th class="text-center">No.</th>
-                                                    <th class="text-center">Pertanyaan</th>
-                                                    <th class="text-center">Sangat Tidak Setuju</th>
-                                                    <th class="text-center">Tidak Setuju</th>
-                                                    <th class="text-center">Setuju</th>
-                                                    <th class="text-center">Sangat Setuju</th>
+                                                    <th class="text-center">Soal</th>
                                                 </tr>
                                             </thead>
                                             <tfoot>
                                                 <tr>
                                                     <th class="text-center">No.</th>
-                                                    <th class="text-center">Pertanyaan</th>
-                                                    <th class="text-center">Sangat Tidak Setuju</th>
-                                                    <th class="text-center">Tidak Setuju</th>
-                                                    <th class="text-center">Setuju</th>
-                                                    <th class="text-center">Sangat Setuju</th>
+                                                    <th class="text-center">Soal</th>
                                                 </tr>
                                             </tfoot>
                                             <tbody>
-                                                <tr>
-                                                    <td>1.</td>
-                                                    <td>Apakah anda bla bla bla bla?</td>
-                                                    <td class="text-center">
-                                                        <input type="radio" required="required" name="radio1" id="radio1_1" value="option1">
-                                                        <label for="radio1_1"> STS </label>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <input type="radio" required="required" name="radio1" id="radio1_2" value="option2">
-                                                        <label for="radio1_2"> TS </label>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <input type="radio" required="required" name="radio1" id="radio1_3" value="option3">
-                                                        <label for="radio1_3"> S </label>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <input type="radio" required="required" name="radio1" id="radio1_4" value="option4">
-                                                        <label for="radio1_4"> SS </label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2.</td>
-                                                    <td>Apakah anda bla bla bla bla?</td>
-                                                    <td class="text-center">
-                                                        <input type="radio" required="required" name="radio2" id="radio2_1" value="option1">
-                                                        <label for="radio2_1"> STS </label>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <input type="radio" required="required" name="radio2" id="radio2_2" value="option2">
-                                                        <label for="radio2_2"> TS </label>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <input type="radio" required="required" name="radio2" id="radio2_3" value="option3">
-                                                        <label for="radio2_3"> S </label>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <input type="radio" required="required" name="radio2" id="radio2_4" value="option4">
-                                                        <label for="radio2_4"> SS </label>
-                                                    </td>
-                                                </tr>
-                                                
+                                                {{#each data}}
+                                                    <tr>
+                                                        <td class="text-center">
+                                                            {{counter @index}}
+                                                            <input type="hidden" class="form-control" id="idsoal" name="idsoal" value="{{ idsoal }}">
+                                                        </td>
+                                                        {{#compare skormax '4' operator="=="}}
+                                                            {{#compare tipe 'f' operator="=="}}
+                                                                <td>
+                                                                    {{ soal }} <br>
+                                                                    <input class="m-r-200" type="radio" required="required" name="radio{{idsoal}}" id="radio{{idsoal}}_1" value="1">
+                                                                    <label class="m-r-200" for="radio{{idsoal}}_1"> Sangat Tidak Setuju </label>
+                                                                    &nbsp
+
+                                                                    <input type="radio" required="required" name="radio{{idsoal}}" id="radio{{idsoal}}_2" value="2">
+                                                                    <label for="radio{{idsoal}}_2"> Tidak Setuju </label>
+                                                                    &nbsp
+                                                            
+                                                                    <input type="radio" required="required" name="radio{{idsoal}}" id="radio{{idsoal}}_3" value="3">
+                                                                    <label for="radio{{idsoal}}_3"> Setuju </label>
+                                                                    &nbsp
+                                                            
+                                                                    <input type="radio" required="required" name="radio{{idsoal}}" id="radio{{idsoal}}_4" value="4">
+                                                                    <label for="radio{{idsoal}}_4"> Sangat Setuju </label>
+                                                                </td>
+                                                            {{/compare}}
+                                                            {{#compare tipe 'u' operator="=="}}
+                                                                <td>
+                                                                    {{ soal }} <br>
+                                                                    <input class="m-r-200" type="radio" required="required" name="radio{{idsoal}}" id="radio{{idsoal}}_1" value="4">
+                                                                    <label class="m-r-200" for="radio{{idsoal}}_1"> Sangat Tidak Setuju </label>
+                                                                    &nbsp
+
+                                                                    <input type="radio" required="required" name="radio{{idsoal}}" id="radio{{idsoal}}_2" value="3">
+                                                                    <label for="radio{{idsoal}}_2"> Tidak Setuju </label>
+                                                                    &nbsp
+                                                            
+                                                                    <input type="radio" required="required" name="radio{{idsoal}}" id="radio{{idsoal}}_3" value="2">
+                                                                    <label for="radio{{idsoal}}_3"> Setuju </label>
+                                                                    &nbsp
+                                                            
+                                                                    <input type="radio" required="required" name="radio{{idsoal}}" id="radio{{idsoal}}_4" value="1">
+                                                                    <label for="radio{{idsoal}}_4"> Sangat Setuju </label>
+                                                                </td>
+                                                            {{/compare}}
+                                                        {{/compare}}
+                                                        {{#compare skormax '7' operator="=="}}
+                                                            {{#compare tipe 'f' operator="=="}}
+                                                                <td>
+                                                                    {{ soal }} <br>
+                                                                    <input class="m-r-200" type="radio" required="required" name="radio{{idsoal}}" id="radio{{idsoal}}_1" value="1">
+                                                                    <label class="m-r-200" for="radio{{idsoal}}_1"> Sangat Tidak Setuju </label>
+                                                                    &nbsp
+                                                                
+                                                                    <input type="radio" required="required" name="radio{{idsoal}}" id="radio{{idsoal}}_2" value="2">
+                                                                    <label for="radio{{idsoal}}_2"> Tidak Setuju </label>
+                                                                    &nbsp
+
+                                                                    <input type="radio" required="required" name="radio{{idsoal}}" id="radio{{idsoal}}_3" value="3">
+                                                                    <label for="radio{{idsoal}}_3"> Agak Tidak Setuju </label>
+                                                                    &nbsp
+
+                                                                    <input type="radio" required="required" name="radio{{idsoal}}" id="radio{{idsoal}}_4" value="4">
+                                                                    <label for="radio{{idsoal}}_4"> Netral </label>
+                                                                    &nbsp
+
+                                                                    <input type="radio" required="required" name="radio{{idsoal}}" id="radio{{idsoal}}_5" value="5">
+                                                                    <label for="radio{{idsoal}}_5"> Agak Setuju </label>
+                                                                    &nbsp
+                                                            
+                                                                    <input type="radio" required="required" name="radio{{idsoal}}" id="radio{{idsoal}}_6" value="6">
+                                                                    <label for="radio{{idsoal}}_6"> Setuju </label>
+                                                                    &nbsp
+                                                            
+                                                                    <input type="radio" required="required" name="radio{{idsoal}}" id="radio{{idsoal}}_7" value="7">
+                                                                    <label for="radio{{idsoal}}_7"> Sangat Setuju </label>
+                                                                </td>
+                                                            {{/compare}}
+                                                            {{#compare tipe 'u' operator="=="}}
+                                                                <td>
+                                                                    {{ soal }} <br>
+                                                                    <input class="m-r-200" type="radio" required="required" name="radio{{idsoal}}" id="radio{{idsoal}}_1" value="7">
+                                                                    <label class="m-r-200" for="radio{{idsoal}}_1"> Sangat Tidak Setuju </label>
+                                                                    &nbsp
+                                                                
+                                                                    <input type="radio" required="required" name="radio{{idsoal}}" id="radio{{idsoal}}_2" value="6">
+                                                                    <label for="radio{{idsoal}}_2"> Tidak Setuju </label>
+                                                                    &nbsp
+
+                                                                    <input type="radio" required="required" name="radio{{idsoal}}" id="radio{{idsoal}}_3" value="5">
+                                                                    <label for="radio{{idsoal}}_3"> Agak Tidak Setuju </label>
+                                                                    &nbsp
+
+                                                                    <input type="radio" required="required" name="radio{{idsoal}}" id="radio{{idsoal}}_4" value="4">
+                                                                    <label for="radio{{idsoal}}_4"> Netral </label>
+                                                                    &nbsp
+
+                                                                    <input type="radio" required="required" name="radio{{idsoal}}" id="radio{{idsoal}}_5" value="3">
+                                                                    <label for="radio{{idsoal}}_5"> Agak Setuju </label>
+                                                                    &nbsp
+                                                            
+                                                                    <input type="radio" required="required" name="radio{{idsoal}}" id="radio{{idsoal}}_6" value="2">
+                                                                    <label for="radio{{idsoal}}_6"> Setuju </label>
+                                                                    &nbsp
+                                                            
+                                                                    <input type="radio" required="required" name="radio{{idsoal}}" id="radio{{idsoal}}_7" value="1">
+                                                                    <label for="radio{{idsoal}}_7"> Sangat Setuju </label>
+                                                                </td>
+                                                            {{/compare}}
+                                                        {{/compare}}
+                                                    </tr>
+                                                {{/each}}
                                             </tbody>
                                         </table>
                                     </div>
                                     {{!-- end of tabel soal --}}
+                                    <hr>
                                     <div class="form-actions text-right">
                                         <button type="submit" class="btn btn-block btn-outline-success"> <i class="fa fa-check"></i> Simpan Jawaban</button>
                                         <button type="reset" class="btn btn-block btn-outline-warning">Reset</button>
@@ -198,8 +277,7 @@
                         </div>
                     </div>
                 </div>
-                {{!-- End Row --}}
-                {{!-- Start Row --}}
+                {{else}}
                 <div class="row">
                     <div class="col-12">
                         <div class="card card-outline-info">
@@ -207,121 +285,15 @@
                                 <h4 class="m-b-0 text-white">Form Soal</h4>
                             </div> --}}
                             <div class="card-block">
-                                <form action="" method="post"></form>
-                                {{!-- Start of tabel list soal --}}
-                                    <h4 class="card-title">Soal</h4>
-                                    <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
-                                    <hr>
-                                    <div class="table-responsive m-t-40">
-                                        <table id="soalassessment2" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
-                                            <thead>
-                                                <tr>
-                                                    <th colspan="2"></th>
-                                                    <th class="text-center" colspan="7">Jawaban</th>
-                                                </tr>
-                                                <tr>
-                                                    <th class="text-center">No.</th>
-                                                    <th class="text-center">Pertanyaan</th>
-                                                    <th class="text-center">Sangat Tidak Setuju</th>
-                                                    <th class="text-center">Tidak Setuju</th>
-                                                    <th class="text-center">Agak Tidak Setuju</th>
-                                                    <th class="text-center">Netral</th>
-                                                    <th class="text-center">Agak Setuju</th>
-                                                    <th class="text-center">Setuju</th>
-                                                    <th class="text-center">Sangat Setuju</th>
-                                                </tr>
-                                            </thead>
-                                            <tfoot>
-                                                <tr>
-                                                    <th class="text-center">No.</th>
-                                                    <th class="text-center">Pertanyaan</th>
-                                                    <th class="text-center">Sangat Tidak Setuju</th>
-                                                    <th class="text-center">Tidak Setuju</th>
-                                                    <th class="text-center">Agak Tidak Setuju</th>
-                                                    <th class="text-center">Netral</th>
-                                                    <th class="text-center">Agak Setuju</th>
-                                                    <th class="text-center">Setuju</th>
-                                                    <th class="text-center">Sangat Setuju</th>
-                                                </tr>
-                                            </tfoot>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1.</td>
-                                                    <td>Apakah anda bla bla bla bla?</td>
-                                                    <td>
-                                                        <input type="radio" required="required" name="radio3" id="radio3_1" value="option1">
-                                                        <label for="radio3_1"> STS </label>
-                                                    </td>
-                                                    <td>
-                                                        <input type="radio" required="required" name="radio3" id="radio3_2" value="option2">
-                                                        <label for="radio3_2"> TS </label>
-                                                    </td>
-                                                    <td>
-                                                        <input type="radio" required="required" name="radio3" id="radio3_3" value="option3">
-                                                        <label for="radio3_3"> ATS </label>
-                                                    </td>
-                                                    <td>
-                                                        <input type="radio" required="required" name="radio3" id="radio3_4" value="option4">
-                                                        <label for="radio3_4"> N </label>
-                                                    </td>
-                                                    <td>
-                                                        <input type="radio" required="required" name="radio3" id="radio3_5" value="option5">
-                                                        <label for="radio3_5"> AS </label>
-                                                    </td>
-                                                    <td>
-                                                        <input type="radio" required="required" name="radio3" id="radio3_6" value="option6">
-                                                        <label for="radio3_6"> S </label>
-                                                    </td>
-                                                    <td>
-                                                        <input type="radio" required="required" name="radio3" id="radio3_7" value="option7">
-                                                        <label for="radio3_7"> SS </label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2.</td>
-                                                    <td>Apakah anda bla bla bla bla?</td>
-                                                    <td>
-                                                        <input type="radio" required="required" name="radio4" id="radio4_1" value="option1">
-                                                        <label for="radio4_1"> STS </label>
-                                                    </td>
-                                                    <td>
-                                                        <input type="radio" required="required" name="radio4" id="radio4_2" value="option2">
-                                                        <label for="radio4_2"> TS </label>
-                                                    </td>
-                                                    <td>
-                                                        <input type="radio" required="required" name="radio4" id="radio4_3" value="option3">
-                                                        <label for="radio4_3"> ATS </label>
-                                                    </td>
-                                                    <td>
-                                                        <input type="radio" required="required" name="radio4" id="radio4_4" value="option4">
-                                                        <label for="radio4_4"> N </label>
-                                                    </td>
-                                                    <td>
-                                                        <input type="radio" required="required" name="radio4" id="radio4_5" value="option5">
-                                                        <label for="radio4_5"> AS </label>
-                                                    </td>
-                                                    <td>
-                                                        <input type="radio" required="required" name="radio4" id="radio4_6" value="option6">
-                                                        <label for="radio4_6"> S </label>
-                                                    </td>
-                                                    <td>
-                                                        <input type="radio" required="required" name="radio4" id="radio4_7" value="option7">
-                                                        <label for="radio4_7"> SS </label>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    {{!-- end of tabel soal --}}
-                                    <div class="form-actions text-right">
-                                        <button type="submit" class="btn btn-block btn-outline-success"> <i class="fa fa-check"></i> Simpan Jawaban</button>
-                                        <button type="reset" class="btn btn-block btn-outline-warning">Reset</button>
-                                    </div>
-                                </form>
+                                <div class="alert alert-success">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                                    <h3 class="text-success"><i class="fa fa-check-circle"></i> Success</h3> Anda telah menjawab semua soal pada assessment ini. Silahkan logout. Terima kasih atas partisipasinya.
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                {{/if}}
                 {{!-- End Row --}}
                 {{/if}}
                 <!-- Row -->
