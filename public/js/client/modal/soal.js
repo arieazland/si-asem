@@ -1,18 +1,23 @@
 $(document).ready(function(){
     //tampilkan data ke modal users untuk edit
-    $('#listPertanyaan').on('click','.edit',function(){
-        var id = $(this).data('id');
-        var pertanyaan = $(this).data('pertanyaan');
+    $('#listSoal').on('click','.edit',function(){
+        var idsoal = $(this).data('id');
+        var idaspek = $(this).data('idaspek');
+        var idpart = $(this).data('idpart');
+        var soal = $(this).data('nama');
+        var statussoal = $(this).data('status');
         $('#modalEditsoal').modal('show');
-        $('.modalidpertanyaan').val(id);
-        $('.modalpertanyaan').val(pertanyaan);
+        $('.modalidsoal').val(idsoal);
+        $('.modalnamasoal').val(soal);
+        $('.modalidaspek').val(idaspek);
+        $('.modalidpart').val(idpart);
     });
     //tampilkan modal users hapus record
-    $('#listPertanyaan').on('click','.delete',function(){
+    $('#listSoal').on('click','.delete',function(){
         var id = $(this).data('id');
-        var pertanyaan = $(this).data('pertanyaan');
+        var soal = $(this).data('nama');
         $('#modalHapussoal').modal('show');
-        $('.modalidpertanyaanhapus').val(id);
-        $('.judul').text(pertanyaan);
+        $('.modalidsoalhapus').val(id);
+        $('.judul').text(soal);
     });
 });

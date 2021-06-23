@@ -41,10 +41,10 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-6 col-8 align-self-center">
-                        <h3 class="text-themecolor m-b-0 m-t-0">Soal</h3>
+                        <h3 class="text-themecolor m-b-0 m-t-0">Hasil Assessment</h3>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">Soal</a></li>
-                            <li class="breadcrumb-item active">Soal</li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Assessment</a></li>
+                            <li class="breadcrumb-item active">Hasil Assessment</li>
                         </ol>
                     </div>
                 </div>
@@ -78,16 +78,16 @@
                             </div>
                             <div class="card-block">
                                 {{!-- start of form pilih part --}}
-                                <form action="/soal" method="POST">
+                                <form action="/hasilassessment" method="POST">
                                     <div class="form-body">
-                                        <h4 class="card-title">Pilih Aspek</h4>
-                                        <h6 class="card-subtitle"> Pilih aspek terlebih dahulu untuk menampilkan data soal</h6>
+                                        <h4 class="card-title">Pilih Acara</h4>
+                                        <h6 class="card-subtitle"> Pilih acara terlebih dahulu untuk menampilkan data hasil assessment</h6>
                                         <hr>
                                         {{!-- <h5 class="m-t-30">Single select2</h5> --}}
                                         <select class="select2" id="selectaspek" name="selectaspek" style="width: 100%" required>
-                                            <option>-- Pilih Aspek --</option>
-                                            {{#each dataaspek}}
-                                                <option value="{{ idaspek }}" {{#if ../selectaspek}}{{#compare idaspek ../selectaspek operator="=="}}selected{{/compare}}{{/if}}>{{ namaaspek }}</option>
+                                            <option>-- Pilih Acara --</option>
+                                            {{#each dataacara}}
+                                                <option value="{{ idacara }}" {{#if ../selectaspek}}{{#compare idacara ../selectaspek operator="=="}}selected{{/compare}}{{/if}}>{{ namaacara }}</option>
                                             {{/each}}
                                         </select>
                                     </div>
@@ -221,8 +221,8 @@
     <!-- All Jquery -->
     <!-- ============================================================== -->
     {{> plugins}}
-    <script src="/js/client/datatable/soal.js"></script>
-    <script src="/js/client/modal/soal.js"></script>
+    <script src="/js/client/datatable/hasilassessment.js"></script>
+    <script src="/js/client/modal/hasilassessment.js"></script>
 </body>
 
 </html>
