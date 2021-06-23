@@ -56,9 +56,99 @@ exports.register = async (req, res, dataputs) => {
 }
 
 exports.edit = async (req, res, dataputs) => {
+    try{
+        const { modalidkesimpulan, idacara, idpsikolog, idmahasiswa, modalkesimpulan } = req.body
 
+        if( modalidkesimpulan && idacara && idpsikolog && idmahasiswa && modalkesimpulan){
+            params = {
+                idkesimpulan: modalidkesimpulan,
+                idacara: idacara,
+                idpsikolog: idpsikolog,
+                idmahasiswa: idmahasiswa,
+                kesimpulan: modalkesimpulan
+            }
+            var res1 = res;
+            url =  MAIN_URL + '/kesimpulan/editconc';
+            var dataputs = await axios.put(url, params)
+            .then(function (res) {
+                var message = res.data.message;
+                req.session.idacara = res.data.idacara
+                req.session.sessionFlash2 = {
+                    type: 'success',
+                    message: message
+                }
+                res1.redirect('/hasilassessment');
+            })
+            .catch(function (err) {
+                /** get message from API */
+                var message = err.response.data.message;
+                req.session.sessionFlash = {
+                    type: 'error',
+                    message: message
+                }
+                res1.redirect("/hasilassessment");
+            })
+        } else {
+            req.session.sessionFlash = {
+                type: 'error',
+                message: 'Field tidak boleh kosong!'
+            }
+            res.redirect("/hasilassessment");
+        }
+
+    } catch(error) {
+        req.session.sessionFlash = {
+            type: 'error',
+            message: error
+        }
+        res.redirect("/hasilassessment");
+    }
 }
 
 exports.delete = async (req, res, dataputs) => {
+    try{
+        const { modalidkesimpulanhapus, idacara, idmahasiswa } = req.body
 
+        if( modalidkesimpulanhapus && idacara  && idmahasiswa){
+            params = {
+                idkesimpulan: modalidkesimpulanhapus,
+                idacara: idacara,
+                idmahasiswa: idmahasiswa,
+            }
+            var res1 = res;
+            url =  MAIN_URL + '/kesimpulan/deleteconc';
+            var dataputs = await axios.put(url, params)
+            .then(function (res) {
+                var message = res.data.message;
+                req.session.idacara = res.data.idacara
+                req.session.sessionFlash2 = {
+                    type: 'success',
+                    message: message
+                }
+                res1.redirect('/hasilassessment');
+            })
+            .catch(function (err) {
+                /** get message from API */
+                var message = err.response.data.message;
+                req.session.sessionFlash = {
+                    type: 'error',
+                    message: message
+                }
+                res1.redirect("/hasilassessment");
+            })
+        } else {
+            req.session.sessionFlash = {
+                type: 'error',
+                message: 'Field tidak boleh kosong!'
+            }
+            res.redirect("/hasilassessment");
+        }
+
+    } catch(error) {
+        req.session.sessionFlash = {
+            type: 'error',
+            message: error
+        }
+        res.redirect("/hasilassessment");
+    }
 }
