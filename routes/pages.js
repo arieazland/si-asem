@@ -591,11 +591,11 @@ Router.post('/soal', async (req, res) => {
                         url =  MAIN_URL + '/listsoal';
                         var dataputs = await axios.post(url, params)
                         .then(function (res) {
-                            var message = res.data.message;
                             var soal = res.data.results;
                             var dataaspek = res.data.resultaspek;
                             var pilihaspek = res.data.resultsidaspek;
                             var selectaspek = res.data.selectaspek;
+                            var message = res.data.message;
                             req.session.sessionFlash2 = {
                                 type: 'success',
                                 message: message
@@ -672,6 +672,11 @@ Router.get('/assessmentmahasiswa', async (req, res, dataputs) => {
                     var selectacara = res.data.selectacara;
                     var dataacara = res.data.dataacara;
                     var partpertanyaan = res.data.partpertanyaan;
+                    var message = res.data.message;
+                    req.session.sessionFlash2 = {
+                        type: 'success',
+                        message: message
+                    }
                     res1.render('assessmentmahasiswa', {
                         idu, username, nama, tipe, fakultas, prodi,
                         data: data,
@@ -697,6 +702,11 @@ Router.get('/assessmentmahasiswa', async (req, res, dataputs) => {
                 .then(function (res) {
                     var acara = res.data;
                     /** render page partisipan */
+                    var message = res.data.message;
+                    req.session.sessionFlash2 = {
+                        type: 'success',
+                        message: message
+                    }
                     res1.render('assessmentmahasiswa', {
                         username, nama, idu, fakultas, prodi,
                         dataacara: acara.data
@@ -757,6 +767,11 @@ Router.post('/assessmentmahasiswa', async (req, res, dataputs) => {
                         var selectacara = res.data.selectacara;
                         var dataacara = res.data.dataacara;
                         var partpertanyaan = res.data.partpertanyaan;
+                        var message = res.data.message;
+                        req.session.sessionFlash2 = {
+                            type: 'success',
+                            message: message
+                        }
                         res1.render('assessmentmahasiswa', {
                             idu, username, nama, tipe, fakultas, prodi,
                             data: data,
@@ -805,26 +820,66 @@ Router.get('/hasilassessment', async (req, res, dataputs) => {
         nama = req.session.nama
         tipe = req.session.type
         if(tipe == 'admin' || tipe == 'psikolog'){
-            let res1 = res;
-            url =  MAIN_URL + '/acaralistassessment';
-            dataputs = await axios.get(url)
-            .then(function (res) {
-                var acara = res.data;
-                /** render page hasilassessment */
-                res1.render('hasilassessment', {
-                    username, nama, idu,
-                    dataacara: acara.data
-                })
-            })
-            .catch(function (err) {
-                // console.log(err);
-                var message = err.response.data.message;
-                req.session.sessionFlash = {
-                    type: 'error',
-                    message: message
+            if(req.session.idacara != null){
+
+
+                params = {
+                    selectacara: req.session.idacara,
                 }
-                res1.redirect("/hasilassessment");
-            })
+                let res1 = res;
+                url =  MAIN_URL + '/hasilassessment';
+                var dataputs = await axios.post(url, params)
+                .then(function (res) {
+                    var data = res.data.resultcekmahasiswa;
+                    var selectacara = res.data.selectacara;
+                    var dataacara = res.data.dataacara;
+                    var message = res.data.message;
+                    req.session.sessionFlash2 = {
+                        type: 'success',
+                        message: message
+                    }
+                    res1.render('hasilassessment', {
+                        idu, username, nama,
+                        data: data,
+                        selectacara,
+                        dataacara,
+                    })
+                    req.session.idacara = null
+                })
+                .catch(function (err) {
+                    // console.log(err.response.data)
+                    var message = err.response.data.message;
+                    req.session.sessionFlash = {
+                        type: 'error',
+                        message: message
+                    }
+                    res1.redirect("/hasilassessment");
+                    req.session.idacara = null
+                })
+
+
+            } else {
+                let res1 = res;
+                url =  MAIN_URL + '/acaralistassessment';
+                dataputs = await axios.get(url)
+                .then(function (res) {
+                    var acara = res.data;
+                    /** render page hasilassessment */
+                    res1.render('hasilassessment', {
+                        username, nama, idu,
+                        dataacara: acara.data
+                    })
+                })
+                .catch(function (err) {
+                    // console.log(err);
+                    var message = err.response.data.message;
+                    req.session.sessionFlash = {
+                        type: 'error',
+                        message: message
+                    }
+                    res1.redirect("/hasilassessment");
+                })
+            }
         } else {
             /** di redirect ke login dengan status unauthorized */
             req.session.sessionFlash = {
@@ -869,6 +924,11 @@ Router.post('/hasilassessment', async (req, res, dataputs) => {
                         var data = res.data.resultcekmahasiswa;
                         var selectacara = res.data.selectacara;
                         var dataacara = res.data.dataacara;
+                        var message = res.data.message;
+                        req.session.sessionFlash2 = {
+                            type: 'success',
+                            message: message
+                        }
                         res1.render('hasilassessment', {
                             idu, username, nama,
                             data: data,
@@ -947,6 +1007,11 @@ Router.post('/hasilassessmentmahasiswa', async (req, res, dataputs) => {
                         var dataacara = res.data.dataacara;
                         var data = res.data.resultcekmahasiswa;
                         var datamahasiswa = res.data.datamahasiswa;
+                        var message = res.data.message;
+                        req.session.sessionFlash2 = {
+                            type: 'success',
+                            message: message
+                        }
                         res1.render('hasilassessment', {
                             idu, username, nama,
                             part1, part2, part3, part4, part5, 

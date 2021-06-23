@@ -104,6 +104,11 @@ Hbs.registerHelper('compare', function(lvalue, rvalue, options) {
     }
 });
 
+Hbs.registerHelper("sum", function(value, options)
+{
+    return parseInt(value)++;
+});
+
 /** define router */
 app.use('/', require('./routes/pages'));
 app.use('/auth', require('./routes/auth'));
@@ -113,7 +118,7 @@ app.use('/part', require('./routes/part'));
 app.use('/aspek', require('./routes/aspek'));
 app.use('/soal', require('./routes/soal'));
 app.use('/assessment', require('./routes/assessment'));
-// app.use('/jawab', require('./routes/jawab'));
+app.use('/kesimpulan', require('./routes/kesimpulan'));
 
 let port = 5026 || 8080;
 app.listen(port, () => {

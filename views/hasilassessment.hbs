@@ -141,10 +141,33 @@
                                     <h4 class="card-title">Data Mahasiswa</h4>
                                         <h6 class="card-subtitle"> Berikut adalah data mahasiswa yang terpilih</h6>
                                         <hr>
-                                    <h4 class="card-title"> NIM :</h4>
-                                    <h4 class="card-title"> Nama :</h4>
-                                    <h4 class="card-title"> Fakultas :</h4>
-                                    <h4 class="card-title"> Prodi :</h4>
+
+                                    <div class="table-responsive m-t-40">
+                                        <table id="listSoal" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">                                            
+                                            <tbody>
+                                                    <tr>
+                                                        <td class="text-center">NIM</td>
+                                                        <td>:</td>
+                                                        <td>{{#each datamahasiswa}}{{ nim }}{{/each}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-center">Nama</td>
+                                                        <td>:</td>
+                                                        <td>{{#each datamahasiswa}}{{ mahasiswa }}{{/each}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-center">Fakultas</td>
+                                                        <td>:</td>
+                                                        <td>{{#each datamahasiswa}}{{ fakultas }}{{/each}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-center">Prodi</td>
+                                                        <td>:</td>
+                                                        <td>{{#each datamahasiswa}}{{ prodi }}{{/each}}</td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -165,27 +188,29 @@
                                 <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
                                 <hr>
                                 <div class="table-responsive m-t-40">
-                                    <table id="listSoal" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                    <table id="part1" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
                                                 <th class="">No.</th>
-                                                <th class="">Soal</th>
-                                                <th class="">Status</th>
+                                                <th class="">Aspek</th>
+                                                <th class="">Skor</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th class="">No.</th>
-                                                <th class="">Soal</th>
-                                                <th class="">Status</th>
+                                                <th></th>
+                                                <th>Total:</th>
+                                                <th id="total1"></th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
+                                            {{#each part1}}
                                                 <tr>
                                                     <td class="text-center">{{counter @index}}</td>
-                                                    <td>{{ soal }}</td>
-                                                    <td>{{ statussoal }}</td>
+                                                    <td>{{ aspek }}</td>
+                                                    <td>{{ skor }}</td>
                                                 </tr>
+                                            {{/each}}
                                         </tbody>
                                     </table>
                                 </div>
@@ -204,27 +229,29 @@
                                 <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
                                 <hr>
                                 <div class="table-responsive m-t-40">
-                                    <table id="listSoal" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                    <table id="part2" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
                                                 <th class="">No.</th>
-                                                <th class="">Soal</th>
-                                                <th class="">Status</th>
+                                                <th class="">Aspek</th>
+                                                <th class="">Skor</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th class="">No.</th>
-                                                <th class="">Soal</th>
-                                                <th class="">Status</th>
+                                                <th></th>
+                                                <th>Total:</th>
+                                                <th id="total2"></th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
+                                            {{#each part2}}
                                                 <tr>
                                                     <td class="text-center">{{counter @index}}</td>
-                                                    <td>{{ soal }}</td>
-                                                    <td>{{ statussoal }}</td>
+                                                    <td>{{ aspek }}</td>
+                                                    <td>{{ skor }}</td>
                                                 </tr>
+                                            {{/each}}
                                         </tbody>
                                     </table>
                                 </div>
@@ -245,27 +272,29 @@
                                 <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
                                 <hr>
                                 <div class="table-responsive m-t-40">
-                                    <table id="listSoal" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                    <table id="part3" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
                                                 <th class="">No.</th>
-                                                <th class="">Soal</th>
-                                                <th class="">Status</th>
+                                                <th class="">Aspek</th>
+                                                <th class="">Skor</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th class="">No.</th>
-                                                <th class="">Soal</th>
-                                                <th class="">Status</th>
+                                                <th></th>
+                                                <th>Total:</th>
+                                                <th id="total3"></th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
+                                            {{#each part3}}
                                                 <tr>
                                                     <td class="text-center">{{counter @index}}</td>
-                                                    <td>{{ soal }}</td>
-                                                    <td>{{ statussoal }}</td>
+                                                    <td>{{ aspek }}</td>
+                                                    <td>{{ skor }}</td>
                                                 </tr>
+                                            {{/each}}
                                         </tbody>
                                     </table>
                                 </div>
@@ -284,27 +313,29 @@
                                 <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
                                 <hr>
                                 <div class="table-responsive m-t-40">
-                                    <table id="listSoal" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                    <table id="part4" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
                                                 <th class="">No.</th>
-                                                <th class="">Soal</th>
-                                                <th class="">Status</th>
+                                                <th class="">Aspek</th>
+                                                <th class="">Skor</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th class="">No.</th>
-                                                <th class="">Soal</th>
-                                                <th class="">Status</th>
+                                                <th></th>
+                                                <th>Total:</th>
+                                                <th id="total4"></th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
+                                            {{#each part4}}
                                                 <tr>
-                                                    <td class="text-center">{{counter @index}}</td>
-                                                    <td>{{ soal }}</td>
-                                                    <td>{{ statussoal }}</td>
+                                                    <td class="text-center sum">{{counter @index}}</td>
+                                                    <td>{{ aspek }}</td>
+                                                    <td>{{ skor }}</td>
                                                 </tr>
+                                            {{/each}}
                                         </tbody>
                                     </table>
                                 </div>
@@ -325,27 +356,29 @@
                                 <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
                                 <hr>
                                 <div class="table-responsive m-t-40">
-                                    <table id="listSoal" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                    <table id="part5" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
                                                 <th class="">No.</th>
-                                                <th class="">Soal</th>
-                                                <th class="">Status</th>
+                                                <th class="">Aspek</th>
+                                                <th class="">Skor</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th class="">No.</th>
-                                                <th class="">Soal</th>
-                                                <th class="">Status</th>
+                                                <th></th>
+                                                <th>Total:</th>
+                                                <th id="total5"></th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
+                                            {{#each part5}}
                                                 <tr>
                                                     <td class="text-center">{{counter @index}}</td>
-                                                    <td>{{ soal }}</td>
-                                                    <td>{{ statussoal }}</td>
+                                                    <td>{{ aspek }}</td>
+                                                    <td>{{ skor }}</td>
                                                 </tr>
+                                            {{/each}}
                                         </tbody>
                                     </table>
                                 </div>
@@ -360,12 +393,16 @@
                                 <form action="/kesimpulan/register" method="POST">
                                     <div class="form-body">
                                         <h4 class="card-title">Form Input Kesimpulan Assessment Mahasiswa</h4>
+                                        <h6 class="card-subtitle">Silahkan berikan kesimpulan assessment atas mahasiswa ini</h6>
                                         <hr>
                                         <div class="row p-t-20">
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="control-label">Kesimpulan:</label>
                                                     <textarea class="form-control" name="kesimpulanmahasiswa" id="kesimpulanmahasiswa" rows="10"></textarea>
+                                                    <input type="hidden" class="form-control" id="idacara" name="idacara" value="{{ selectacara }}">
+                                                    <input type="hidden" class="form-control" id="idmahasiswa" name="idmahasiswa" value="{{ selectmahasiswa }}">
+                                                    <input type="hidden" class="form-control" id="idpsikolog" name="idpsikolog" value="{{ idu }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -420,7 +457,6 @@
     <!-- ============================================================== -->
     {{> plugins}}
     <script src="/js/client/datatable/hasilassessment.js"></script>
-    <script src="/js/client/modal/hasilassessment.js"></script>
 </body>
 
 </html>
