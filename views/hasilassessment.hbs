@@ -84,10 +84,10 @@
                                         <h6 class="card-subtitle"> Pilih acara terlebih dahulu untuk menampilkan data hasil assessment</h6>
                                         <hr>
                                         {{!-- <h5 class="m-t-30">Single select2</h5> --}}
-                                        <select class="select2" id="selectaspek" name="selectaspek" style="width: 100%" required>
+                                        <select class="select2" id="selectacara" name="selectacara" style="width: 100%" required>
                                             <option>-- Pilih Acara --</option>
                                             {{#each dataacara}}
-                                                <option value="{{ idacara }}" {{#if ../selectaspek}}{{#compare idacara ../selectaspek operator="=="}}selected{{/compare}}{{/if}}>{{ namaacara }}</option>
+                                                <option value="{{ idacara }}" {{#if ../selectacara}}{{#compare idacara ../selectacara operator="=="}}selected{{/compare}}{{/if}}>{{ namaacara }}</option>
                                             {{/each}}
                                         </select>
                                     </div>
@@ -102,17 +102,66 @@
                         </div>
                     </div>
                 </div>
-                {{#if selectaspek}}
+                {{#if selectacara}}
                 {{!-- start of row --}}
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-lg-6">
+                        <div class="card card-outline-info">
+                            <div class="card-block">
+                                {{!-- start of form pilih part --}}
+                                <form action="/hasilassessmentmahasiswa" method="POST">
+                                    <div class="form-body">
+                                        <h4 class="card-title">Pilih Mahasiswa</h4>
+                                        <h6 class="card-subtitle"> Pilih mahasiswa terlebih dahulu untuk menampilkan data hasil assessment</h6>
+                                        <hr>
+                                        {{!-- <h5 class="m-t-30">Single select2</h5> --}}
+                                        <select class="select2" id="selectmahasiswa" name="selectmahasiswa" style="width: 100%" required>
+                                            <option>-- Pilih Mahasiswa --</option>
+                                            {{#each data}}
+                                                <option value="{{ idmahasiswa }}" {{#if ../selectmahasiswa}}{{#compare idmahasiswa ../selectmahasiswa operator="=="}}selected{{/compare}}{{/if}}>{{ namamahasiswa }}</option>
+                                            {{/each}}
+                                        </select>
+                                        <input type="hidden" name="idacara" id="idacara" value="{{ selectacara }}">
+                                    </div>
+                                    <hr>
+                                    <div class="form-actions text-right">
+                                        <button type="submit" class="btn btn-block btn-outline-success"> <i class="fa fa-check"></i> Pilih</button>
+                                        <button type="reset" class="btn btn-block btn-outline-warning">Batal</button>
+                                    </div>
+                                </form>
+                                {{!-- end of form pilih part --}}
+                            </div>
+                        </div>
+                    </div>
+                    {{#if selectmahasiswa}}
+                    <div class="col-lg-6">
+                        <div class="card card-outline-info">
+                            <div class="card-block">
+                                <div class="form-body">
+                                    <h4 class="card-title">Data Mahasiswa</h4>
+                                        <h6 class="card-subtitle"> Berikut adalah data mahasiswa yang terpilih</h6>
+                                        <hr>
+                                    <h4 class="card-title"> NIM :</h4>
+                                    <h4 class="card-title"> Nama :</h4>
+                                    <h4 class="card-title"> Fakultas :</h4>
+                                    <h4 class="card-title"> Prodi :</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{/if}}
+                </div>
+                {{#if selectmahasiswa}}
+                {{!-- start of row --}}
+                <div class="row">
+                    <div class="col-6">
                         <div class="card card-outline-info">
                             {{!-- <div class="card-header">
                                 <h4 class="m-b-0 text-white">Form Aspek</h4>
                             </div> --}}
                             <div class="card-block">
                                 {{!-- Start of tabel list aspek --}}
-                                <h4 class="card-title">List Soal</h4>
+                                <h4 class="card-title">Part 1</h4>
                                 <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
                                 <hr>
                                 <div class="table-responsive m-t-40">
@@ -122,7 +171,6 @@
                                                 <th class="">No.</th>
                                                 <th class="">Soal</th>
                                                 <th class="">Status</th>
-                                                <th class="notexport">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
@@ -130,20 +178,53 @@
                                                 <th class="">No.</th>
                                                 <th class="">Soal</th>
                                                 <th class="">Status</th>
-                                                <th class="notexport">Aksi</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                            {{#each soal}}
                                                 <tr>
                                                     <td class="text-center">{{counter @index}}</td>
                                                     <td>{{ soal }}</td>
                                                     <td>{{ statussoal }}</td>
-                                                    <td class="text-center notexport">
-                                                        <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn edit" data-toggle="tooltip" data-original-title="Ubah" data-id="{{ idsoal }}" data-idaspek="{{ idaspek }}" data-idpart="{{ idpart }}" data-nama="{{ soal }}" data-status="{{ statussoal }}"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
-                                                    </td>
                                                 </tr>
-                                            {{/each}}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {{!-- end of tabel list soal --}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card card-outline-info">
+                            {{!-- <div class="card-header">
+                                <h4 class="m-b-0 text-white">Form Aspek</h4>
+                            </div> --}}
+                            <div class="card-block">
+                                {{!-- Start of tabel list aspek --}}
+                                <h4 class="card-title">Part 2</h4>
+                                <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
+                                <hr>
+                                <div class="table-responsive m-t-40">
+                                    <table id="listSoal" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th class="">No.</th>
+                                                <th class="">Soal</th>
+                                                <th class="">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th class="">No.</th>
+                                                <th class="">Soal</th>
+                                                <th class="">Status</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                                <tr>
+                                                    <td class="text-center">{{counter @index}}</td>
+                                                    <td>{{ soal }}</td>
+                                                    <td>{{ statussoal }}</td>
+                                                </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -152,39 +233,156 @@
                         </div>
                     </div>
                 </div>
-                {{!-- end of row --}}
-                {{!-- start of modal update soal --}}
-                <form action="/soal/edit" method="post">
-                    <div class="modal fade" id="modalEditsoal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="exampleModalLabel1">Ubah Data Soal</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card card-outline-info">
+                            {{!-- <div class="card-header">
+                                <h4 class="m-b-0 text-white">Form Aspek</h4>
+                            </div> --}}
+                            <div class="card-block">
+                                {{!-- Start of tabel list aspek --}}
+                                <h4 class="card-title">Part 3</h4>
+                                <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
+                                <hr>
+                                <div class="table-responsive m-t-40">
+                                    <table id="listSoal" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th class="">No.</th>
+                                                <th class="">Soal</th>
+                                                <th class="">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th class="">No.</th>
+                                                <th class="">Soal</th>
+                                                <th class="">Status</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                                <tr>
+                                                    <td class="text-center">{{counter @index}}</td>
+                                                    <td>{{ soal }}</td>
+                                                    <td>{{ statussoal }}</td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <label for="modalnamasoal" class="control-label">Nama soal:</label>
-                                        {{!-- <input type="text" class="form-control modalnamasoal" id="modalnamasoal" name="modalnamasoal"> --}}
-                                        <textarea class="form-control modalnamasoal" name="modalnamasoal" id="modalnamasoal"  rows="10"></textarea>
-                                        <input type="hidden" class="form-control modalidsoal" id="modalidsoal" name="modalidsoal">
-                                        <input type="hidden" class="form-control modalidaspek" id="modalidaspek" name="modalidaspek">
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="reset" class="btn btn-warning" data-dismiss="modal">Batal</button>
-                                    <button type="submit" class="btn btn-success">Ubah</button>
-                                </div>
+                                {{!-- end of tabel list soal --}}
                             </div>
                         </div>
                     </div>
-                </form>
-                <!-- end of modal update soal -->
-                <!-- start of modal delete soal -->
-                
-                <!-- end of modal delete soal -->
-                {{!-- start of row --}}
-                
+                    <div class="col-6">
+                        <div class="card card-outline-info">
+                            {{!-- <div class="card-header">
+                                <h4 class="m-b-0 text-white">Form Aspek</h4>
+                            </div> --}}
+                            <div class="card-block">
+                                {{!-- Start of tabel list aspek --}}
+                                <h4 class="card-title">Part 4</h4>
+                                <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
+                                <hr>
+                                <div class="table-responsive m-t-40">
+                                    <table id="listSoal" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th class="">No.</th>
+                                                <th class="">Soal</th>
+                                                <th class="">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th class="">No.</th>
+                                                <th class="">Soal</th>
+                                                <th class="">Status</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                                <tr>
+                                                    <td class="text-center">{{counter @index}}</td>
+                                                    <td>{{ soal }}</td>
+                                                    <td>{{ statussoal }}</td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {{!-- end of tabel list soal --}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card card-outline-info">
+                            {{!-- <div class="card-header">
+                                <h4 class="m-b-0 text-white">Form Aspek</h4>
+                            </div> --}}
+                            <div class="card-block">
+                                {{!-- Start of tabel list aspek --}}
+                                <h4 class="card-title">Part 5</h4>
+                                <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
+                                <hr>
+                                <div class="table-responsive m-t-40">
+                                    <table id="listSoal" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th class="">No.</th>
+                                                <th class="">Soal</th>
+                                                <th class="">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th class="">No.</th>
+                                                <th class="">Soal</th>
+                                                <th class="">Status</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                                <tr>
+                                                    <td class="text-center">{{counter @index}}</td>
+                                                    <td>{{ soal }}</td>
+                                                    <td>{{ statussoal }}</td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {{!-- end of tabel list soal --}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-block">
+                                {{!-- start of form tambah data acara --}}
+                                <form action="/kesimpulan/register" method="POST">
+                                    <div class="form-body">
+                                        <h4 class="card-title">Form Input Kesimpulan Assessment Mahasiswa</h4>
+                                        <hr>
+                                        <div class="row p-t-20">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Kesimpulan:</label>
+                                                    <textarea class="form-control" name="kesimpulanmahasiswa" id="kesimpulanmahasiswa" rows="10"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/row-->
+                                    </div>
+                                    <hr>
+                                    <div class="form-actions text-right">
+                                        <button type="submit" class="btn btn-block btn-outline-success"> <i class="fa fa-check"></i> Simpan</button>
+                                        <button type="reset" class="btn btn-block btn-outline-warning">Batal</button>
+                                    </div>
+                                </form>
+                                {{!-- end of form tambah data acara --}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/if}}
                 {{!-- end of row --}}
                 {{/if}}
                 <!-- ============================================================== -->
