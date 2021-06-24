@@ -821,8 +821,6 @@ Router.get('/hasilassessment', async (req, res, dataputs) => {
         tipe = req.session.type
         if(tipe == 'admin' || tipe == 'psikolog'){
             if(req.session.idacara != null){
-
-
                 params = {
                     selectacara: req.session.idacara,
                 }
@@ -1207,6 +1205,90 @@ Router.post('/kesimpulanassessment', async (req, res, dataputs) => {
 })
 
 /** Route for kesimpulan assessment mahasiswa*/
+Router.get('/kesimpulanassessmentmahasiswa', async (req, res, dataputs) => {
+    if(req.session.loggedIn){
+        idu = req.session.iduser
+        username = req.session.username
+        nama = req.session.nama
+        tipe = req.session.type
+        fakultas = req.session.fakultas
+        prodi = req.session.prodi
+        if(tipe == 'admin' || tipe == 'psikolog'){
+            if(req.session.idacara != null && req.session.idmahasiswa != null) {
+                /** get data acara berdasarkan id yang di pilih */
+                params = {
+                    selectacara: req.session.idacara,
+                    selectmahasiswa: req.session.idmahasiswa
+                }
+                let res1 = res;
+                url =  MAIN_URL + '/kesimpulanassessmentmahasiswa';
+                var dataputs = await axios.post(url, params)
+                .then(function (res) {
+                    var part1 = res.data.part1;
+                    var part2 = res.data.part2;
+                    var part3 = res.data.part3;
+                    var part4 = res.data.part4;
+                    var part5 = res.data.part5;
+                    var selectacara = res.data.selectacara;
+                    var selectmahasiswa = res.data.selectmahasiswa;
+                    var dataacara = res.data.dataacara;
+                    var data = res.data.resultcekmahasiswa;
+                    var datamahasiswa = res.data.datamahasiswa;
+                    var datakesimpulan = res.data.datakesimpulan;
+                    var message = res.data.message;
+                    req.session.sessionFlash2 = {
+                        type: 'success',
+                        message: message
+                    }
+                    res1.render('kesimpulanassessment', {
+                        idu, username, nama,
+                        part1, part2, part3, part4, part5, 
+                        data: data,
+                        selectmahasiswa,
+                        selectacara,
+                        dataacara,
+                        datamahasiswa,
+                        datakesimpulan
+                    })
+                    req.session.idmahasiswa = null
+                    req.session.idacara = null
+                })
+                .catch(function (err) {
+                    // console.log(err.response.data)
+                    var message = err.response.data.message;
+                    req.session.sessionFlash = {
+                        type: 'error',
+                        message: message
+                    }
+                    res1.redirect("/kesimpulanassessment");
+                    req.session.idmahasiswa = null
+                    req.session.idacara = null
+                })
+
+
+            } else {
+                /** di redirect ke login dengan status unauthorized */
+                req.session.sessionFlash = {
+                    type: 'error',
+                    message: 'Un-Authorized'
+                }
+                res.redirect("/login");
+            }
+        } else {
+            /** di redirect ke login dengan status unauthorized */
+            req.session.sessionFlash = {
+                type: 'error',
+                message: 'Un-Authorized'
+            }
+            res.redirect("/login");
+        }
+    } else {
+        /** di redirect ke login */
+        res.redirect("/login");
+    }
+})
+
+/** Route for kesimpulan assessment mahasiswa*/
 Router.post('/kesimpulanassessmentmahasiswa', async (req, res, dataputs) => {
     if(req.session.loggedIn){
         idu = req.session.iduser
@@ -1293,6 +1375,254 @@ Router.post('/kesimpulanassessmentmahasiswa', async (req, res, dataputs) => {
         res.redirect("/login");
     }
 })
+
+
+
+
+
+/** Route for hasil assessment prodi*/
+Router.get('/hasilassessmentprodi', async (req, res, dataputs) => {
+    if(req.session.loggedIn){
+        idu = req.session.iduser
+        username = req.session.username
+        nama = req.session.nama
+        tipe = req.session.type
+        if(tipe == 'admin' || tipe == 'psikolog'){
+            if(req.session.idacara != null){
+                params = {
+                    selectacara: req.session.idacara,
+                }
+                let res1 = res;
+                url =  MAIN_URL + '/hasilassessmentprodi';
+                var dataputs = await axios.post(url, params)
+                .then(function (res) {
+                    var data = res.data.resultcekmahasiswa;
+                    var selectacara = res.data.selectacara;
+                    var dataacara = res.data.dataacara;
+                    var message = res.data.message;
+                    req.session.sessionFlash2 = {
+                        type: 'success',
+                        message: message
+                    }
+                    res1.render('hasilassessmentprodi', {
+                        idu, username, nama,
+                        data: data,
+                        selectacara,
+                        dataacara,
+                    })
+                    req.session.idacara = null
+                })
+                .catch(function (err) {
+                    // console.log(err.response.data)
+                    var message = err.response.data.message;
+                    req.session.sessionFlash = {
+                        type: 'error',
+                        message: message
+                    }
+                    res1.redirect("/hasilassessmentprodi");
+                    req.session.idacara = null
+                })
+
+
+            } else {
+                let res1 = res;
+                url =  MAIN_URL + '/acaralistassessment';
+                dataputs = await axios.get(url)
+                .then(function (res) {
+                    var acara = res.data;
+                    /** render page hasilassessment */
+                    res1.render('hasilassessmentprodi', {
+                        username, nama, idu,
+                        dataacara: acara.data
+                    })
+                })
+                .catch(function (err) {
+                    // console.log(err);
+                    var message = err.response.data.message;
+                    req.session.sessionFlash = {
+                        type: 'error',
+                        message: message
+                    }
+                    res1.redirect("/hasilassessmentprodi");
+                })
+            }
+        } else {
+            /** di redirect ke login dengan status unauthorized */
+            req.session.sessionFlash = {
+                type: 'error',
+                message: 'Un-Authorized'
+            }
+            res.redirect("/login");
+        }
+    } else {
+        /** di redirect ke login */
+        res.redirect("/login");
+    }
+});
+
+Router.post('/hasilassessmentprodi', async (req, res, dataputs) => {
+    if(req.session.loggedIn){
+        idu = req.session.iduser
+        username = req.session.username
+        nama = req.session.nama
+        tipe = req.session.type
+        fakultas = req.session.fakultas
+        prodi = req.session.prodi
+        if(tipe == 'admin' || tipe == 'psikolog'){
+            const { selectacara } = req.body;
+            if( selectacara ){
+                if(selectacara == "-- Pilih Acara --"){
+                    req.session.sessionFlash = {
+                        type: 'error',
+                        message: 'Harap pilih acara terlebih dahulu!'
+                    }
+                    res.redirect("/hasilassessmentprodi");
+                } else {
+                    /** get data acara berdasarkan id yang di pilih */
+                    params = {
+                        selectacara: selectacara,
+                    }
+                    let res1 = res;
+                    url =  MAIN_URL + '/hasilassessmentprodi';
+                    var dataputs = await axios.post(url, params)
+                    .then(function (res) {
+                        var data = res.data.resultcekprodi;
+                        var selectacara = res.data.selectacara;
+                        var dataacara = res.data.dataacara;
+                        var message = res.data.message;
+                        req.session.sessionFlash2 = {
+                            type: 'success',
+                            message: message
+                        }
+                        res1.render('hasilassessmentprodi', {
+                            idu, username, nama,
+                            data: data,
+                            selectacara,
+                            dataacara,
+                        })
+                    })
+                    .catch(function (err) {
+                        // console.log(err.response.data)
+                        var message = err.response.data.message;
+                        req.session.sessionFlash = {
+                            type: 'error',
+                            message: message
+                        }
+                        res1.redirect("/hasilassessmentprodi");
+                    })
+                }
+            } else {
+                /** field id acara kosong */
+                req.session.sessionFlash = {
+                    type: 'error',
+                    message: 'Field tidak boleh kosong'
+                }
+                res.redirect("/hasilassessmentprodi");
+            }
+
+        } else {
+            /** di redirect ke login dengan status unauthorized */
+            req.session.sessionFlash = {
+                type: 'error',
+                message: 'Un-Authorized'
+            }
+            res.redirect("/login");
+        }
+    } else {
+        /** di redirect ke login */
+        res.redirect("/login");
+    }
+})
+
+/** Route for hasil assessment programstudi*/
+Router.post('/hasilassessmentprogramstudi', async (req, res, dataputs) => {
+    if(req.session.loggedIn){
+        idu = req.session.iduser
+        username = req.session.username
+        nama = req.session.nama
+        tipe = req.session.type
+        fakultas = req.session.fakultas
+        prodi = req.session.prodi
+        if(tipe == 'admin' || tipe == 'psikolog'){
+            const { selectprodi, idacara } = req.body;
+            if( selectprodi && idacara ){
+                if(selectprodi == "-- Pilih Prodi --"){
+                    req.session.sessionFlash = {
+                        type: 'error',
+                        message: 'Harap pilih program studi terlebih dahulu!'
+                    }
+                    res.redirect("/hasilassessmentprodi");
+                } else {
+                    /** get data acara berdasarkan id yang di pilih */
+                    params = {
+                        selectacara: idacara,
+                        selectprodi: selectprodi
+                    }
+                    let res1 = res;
+                    url =  MAIN_URL + '/hasilassessmentprogramstudi';
+                    var dataputs = await axios.post(url, params)
+                    .then(function (res) {
+                        var part1 = res.data.part1;
+                        var part2 = res.data.part2;
+                        var part3 = res.data.part3;
+                        var part4 = res.data.part4;
+                        var part5 = res.data.part5;
+                        var selectacara = res.data.selectacara;
+                        var selectprodi = res.data.selectprodi;
+                        var dataacara = res.data.dataacara;
+                        var data = res.data.resultcekprodi;
+                        var message = res.data.message;
+                        var dataprodi = res.data.dataprodi
+                        req.session.sessionFlash2 = {
+                            type: 'success',
+                            message: message
+                        }
+                        res1.render('hasilassessmentprodi', {
+                            idu, username, nama,
+                            part1, part2, part3, part4, part5, 
+                            data: data,
+                            selectprodi,
+                            selectacara,
+                            dataacara,
+                            dataprodi
+                        })
+                    })
+                    .catch(function (err) {
+                        // console.log(err.response.data)
+                        var message = err.response.data.message;
+                        req.session.sessionFlash = {
+                            type: 'error',
+                            message: message
+                        }
+                        res1.redirect("/hasilassessmentprodi");
+                    })
+                }
+            } else {
+                /** field id acara kosong */
+                req.session.sessionFlash = {
+                    type: 'error',
+                    message: 'Field tidak boleh kosong'
+                }
+                res.redirect("/hasilassessmentprodi");
+            }
+
+        } else {
+            /** di redirect ke login dengan status unauthorized */
+            req.session.sessionFlash = {
+                type: 'error',
+                message: 'Un-Authorized'
+            }
+            res.redirect("/login");
+        }
+    } else {
+        /** di redirect ke login */
+        res.redirect("/login");
+    }
+})
+
+
+
+
 
 /** Route for logout */
 Router.get('/logout', (req, res) =>{

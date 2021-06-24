@@ -72,12 +72,13 @@ exports.edit = async (req, res, dataputs) => {
             var dataputs = await axios.put(url, params)
             .then(function (res) {
                 var message = res.data.message;
-                req.session.idacara = res.data.idacara
+                req.session.idacara = res.data.idacara;
+                req.session.idmahasiswa = res.data.idmahasiswa;
                 req.session.sessionFlash2 = {
                     type: 'success',
                     message: message
                 }
-                res1.redirect('/hasilassessment');
+                res1.redirect('/kesimpulanassessmentmahasiswa');
             })
             .catch(function (err) {
                 /** get message from API */
@@ -86,14 +87,14 @@ exports.edit = async (req, res, dataputs) => {
                     type: 'error',
                     message: message
                 }
-                res1.redirect("/hasilassessment");
+                res1.redirect("/kesimpulanassessment");
             })
         } else {
             req.session.sessionFlash = {
                 type: 'error',
                 message: 'Field tidak boleh kosong!'
             }
-            res.redirect("/hasilassessment");
+            res.redirect("/kesimpulanassessment");
         }
 
     } catch(error) {
@@ -101,7 +102,7 @@ exports.edit = async (req, res, dataputs) => {
             type: 'error',
             message: error
         }
-        res.redirect("/hasilassessment");
+        res.redirect("/kesimpulanassessment");
     }
 }
 
@@ -125,7 +126,7 @@ exports.delete = async (req, res, dataputs) => {
                     type: 'success',
                     message: message
                 }
-                res1.redirect('/hasilassessment');
+                res1.redirect('/kesimpulanassessment');
             })
             .catch(function (err) {
                 /** get message from API */
@@ -134,14 +135,14 @@ exports.delete = async (req, res, dataputs) => {
                     type: 'error',
                     message: message
                 }
-                res1.redirect("/hasilassessment");
+                res1.redirect("/kesimpulanassessment");
             })
         } else {
             req.session.sessionFlash = {
                 type: 'error',
                 message: 'Field tidak boleh kosong!'
             }
-            res.redirect("/hasilassessment");
+            res.redirect("/kesimpulanassessment");
         }
 
     } catch(error) {
@@ -149,6 +150,6 @@ exports.delete = async (req, res, dataputs) => {
             type: 'error',
             message: error
         }
-        res.redirect("/hasilassessment");
+        res.redirect("/kesimpulanassessment");
     }
 }
