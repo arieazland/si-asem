@@ -74,14 +74,14 @@
                     <div class="col-lg-12">
                         <div class="card card-outline-info">
                             <div class="card-header">
-                                <h4 class="m-b-0 text-white">Hasil Assessment</h4>
+                                <h4 class="m-b-0 text-white">Kesimpulan Assessment</h4>
                             </div>
                             <div class="card-block">
                                 {{!-- start of form pilih part --}}
-                                <form action="/hasilassessmentprodi" method="POST">
+                                <form action="/kesimpulanassessmentprodi" method="POST">
                                     <div class="form-body">
                                         <h4 class="card-title">Pilih Acara</h4>
-                                        <h6 class="card-subtitle"> Pilih acara terlebih dahulu untuk menampilkan data hasil assessment</h6>
+                                        <h6 class="card-subtitle"> Pilih acara terlebih dahulu untuk menampilkan data kesimpulan hasil assessment</h6>
                                         <hr>
                                         {{!-- <h5 class="m-t-30">Single select2</h5> --}}
                                         <select class="select2" id="selectacara" name="selectacara" style="width: 100%" required>
@@ -109,10 +109,10 @@
                         <div class="card card-outline-info">
                             <div class="card-block">
                                 {{!-- start of form pilih part --}}
-                                <form action="/hasilassessmentprogramstudi" method="POST">
+                                <form action="/kesimpulanassessmentprogramstudi" method="POST">
                                     <div class="form-body">
                                         <h4 class="card-title">Pilih Prodi</h4>
-                                        <h6 class="card-subtitle"> Pilih prodi terlebih dahulu untuk menampilkan data hasil assessment</h6>
+                                        <h6 class="card-subtitle"> Pilih prodi terlebih dahulu untuk menampilkan data kesimpulan hasil assessment</h6>
                                         <hr>
                                         {{!-- <h5 class="m-t-30">Single select2</h5> --}}
                                         <select class="select2" id="selectprodi" name="selectprodi" style="width: 100%" required>
@@ -189,8 +189,8 @@
                                         <tfoot>
                                             <tr>
                                                 <th></th>
-                                                <th>Total:</th>
-                                                <th id="total1"></th>
+                                                <th>Rata - rata:</th>
+                                                <th id="avg1"></th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
@@ -230,8 +230,8 @@
                                         <tfoot>
                                             <tr>
                                                 <th></th>
-                                                <th>Total:</th>
-                                                <th id="total2"></th>
+                                                <th>Rata - rata:</th>
+                                                <th id="avg2"></th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
@@ -273,8 +273,8 @@
                                         <tfoot>
                                             <tr>
                                                 <th></th>
-                                                <th>Total:</th>
-                                                <th id="total3"></th>
+                                                <th>Rata - rata:</th>
+                                                <th id="avg3"></th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
@@ -314,8 +314,8 @@
                                         <tfoot>
                                             <tr>
                                                 <th></th>
-                                                <th>Total:</th>
-                                                <th id="total4"></th>
+                                                <th>Rata - rata:</th>
+                                                <th id="avg4"></th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
@@ -357,8 +357,8 @@
                                         <tfoot>
                                             <tr>
                                                 <th></th>
-                                                <th>Total:</th>
-                                                <th id="total5"></th>
+                                                <th>Rata - rata:</th>
+                                                <th id="avg5"></th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
@@ -379,39 +379,94 @@
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-block">
-                                {{!-- start of form tambah data acara --}}
-                                <form action="/kesimpulanprodi/register" method="POST">
-                                    <div class="form-body">
-                                        <h4 class="card-title">Form Input Kesimpulan Assessment Program Studi</h4>
-                                        <h6 class="card-subtitle">Silahkan berikan kesimpulan assessment atas program studi ini</h6>
-                                        <hr>
-                                        <div class="row p-t-20">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="control-label">Kesimpulan:</label>
-                                                    <textarea class="form-control" name="kesimpulanprodi" id="kesimpulanprodi" rows="10"></textarea>
-                                                    <input type="hidden" class="form-control" id="idacara" name="idacara" value="{{ selectacara }}">
-                                                    <input type="hidden" class="form-control" id="namaprodi" name="namaprodi" value="{{ selectprodi }}">
-                                                    <input type="hidden" class="form-control" id="namafakultas" name="namafakultas" value="{{#each dataprodi}}{{ fakultas }}{{/each}}">
-                                                    <input type="hidden" class="form-control" id="idpsikolog" name="idpsikolog" value="{{ idu }}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--/row-->
-                                    </div>
-                                    <hr>
-                                    <div class="form-actions text-right">
-                                        <button type="submit" class="btn btn-block btn-outline-success"> <i class="fa fa-check"></i> Simpan</button>
-                                        <button type="reset" class="btn btn-block btn-outline-warning">Batal</button>
-                                    </div>
-                                </form>
-                                {{!-- end of form tambah data acara --}}
+                                <h4 class="card-title">Kesimpulan</h4>
+                                <h6 class="card-subtitle">Berikut adalah kesimpulan atas prodi {{#each datamahasiswa}}{{ mahasiswa }}{{/each}}</h6>
+                                <hr>
+                                <div class="table-responsive m-t-40">
+                                    <table id="kesimpulanprodi" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th class="">Kesimpulan</th>
+                                                <th class="">Psikolog</th>
+                                                <th class="not-export">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th class="">Kesimpulan</th>
+                                                <th class="">Psikolog</th>
+                                                <th class="not-export">Aksi</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            {{#each datakesimpulan}}
+                                                <tr>
+                                                    <td>{{ kesimpulan }}</td>
+                                                    <td>{{ namapsikolog }}</td>
+                                                    <td>
+                                                        <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn edit" data-toggle="tooltip" data-original-title="Ubah" data-id="{{ idkesimpulan }}" data-kesimpulan="{{ kesimpulan }}"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
+                                                        
+                                                        <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn delete" data-toggle="tooltip" data-original-title="Hapus" data-id="{{ idkesimpulan }}" data-kesimpulan="{{ kesimpulan }}"><i class="fa fa-ban" aria-hidden="true"></i></button></a>
+                                                    </td>
+                                                </tr>
+                                            {{/each}}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                {{/if}}
                 {{!-- end of row --}}
+                {{!-- start of modal update acara --}}
+                <form action="/kesimpulanprodi/edit" method="post">
+                    <div class="modal fade" id="modalEditkesimpulanprodi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="exampleModalLabel1">Ubah Kesimpulan</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="modalnamaacara" class="control-label">Kesimpulan:</label>
+                                        <textarea name="modalkesimpulan" id="modalkesimpulan" rows="10" class="form-control modalkesimpulan"></textarea>
+                                        <input type="hidden" class="form-control modalidkesimpulan" id="modalidkesimpulan" name="modalidkesimpulan">
+                                        <input type="hidden" class="form-control idpsikolog" id="idpsikolog" name="idpsikolog" value="{{ idu }}">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="reset" class="btn btn-warning" data-dismiss="modal">Batal</button>
+                                    <button type="submit" class="btn btn-success">Ubah</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- end of modal update acara -->
+                <!-- start of modal delete acara -->
+                <form action="/kesimpulanprodi/delete" method="post">
+                    <div class="modal fade" id="modalHapuskesimpulanprodi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="exampleModalLabel1">Hapus Kesimpulan</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <strong>Anda yakin mau menghapus : <label class="font-weight-bold judul"></label>?</strong>
+                                    <input type="hidden" class="form-control modalidkesimpulanhapus" id="modalidkesimpulanhapus" name="modalidkesimpulanhapus">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="reset" class="btn btn-warning" data-dismiss="modal">Batal</button>
+                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- end of modal delete acara -->
+                {{/if}}
                 {{/if}}
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
@@ -447,7 +502,8 @@
     <!-- All Jquery -->
     <!-- ============================================================== -->
     {{> plugins}}
-    <script src="/js/client/datatable/hasilassessmentprodi.js"></script>
+    <script src="/js/client/datatable/kesimpulanassessmentprodi.js"></script>
+    <script src="/js/client/modal/kesimpulanassessmentprodi.js"></script>
 </body>
 
 </html>

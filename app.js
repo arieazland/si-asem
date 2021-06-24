@@ -119,6 +119,7 @@ app.use('/aspek', require('./routes/aspek'));
 app.use('/soal', require('./routes/soal'));
 app.use('/assessment', require('./routes/assessment'));
 app.use('/kesimpulan', require('./routes/kesimpulan'));
+app.use('/kesimpulanprodi', require('./routes/kesimpulanprodi'));
 
 let port = 5026 || 8080;
 app.listen(port, () => {
