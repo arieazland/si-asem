@@ -35,17 +35,17 @@ Router.get('/', async (req, res) => {
         if(tipe === 'mahasiswa'){
             /** login page di arahkan ke page user */
             res.render("indexmahasiswa",{
-                username, nama, idu, fakultas, prodi
+                username, nama, idu, tipe, fakultas, prodi
             });
         } else if(tipe === 'psikolog'){
             /** login page di arahkan ke page psikolog */
             res.render("indexpsikolog",{
-                username, nama, idu
+                username, nama, idu, tipe
             });
         } else if(tipe === 'admin'){
             /** login page di arahkan ke page admin */
             res.render("index",{
-                username, nama, idu
+                username, nama, idu, tipe
             });
         }
     } else {
@@ -69,7 +69,7 @@ Router.get('/users', async (req, res, dataputs) => {
                 var users = res.data;
                 /** render page users */
                 res1.render('users', {
-                    username, nama, idu,
+                    username, nama, idu, tipe,
                     data: users.data
                 })
             })
@@ -111,7 +111,7 @@ Router.get('/acara', async (req, res, dataputs) => {
                 var acara = res.data;
                 /** render page acara */
                 res1.render('acara', {
-                    username, nama, idu,
+                    username, nama, idu, tipe,
                     data: acara.data
                 })
             })
@@ -166,6 +166,7 @@ Router.get('/partisipan', async (req, res, dataputs) => {
                     var psikolog = res.data.psikolog;
                     var selectacara = res.data.selectacara;
                     res1.render('partisipan', {
+                        username, nama, idu, tipe,
                         partisipant: partisipant,
                         dataacara: dataacara,
                         pilihacara: pilihacara,
@@ -192,7 +193,7 @@ Router.get('/partisipan', async (req, res, dataputs) => {
                     var acara = res.data;
                     /** render page partisipan */
                     res1.render('partisipan', {
-                        username, nama, idu,
+                        username, nama, idu, tipe,
                         dataacara: acara.data
                     })
                 })
@@ -251,6 +252,7 @@ Router.post('/partisipan', async (req, res, dataputs) => {
                         var psikolog = res.data.psikolog;
                         var selectacara = res.data.selectacara;
                         res1.render('partisipan', {
+                            username, nama, idu, tipe,
                             partisipant: partisipant,
                             dataacara: dataacara,
                             pilihacara: pilihacara,
@@ -290,7 +292,7 @@ Router.get('/part', async (req, res, dataputs) => {
         username = req.session.username
         nama = req.session.nama
         tipe = req.session.type
-        if(tipe == 'admin'){
+        if(tipe == 'admin' || tipe == 'psikolog'){
             let res1 = res;
             url =  MAIN_URL + '/partlist';
             dataputs = await axios.get(url)
@@ -298,7 +300,7 @@ Router.get('/part', async (req, res, dataputs) => {
                 var part = res.data;
                 /** render page part */
                 res1.render('part', {
-                    username, nama, idu,
+                    username, nama, idu, tipe,
                     data: part.data
                 })
             })
@@ -332,7 +334,7 @@ Router.get('/aspek', async (req, res) =>{
         username = req.session.username
         nama = req.session.nama
         tipe = req.session.type
-        if(tipe == 'admin'){
+        if(tipe == 'admin' || tipe == 'psikolog'){
             if(req.session.idpart != null){
                 /** get data aspek berdasarkan idpart yang di pilih */
                 params = {
@@ -352,6 +354,7 @@ Router.get('/aspek', async (req, res) =>{
                         message: message
                     }
                     res1.render('aspek', {
+                        idu, username, nama, tipe,
                         aspek: aspek,
                         datapart: datapart,
                         pilihpart: pilihpart,
@@ -377,7 +380,7 @@ Router.get('/aspek', async (req, res) =>{
                     var part = res.data;
                     /** render page part */
                     res1.render('aspek', {
-                        username, nama, idu,
+                        username, nama, idu, tipe,
                         datapart: part.data
                     })
                 })
@@ -413,7 +416,7 @@ Router.post('/aspek', async (req, res) => {
         username = req.session.username
         nama = req.session.nama
         tipe = req.session.type
-        if(tipe == 'admin'){
+        if(tipe == 'admin' || tipe == 'psikolog'){
             try{
                 const {selectpart} = req.body;
 
@@ -438,6 +441,7 @@ Router.post('/aspek', async (req, res) => {
                             var pilihpart = res.data.resultsidpart;
                             var selectpart = res.data.selectpart;
                             res1.render('aspek', {
+                                username, nama, idu, tipe,
                                 aspek: aspek,
                                 datapart: datapart,
                                 pilihpart: pilihpart,
@@ -491,7 +495,7 @@ Router.get('/soal', async (req, res) =>{
         username = req.session.username
         nama = req.session.nama
         tipe = req.session.type
-        if(tipe == 'admin'){
+        if(tipe == 'admin' || tipe == 'psikolog'){
             if(req.session.idaspek != null){
                 /** get data soal berdasarkan idaspek yang di pilih */
                 params = {
@@ -511,7 +515,7 @@ Router.get('/soal', async (req, res) =>{
                         message: message
                     }
                     res1.render('soal', {
-                        idu, nama, username,
+                        idu, nama, username, tipe,
                         soal: soal,
                         dataaspek: dataaspek,
                         pilihaspek: pilihaspek,
@@ -537,7 +541,7 @@ Router.get('/soal', async (req, res) =>{
                     var aspek = res.data;
                     /** render page part */
                     res1.render('soal', {
-                        username, nama, idu,
+                        username, nama, idu, tipe,
                         dataaspek: aspek.data
                     })
                 })
@@ -571,7 +575,7 @@ Router.post('/soal', async (req, res) => {
         username = req.session.username
         nama = req.session.nama
         tipe = req.session.type
-        if(tipe == 'admin'){
+        if(tipe == 'admin' || tipe == 'psikolog'){
             try{
                 const {selectaspek} = req.body;
 
@@ -601,7 +605,7 @@ Router.post('/soal', async (req, res) => {
                                 message: message
                             }
                             res1.render('soal', {
-                                idu, nama, username,
+                                idu, nama, username, tipe,
                                 soal: soal,
                                 dataaspek: dataaspek,
                                 pilihaspek: pilihaspek,
@@ -708,7 +712,7 @@ Router.get('/assessmentmahasiswa', async (req, res, dataputs) => {
                         message: message
                     }
                     res1.render('assessmentmahasiswa', {
-                        username, nama, idu, fakultas, prodi,
+                        username, nama, idu, tipe, fakultas, prodi,
                         dataacara: acara.data
                     })
                 })
@@ -837,7 +841,7 @@ Router.get('/hasilassessment', async (req, res, dataputs) => {
                         message: message
                     }
                     res1.render('hasilassessment', {
-                        idu, username, nama,
+                        idu, username, nama, tipe,
                         data: data,
                         selectacara,
                         dataacara,
@@ -864,7 +868,7 @@ Router.get('/hasilassessment', async (req, res, dataputs) => {
                     var acara = res.data;
                     /** render page hasilassessment */
                     res1.render('hasilassessment', {
-                        username, nama, idu,
+                        username, nama, idu, tipe,
                         dataacara: acara.data
                     })
                 })
@@ -927,7 +931,7 @@ Router.post('/hasilassessment', async (req, res, dataputs) => {
                             message: message
                         }
                         res1.render('hasilassessment', {
-                            idu, username, nama,
+                            idu, username, nama, tipe,
                             data: data,
                             selectacara,
                             dataacara,
@@ -1010,7 +1014,7 @@ Router.post('/hasilassessmentmahasiswa', async (req, res, dataputs) => {
                             message: message
                         }
                         res1.render('hasilassessment', {
-                            idu, username, nama,
+                            idu, username, nama, tipe,
                             part1, part2, part3, part4, part5, 
                             data: data,
                             selectmahasiswa,
@@ -1077,7 +1081,7 @@ Router.get('/kesimpulanassessment', async (req, res, dataputs) => {
                         message: message
                     }
                     res1.render('kesimpulanassessment', {
-                        idu, username, nama,
+                        idu, username, nama, tipe,
                         data: data,
                         selectacara,
                         dataacara,
@@ -1102,7 +1106,7 @@ Router.get('/kesimpulanassessment', async (req, res, dataputs) => {
                     var acara = res.data;
                     /** render page kesimpulanassessment */
                     res1.render('kesimpulanassessment', {
-                        username, nama, idu,
+                        username, nama, idu, tipe,
                         dataacara: acara.data
                     })
                 })
@@ -1165,7 +1169,7 @@ Router.post('/kesimpulanassessment', async (req, res, dataputs) => {
                             message: message
                         }
                         res1.render('kesimpulanassessment', {
-                            idu, username, nama,
+                            idu, username, nama, tipe,
                             data: data,
                             selectacara,
                             dataacara,
@@ -1241,7 +1245,7 @@ Router.get('/kesimpulanassessmentmahasiswa', async (req, res, dataputs) => {
                         message: message
                     }
                     res1.render('kesimpulanassessment', {
-                        idu, username, nama,
+                        idu, username, nama, tipe,
                         part1, part2, part3, part4, part5, 
                         data: data,
                         selectmahasiswa,
@@ -1333,7 +1337,7 @@ Router.post('/kesimpulanassessmentmahasiswa', async (req, res, dataputs) => {
                             message: message
                         }
                         res1.render('kesimpulanassessment', {
-                            idu, username, nama,
+                            idu, username, nama, tipe,
                             part1, part2, part3, part4, part5, 
                             data: data,
                             selectmahasiswa,
@@ -1401,7 +1405,7 @@ Router.get('/hasilassessmentprodi', async (req, res, dataputs) => {
                         message: message
                     }
                     res1.render('hasilassessmentprodi', {
-                        idu, username, nama,
+                        idu, username, nama, tipe,
                         data: data,
                         selectacara,
                         dataacara,
@@ -1489,7 +1493,7 @@ Router.post('/hasilassessmentprodi', async (req, res, dataputs) => {
                             message: message
                         }
                         res1.render('hasilassessmentprodi', {
-                            idu, username, nama,
+                            idu, username, nama, tipe,
                             data: data,
                             selectacara,
                             dataacara,
@@ -1572,7 +1576,7 @@ Router.post('/hasilassessmentprogramstudi', async (req, res, dataputs) => {
                             message: message
                         }
                         res1.render('hasilassessmentprodi', {
-                            idu, username, nama,
+                            idu, username, nama, tipe,
                             part1, part2, part3, part4, part5, 
                             data: data,
                             selectprodi,
@@ -1639,7 +1643,7 @@ Router.get('/kesimpulanassessmentprodi', async (req, res, dataputs) => {
                         message: message
                     }
                     res1.render('kesimpulanassessmentprodi', {
-                        idu, username, nama,
+                        idu, username, nama, tipe,
                         data: data,
                         selectacara,
                         dataacara,
@@ -1664,7 +1668,7 @@ Router.get('/kesimpulanassessmentprodi', async (req, res, dataputs) => {
                     var acara = res.data;
                     /** render page kesimpulanassessment */
                     res1.render('kesimpulanassessmentprodi', {
-                        username, nama, idu,
+                        username, nama, idu, tipe,
                         dataacara: acara.data
                     })
                 })
@@ -1727,7 +1731,7 @@ Router.post('/kesimpulanassessmentprodi', async (req, res, dataputs) => {
                             message: message
                         }
                         res1.render('kesimpulanassessmentprodi', {
-                            idu, username, nama,
+                            idu, username, nama, tipe,
                             data: data,
                             selectacara,
                             dataacara,
@@ -1803,7 +1807,7 @@ Router.get('/kesimpulanassessmentprogramstudi', async (req, res, dataputs) => {
                         message: message
                     }
                     res1.render('kesimpulanassessmentprodi', {
-                        idu, username, nama,
+                        idu, username, nama, tipe,
                         part1, part2, part3, part4, part5, 
                         data: data,
                         selectprodi,
@@ -1895,7 +1899,7 @@ Router.post('/kesimpulanassessmentprogramstudi', async (req, res, dataputs) => {
                             message: message
                         }
                         res1.render('kesimpulanassessmentprodi', {
-                            idu, username, nama,
+                            idu, username, nama, tipe,
                             part1, part2, part3, part4, part5, 
                             data: data,
                             selectprodi,

@@ -17,14 +17,14 @@
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-        {{> topbar}}
+        {{#if tipe}} {{#compare tipe "admin" operator="=="}} {{> topbar}} {{/compare}} {{#compare tipe "psikolog" operator="=="}} {{> topbarpsikolog}} {{/compare}} {{/if}}
         <!-- ============================================================== -->
         <!-- End Topbar header -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
-        {{> navbar}}
+        {{#if tipe}} {{#compare tipe "admin" operator="=="}} {{> navbar}} {{/compare}} {{#compare tipe "psikolog" operator="=="}} {{> navbarpsikolog}} {{/compare}} {{/if}}
         <!-- ============================================================== -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
