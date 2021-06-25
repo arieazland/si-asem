@@ -9,7 +9,7 @@
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
-    {{#if tipe}} {{#compare tipe "admin" operator="=="}} {{> topbar}} {{/compare}} {{#compare tipe "psikolog" operator="=="}} {{> topbarpsikolog}} {{/compare}} {{/if}}
+    {{> preloader}}
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
@@ -17,7 +17,7 @@
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-        {{> topbar}}
+        {{#if tipe}} {{#compare tipe "admin" operator="=="}} {{> topbar}} {{/compare}} {{#compare tipe "psikolog" operator="=="}} {{> topbarpsikolog}} {{/compare}} {{/if}}
         <!-- ============================================================== -->
         <!-- End Topbar header -->
         <!-- ============================================================== -->

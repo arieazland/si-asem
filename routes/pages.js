@@ -1430,7 +1430,7 @@ Router.get('/hasilassessmentprodi', async (req, res, dataputs) => {
                     var acara = res.data;
                     /** render page hasilassessment */
                     res1.render('hasilassessmentprodi', {
-                        username, nama, idu,
+                        username, nama, idu, tipe,
                         dataacara: acara.data
                     })
                 })
