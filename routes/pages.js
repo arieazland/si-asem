@@ -1065,7 +1065,7 @@ Router.get('/kesimpulanassessment', async (req, res, dataputs) => {
                     selectacara: req.session.idacara,
                 }
                 let res1 = res;
-                url =  MAIN_URL + '/kesimpulanassessment';
+                url =  MAIN_URL + '/kesimpulanassessmenthapus';
                 var dataputs = await axios.post(url, params)
                 .then(function (res) {
                     var data = res.data.resultcekmahasiswa;
@@ -1614,16 +1614,6 @@ Router.post('/hasilassessmentprogramstudi', async (req, res, dataputs) => {
     }
 })
 
-
-
-
-
-
-
-
-
-
-
 /** Route for kesimpulan assessment prodi */
 Router.get('/kesimpulanassessmentprodi', async (req, res, dataputs) => {
     if(req.session.loggedIn){
@@ -1637,7 +1627,7 @@ Router.get('/kesimpulanassessmentprodi', async (req, res, dataputs) => {
                     selectacara: req.session.idacara,
                 }
                 let res1 = res;
-                url =  MAIN_URL + '/kesimpulanassessmentprodi';
+                url =  MAIN_URL + '/kesimpulanassessmentprodihapus';
                 var dataputs = await axios.post(url, params)
                 .then(function (res) {
                     var data = res.data.resultcekprodi;

@@ -58,14 +58,14 @@ exports.register = async (req, res, dataputs) => {
 
 exports.edit = async (req, res, dataputs) => {
     try{
-        const { modalidkesimpulan, idacara, idpsikolog, idmahasiswa, modalkesimpulan } = req.body
+        const { modalidkesimpulan, idprodi, idacara, idpsikolog, modalkesimpulan } = req.body
 
-        if( modalidkesimpulan && idacara && idpsikolog && idmahasiswa && modalkesimpulan){
+        if( modalidkesimpulan && idprodi && idacara && idpsikolog && modalkesimpulan){
             params = {
                 idkesimpulan: modalidkesimpulan,
+                idprodi: idprodi,
                 idacara: idacara,
                 idpsikolog: idpsikolog,
-                idmahasiswa: idmahasiswa,
                 kesimpulan: modalkesimpulan
             }
             var res1 = res;
@@ -74,7 +74,7 @@ exports.edit = async (req, res, dataputs) => {
             .then(function (res) {
                 var message = res.data.message;
                 req.session.idacara = res.data.idacara;
-                req.session.idmahasiswa = res.data.idmahasiswa;
+                req.session.idprodi = res.data.idprodi;
                 req.session.sessionFlash2 = {
                     type: 'success',
                     message: message
@@ -109,13 +109,13 @@ exports.edit = async (req, res, dataputs) => {
 
 exports.delete = async (req, res, dataputs) => {
     try{
-        const { modalidkesimpulanhapus, idacara, idmahasiswa } = req.body
+        const { modalidkesimpulanhapus, idacara, idprodi } = req.body
 
-        if( modalidkesimpulanhapus && idacara  && idmahasiswa){
+        if( modalidkesimpulanhapus && idacara  && idprodi){
             params = {
                 idkesimpulan: modalidkesimpulanhapus,
                 idacara: idacara,
-                idmahasiswa: idmahasiswa,
+                idprodi: idprodi,
             }
             var res1 = res;
             url =  MAIN_URL + '/kesimpulanprodi/deleteconc';

@@ -432,6 +432,8 @@
                                         <label for="modalnamaacara" class="control-label">Kesimpulan:</label>
                                         <textarea name="modalkesimpulan" id="modalkesimpulan" rows="10" class="form-control modalkesimpulan"></textarea>
                                         <input type="hidden" class="form-control modalidkesimpulan" id="modalidkesimpulan" name="modalidkesimpulan">
+                                        <input type="hidden" class="form-control idprodi" id="idprodi" name="idprodi" value="{{#each dataprodi}}{{ prodi }}{{/each}}">
+                                        <input type="hidden" class="form-control idacara" id="idacara" name="idacara" value="{{ selectacara }}">
                                         <input type="hidden" class="form-control idpsikolog" id="idpsikolog" name="idpsikolog" value="{{ idu }}">
                                     </div>
                                 </div>
@@ -456,6 +458,8 @@
                                 <div class="modal-body">
                                     <strong>Anda yakin mau menghapus : <label class="font-weight-bold judul"></label>?</strong>
                                     <input type="hidden" class="form-control modalidkesimpulanhapus" id="modalidkesimpulanhapus" name="modalidkesimpulanhapus">
+                                    <input type="hidden" class="form-control idacara" id="idacara" name="idacara" value="{{ selectacara }}">
+                                    <input type="hidden" class="form-control idprodi" id="idprodi" name="idprodi" value="{{#each dataprodi}}{{ prodi }}{{/each}}">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="reset" class="btn btn-warning" data-dismiss="modal">Batal</button>
