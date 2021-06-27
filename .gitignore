@@ -116,3 +116,6 @@ out
 
 # mac file
 *.DS_Store
+
+# url config
+urlconfig.js
