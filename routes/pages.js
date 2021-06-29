@@ -1943,15 +1943,6 @@ Router.post('/kesimpulanassessmentprogramstudi', async (req, res, dataputs) => {
     }
 })
 
-
-
-
-
-
-
-
-
-
 /** Route for cetak kesimpulan assessment mahasiswa*/
 Router.get('/cetakkesimpulanassessment/:acara/:mahasiswa/', async (req, res, dataputs) => {
     if(req.session.loggedIn){
