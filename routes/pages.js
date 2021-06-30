@@ -2021,6 +2021,113 @@ Router.get('/cetakkesimpulanassessment/:acara/:mahasiswa/', async (req, res, dat
     }
 })
 
+/** Route for hasil assessment */
+Router.get('/skorassessment', async (req, res, dataputs) => {
+    if(req.session.loggedIn){
+        idu = req.session.iduser
+        username = req.session.username
+        nama = req.session.nama
+        tipe = req.session.type
+        if(tipe == 'admin' || tipe == 'psikolog'){
+            let res1 = res;
+            url =  MAIN_URL + '/acaralistassessment';
+            dataputs = await axios.get(url)
+            .then(function (res) {
+                var acara = res.data;
+                /** render page hasilassessment */
+                res1.render('skorassessment', {
+                    username, nama, idu, tipe,
+                    dataacara: acara.data
+                })
+            })
+            .catch(function (err) {
+                // console.log(err);
+                var message = err.response.data.message;
+                req.session.sessionFlash = {
+                    type: 'error',
+                    message: message
+                }
+                res1.redirect("/skorassessment");
+            })
+        }
+    } else {
+        /** di redirect ke login */
+        res.redirect("/login");
+    }
+});
+
+Router.post('/skorassessment', async (req, res, dataputs) => {
+    if(req.session.loggedIn){
+        idu = req.session.iduser
+        username = req.session.username
+        nama = req.session.nama
+        tipe = req.session.type
+        fakultas = req.session.fakultas
+        prodi = req.session.prodi
+        if(tipe == 'admin' || tipe == 'psikolog'){
+            const { selectacara } = req.body;
+            if( selectacara ){
+                if(selectacara == "-- Pilih Acara --"){
+                    req.session.sessionFlash = {
+                        type: 'error',
+                        message: 'Harap pilih acara terlebih dahulu!'
+                    }
+                    res.redirect("/skorassessment");
+                } else {
+                    /** get data acara berdasarkan id yang di pilih */
+                    params = {
+                        selectacara: selectacara,
+                    }
+                    let res1 = res;
+                    url =  MAIN_URL + '/skorassessment';
+                    var dataputs = await axios.post(url, params)
+                    .then(function (res) {
+                        var selectacara = res.data.selectacara;
+                        var dataacara = res.data.dataacara;
+                        var part1 = res.data.part1;
+                        var part2 = res.data.part2;
+                        var part3 = res.data.part3;
+                        var part4 = res.data.part4;
+                        var part5 = res.data.part5;
+                        res1.render('skorassessment', {
+                            idu, username, nama, tipe,
+                            part1, part2, part3, part4, part5,
+                            selectacara,
+                            dataacara,
+                        })
+                    })
+                    .catch(function (err) {
+                        // console.log(err.response.data)
+                        var message = err.response.data.message;
+                        req.session.sessionFlash = {
+                            type: 'error',
+                            message: message
+                        }
+                        res1.redirect("/skorassessment");
+                    })
+                }
+            } else {
+                /** field id acara kosong */
+                req.session.sessionFlash = {
+                    type: 'error',
+                    message: 'Field tidak boleh kosong'
+                }
+                res.redirect("/skorassessment");
+            }
+        } else {
+            /** di redirect ke login dengan status unauthorized */
+            req.session.sessionFlash = {
+                type: 'error',
+                message: 'Un-Authorized'
+            }
+            res.redirect("/login");
+        }
+    } else {
+        /** di redirect ke login */
+        res.redirect("/login");
+    }
+})
+
 /** Route for logout */
 Router.get('/logout', (req, res) =>{
     req.session.destroy((err) => {
