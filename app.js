@@ -121,7 +121,7 @@ app.use('/assessment', require('./routes/assessment'));
 app.use('/kesimpulan', require('./routes/kesimpulan'));
 app.use('/kesimpulanprodi', require('./routes/kesimpulanprodi'));
 
-let port = 5026 || 8080;
+let port = 5026;
 app.listen(port, () => {
     console.log(`Server running on port: ${port}`);
 });
