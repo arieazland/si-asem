@@ -1,9 +1,9 @@
 const Mysql = require("mysql");
 const Path = require("path");
-const Dotenv = require("dotenv");
-const Bcrypt = require('bcrypt');
 const axios = require('axios');
-const MAIN_URL = require ("../urlconfig.js");
+const Dotenv = require("dotenv");
+Dotenv.config({ path: './.env' });
+// process.env.MAIN_URL
 
 /** insert assessment process */
 exports.registerSatu = async (req, res, dataputs) => {
@@ -17,7 +17,7 @@ exports.registerSatu = async (req, res, dataputs) => {
                 idacara : idacara, iduser : iduser, idsoal : idsoal, radio : radio
             }
             var res1 = res;
-            url =  MAIN_URL + '/assessment/registrasijawaban';
+            url =  process.env.MAIN_URL + '/assessment/registrasijawaban';
             var dataputs = await axios.post(url, params)
             .then(function (res) {
                 var message = res.data.message;
@@ -65,7 +65,7 @@ exports.registerDua = async (req, res, dataputs) => {
                 idacara : idacara, iduser : iduser, idsoal : idsoal, radio : radio
             }
             var res1 = res;
-            url =  MAIN_URL + '/assessment/registrasijawaban';
+            url =  process.env.MAIN_URL + '/assessment/registrasijawaban';
             var dataputs = await axios.post(url, params)
             .then(function (res) {
                 var message = res.data.message;
@@ -113,7 +113,7 @@ exports.registerTiga = async (req, res, dataputs) => {
                 idacara : idacara, iduser : iduser, idsoal : idsoal, radio : radio
             }
             var res1 = res;
-            url =  MAIN_URL + '/assessment/registrasijawaban';
+            url =  process.env.MAIN_URL + '/assessment/registrasijawaban';
             var dataputs = await axios.post(url, params)
             .then(function (res) {
                 var message = res.data.message;
@@ -161,7 +161,7 @@ exports.registerEmpat = async (req, res, dataputs) => {
                 idacara : idacara, iduser : iduser, idsoal : idsoal, radio : radio
             }
             var res1 = res;
-            url =  MAIN_URL + '/assessment/registrasijawaban';
+            url =  process.env.MAIN_URL + '/assessment/registrasijawaban';
             var dataputs = await axios.post(url, params)
             .then(function (res) {
                 var message = res.data.message;
@@ -209,7 +209,7 @@ exports.registerLima = async (req, res, dataputs) => {
                 idacara : idacara, iduser : iduser, idsoal : idsoal, radio : radio
             }
             var res1 = res;
-            url =  MAIN_URL + '/assessment/registrasijawaban';
+            url =  process.env.MAIN_URL + '/assessment/registrasijawaban';
             var dataputs = await axios.post(url, params)
             .then(function (res) {
                 var message = res.data.message;

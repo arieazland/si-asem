@@ -1,8 +1,10 @@
 const Express = require("express");
 const axios = require('axios');
 const Router = Express.Router();
-const MAIN_URL = require ("../urlconfig.js");
 const Moment = require("moment");
+const Dotenv = require("dotenv");
+Dotenv.config({ path: './.env' });
+// process.env.MAIN_URL
 
 require("moment/locale/id");  // without this line it didn't work
 Moment.locale('id');
@@ -63,7 +65,7 @@ Router.get('/users', async (req, res, dataputs) => {
         tipe = req.session.type
         if(tipe == 'admin'){
             let res1 = res;
-            url =  MAIN_URL + '/userlist';
+            url =  process.env.MAIN_URL + '/userlist';
             dataputs = await axios.get(url)
             .then(function (res) {
                 var users = res.data;
@@ -105,7 +107,7 @@ Router.get('/acara', async (req, res, dataputs) => {
         tipe = req.session.type
         if(tipe == 'admin'){
             let res1 = res;
-            url =  MAIN_URL + '/acaralist';
+            url =  process.env.MAIN_URL + '/acaralist';
             dataputs = await axios.get(url)
             .then(function (res) {
                 var acara = res.data;
@@ -152,7 +154,7 @@ Router.get('/partisipan', async (req, res, dataputs) => {
                     selectacara: req.session.idacara,
                 }
                 let res1 = res;
-                url =  MAIN_URL + '/partisipant';
+                url =  process.env.MAIN_URL + '/partisipant';
                 var dataputs = await axios.post(url, params)
                 .then(function (res) {
                     var message = res.data.message;
@@ -187,7 +189,7 @@ Router.get('/partisipan', async (req, res, dataputs) => {
                 })
             } else {
                 let res1 = res;
-                url =  MAIN_URL + '/acaralist';
+                url =  process.env.MAIN_URL + '/acaralist';
                 dataputs = await axios.get(url)
                 .then(function (res) {
                     var acara = res.data;
@@ -243,7 +245,7 @@ Router.post('/partisipan', async (req, res, dataputs) => {
                         selectacara: selectacara,
                     }
                     let res1 = res;
-                    url =  MAIN_URL + '/partisipant';
+                    url =  process.env.MAIN_URL + '/partisipant';
                     var dataputs = await axios.post(url, params)
                     .then(function (res) {
                         var partisipant = res.data.results;
@@ -294,7 +296,7 @@ Router.get('/part', async (req, res, dataputs) => {
         tipe = req.session.type
         if(tipe == 'admin' || tipe == 'psikolog'){
             let res1 = res;
-            url =  MAIN_URL + '/partlist';
+            url =  process.env.MAIN_URL + '/partlist';
             dataputs = await axios.get(url)
             .then(function (res) {
                 var part = res.data;
@@ -341,7 +343,7 @@ Router.get('/aspek', async (req, res) =>{
                     selectpart: req.session.idpart,
                 }
                 let res1 = res;
-                url =  MAIN_URL + '/listaspek';
+                url =  process.env.MAIN_URL + '/listaspek';
                 var dataputs = await axios.post(url, params)
                 .then(function (res) {
                     var message = res.data.message;
@@ -374,7 +376,7 @@ Router.get('/aspek', async (req, res) =>{
                 })
             } else {
                 let res1 = res;
-                url =  MAIN_URL + '/partlist';
+                url =  process.env.MAIN_URL + '/partlist';
                 dataputs = await axios.get(url)
                 .then(function (res) {
                     var part = res.data;
@@ -433,7 +435,7 @@ Router.post('/aspek', async (req, res) => {
                             selectpart: selectpart,
                         }
                         let res1 = res;
-                        url =  MAIN_URL + '/listaspek';
+                        url =  process.env.MAIN_URL + '/listaspek';
                         var dataputs = await axios.post(url, params)
                         .then(function (res) {
                             var aspek = res.data.results;
@@ -502,7 +504,7 @@ Router.get('/soal', async (req, res) =>{
                     selectaspek: req.session.idaspek,
                 }
                 let res1 = res;
-                url =  MAIN_URL + '/listsoal';
+                url =  process.env.MAIN_URL + '/listsoal';
                 var dataputs = await axios.post(url, params)
                 .then(function (res) {
                     var message = res.data.message;
@@ -535,7 +537,7 @@ Router.get('/soal', async (req, res) =>{
                 })
             } else {
                 let res1 = res;
-                url =  MAIN_URL + '/listaspekall';
+                url =  process.env.MAIN_URL + '/listaspekall';
                 dataputs = await axios.get(url)
                 .then(function (res) {
                     var aspek = res.data;
@@ -592,7 +594,7 @@ Router.post('/soal', async (req, res) => {
                             selectaspek: selectaspek,
                         }
                         let res1 = res;
-                        url =  MAIN_URL + '/listsoal';
+                        url =  process.env.MAIN_URL + '/listsoal';
                         var dataputs = await axios.post(url, params)
                         .then(function (res) {
                             var soal = res.data.results;
@@ -669,7 +671,7 @@ Router.get('/assessmentmahasiswa', async (req, res, dataputs) => {
                     idu: idu,
                 }
                 let res1 = res;
-                url =  MAIN_URL + '/listpertanyaan';
+                url =  process.env.MAIN_URL + '/listpertanyaan';
                 var dataputs = await axios.post(url, params)
                 .then(function (res) {
                     var data = res.data.results;
@@ -701,7 +703,7 @@ Router.get('/assessmentmahasiswa', async (req, res, dataputs) => {
                 })
             } else {
                 let res1 = res;
-                url =  MAIN_URL + '/acaralistmahasiswa';
+                url =  process.env.MAIN_URL + '/acaralistmahasiswa';
                 dataputs = await axios.get(url)
                 .then(function (res) {
                     var acara = res.data;
@@ -764,7 +766,7 @@ Router.post('/assessmentmahasiswa', async (req, res, dataputs) => {
                         idu: idu,
                     }
                     let res1 = res;
-                    url =  MAIN_URL + '/listpertanyaan';
+                    url =  process.env.MAIN_URL + '/listpertanyaan';
                     var dataputs = await axios.post(url, params)
                     .then(function (res) {
                         var data = res.data.results;
@@ -829,7 +831,7 @@ Router.get('/hasilassessment', async (req, res, dataputs) => {
                     selectacara: req.session.idacara,
                 }
                 let res1 = res;
-                url =  MAIN_URL + '/hasilassessment';
+                url =  process.env.MAIN_URL + '/hasilassessment';
                 var dataputs = await axios.post(url, params)
                 .then(function (res) {
                     var data = res.data.resultcekmahasiswa;
@@ -862,7 +864,7 @@ Router.get('/hasilassessment', async (req, res, dataputs) => {
 
             } else {
                 let res1 = res;
-                url =  MAIN_URL + '/acaralistassessment';
+                url =  process.env.MAIN_URL + '/acaralistassessment';
                 dataputs = await axios.get(url)
                 .then(function (res) {
                     var acara = res.data;
@@ -919,7 +921,7 @@ Router.post('/hasilassessment', async (req, res, dataputs) => {
                         selectacara: selectacara,
                     }
                     let res1 = res;
-                    url =  MAIN_URL + '/hasilassessment';
+                    url =  process.env.MAIN_URL + '/hasilassessment';
                     var dataputs = await axios.post(url, params)
                     .then(function (res) {
                         var data = res.data.resultcekmahasiswa;
@@ -995,7 +997,7 @@ Router.post('/hasilassessmentmahasiswa', async (req, res, dataputs) => {
                         selectmahasiswa: selectmahasiswa
                     }
                     let res1 = res;
-                    url =  MAIN_URL + '/hasilassessmentmahasiswa';
+                    url =  process.env.MAIN_URL + '/hasilassessmentmahasiswa';
                     var dataputs = await axios.post(url, params)
                     .then(function (res) {
                         var part1 = res.data.part1;
@@ -1069,7 +1071,7 @@ Router.get('/kesimpulanassessment', async (req, res, dataputs) => {
                     selectacara: req.session.idacara,
                 }
                 let res1 = res;
-                url =  MAIN_URL + '/kesimpulanassessmenthapus';
+                url =  process.env.MAIN_URL + '/kesimpulanassessmenthapus';
                 var dataputs = await axios.post(url, params)
                 .then(function (res) {
                     var data = res.data.resultcekmahasiswa;
@@ -1100,7 +1102,7 @@ Router.get('/kesimpulanassessment', async (req, res, dataputs) => {
                 })
             } else {
                 let res1 = res;
-                url =  MAIN_URL + '/acaralistassessment';
+                url =  process.env.MAIN_URL + '/acaralistassessment';
                 dataputs = await axios.get(url)
                 .then(function (res) {
                     var acara = res.data;
@@ -1157,7 +1159,7 @@ Router.post('/kesimpulanassessment', async (req, res, dataputs) => {
                         selectacara: selectacara,
                     }
                     let res1 = res;
-                    url =  MAIN_URL + '/kesimpulanassessment';
+                    url =  process.env.MAIN_URL + '/kesimpulanassessment';
                     var dataputs = await axios.post(url, params)
                     .then(function (res) {
                         var data = res.data.resultcekmahasiswa;
@@ -1225,7 +1227,7 @@ Router.get('/kesimpulanassessmentmahasiswa', async (req, res, dataputs) => {
                     selectmahasiswa: req.session.idmahasiswa
                 }
                 let res1 = res;
-                url =  MAIN_URL + '/kesimpulanassessmentmahasiswa';
+                url =  process.env.MAIN_URL + '/kesimpulanassessmentmahasiswa';
                 var dataputs = await axios.post(url, params)
                 .then(function (res) {
                     var part1 = res.data.part1;
@@ -1317,7 +1319,7 @@ Router.post('/kesimpulanassessmentmahasiswa', async (req, res, dataputs) => {
                         selectmahasiswa: selectmahasiswa
                     }
                     let res1 = res;
-                    url =  MAIN_URL + '/kesimpulanassessmentmahasiswa';
+                    url =  process.env.MAIN_URL + '/kesimpulanassessmentmahasiswa';
                     var dataputs = await axios.post(url, params)
                     .then(function (res) {
                         var part1 = res.data.part1;
@@ -1393,7 +1395,7 @@ Router.get('/hasilassessmentprodi', async (req, res, dataputs) => {
                     selectacara: req.session.idacara,
                 }
                 let res1 = res;
-                url =  MAIN_URL + '/hasilassessmentprodi';
+                url =  process.env.MAIN_URL + '/hasilassessmentprodi';
                 var dataputs = await axios.post(url, params)
                 .then(function (res) {
                     var data = res.data.resultcekprodi;
@@ -1424,7 +1426,7 @@ Router.get('/hasilassessmentprodi', async (req, res, dataputs) => {
                 })
             } else {
                 let res1 = res;
-                url =  MAIN_URL + '/acaralistassessment';
+                url =  process.env.MAIN_URL + '/acaralistassessment';
                 dataputs = await axios.get(url)
                 .then(function (res) {
                     var acara = res.data;
@@ -1481,7 +1483,7 @@ Router.post('/hasilassessmentprodi', async (req, res, dataputs) => {
                         selectacara: selectacara,
                     }
                     let res1 = res;
-                    url =  MAIN_URL + '/hasilassessmentprodi';
+                    url =  process.env.MAIN_URL + '/hasilassessmentprodi';
                     var dataputs = await axios.post(url, params)
                     .then(function (res) {
                         var data = res.data.resultcekprodi;
@@ -1557,7 +1559,7 @@ Router.post('/hasilassessmentprogramstudi', async (req, res, dataputs) => {
                         selectprodi: selectprodi
                     }
                     let res1 = res;
-                    url =  MAIN_URL + '/hasilassessmentprogramstudi';
+                    url =  process.env.MAIN_URL + '/hasilassessmentprogramstudi';
                     var dataputs = await axios.post(url, params)
                     .then(function (res) {
                         var part1 = res.data.part1;
@@ -1631,7 +1633,7 @@ Router.get('/kesimpulanassessmentprodi', async (req, res, dataputs) => {
                     selectacara: req.session.idacara,
                 }
                 let res1 = res;
-                url =  MAIN_URL + '/kesimpulanassessmentprodihapus';
+                url =  process.env.MAIN_URL + '/kesimpulanassessmentprodihapus';
                 var dataputs = await axios.post(url, params)
                 .then(function (res) {
                     var data = res.data.resultcekprodi;
@@ -1662,7 +1664,7 @@ Router.get('/kesimpulanassessmentprodi', async (req, res, dataputs) => {
                 })
             } else {
                 let res1 = res;
-                url =  MAIN_URL + '/acaralistassessment';
+                url =  process.env.MAIN_URL + '/acaralistassessment';
                 dataputs = await axios.get(url)
                 .then(function (res) {
                     var acara = res.data;
@@ -1719,7 +1721,7 @@ Router.post('/kesimpulanassessmentprodi', async (req, res, dataputs) => {
                         selectacara: selectacara,
                     }
                     let res1 = res;
-                    url =  MAIN_URL + '/kesimpulanassessmentprodi';
+                    url =  process.env.MAIN_URL + '/kesimpulanassessmentprodi';
                     var dataputs = await axios.post(url, params)
                     .then(function (res) {
                         var data = res.data.resultcekprodi;
@@ -1787,7 +1789,7 @@ Router.get('/kesimpulanassessmentprogramstudi', async (req, res, dataputs) => {
                     selectprodi: req.session.idprodi
                 }
                 let res1 = res;
-                url =  MAIN_URL + '/kesimpulanassessmentprogramstudi';
+                url =  process.env.MAIN_URL + '/kesimpulanassessmentprogramstudi';
                 var dataputs = await axios.post(url, params)
                 .then(function (res) {
                     var part1 = res.data.part1;
@@ -1879,7 +1881,7 @@ Router.post('/kesimpulanassessmentprogramstudi', async (req, res, dataputs) => {
                         selectprodi: selectprodi
                     }
                     let res1 = res;
-                    url =  MAIN_URL + '/kesimpulanassessmentprogramstudi';
+                    url =  process.env.MAIN_URL + '/kesimpulanassessmentprogramstudi';
                     var dataputs = await axios.post(url, params)
                     .then(function (res) {
                         var part1 = res.data.part1;
@@ -1960,7 +1962,7 @@ Router.get('/cetakkesimpulanassessment/:acara/:mahasiswa/', async (req, res, dat
                     selectmahasiswa: req.params.mahasiswa
                 }
                 let res1 = res;
-                url =  MAIN_URL + '/kesimpulanassessmentmahasiswa';
+                url =  process.env.MAIN_URL + '/kesimpulanassessmentmahasiswa';
                 var dataputs = await axios.post(url, params)
                 .then(function (res) {
                     var part1 = res.data.part1;
@@ -2030,7 +2032,7 @@ Router.get('/skorassessment', async (req, res, dataputs) => {
         tipe = req.session.type
         if(tipe == 'admin' || tipe == 'psikolog'){
             let res1 = res;
-            url =  MAIN_URL + '/acaralistassessment';
+            url =  process.env.MAIN_URL + '/acaralistassessment';
             dataputs = await axios.get(url)
             .then(function (res) {
                 var acara = res.data;
@@ -2079,7 +2081,7 @@ Router.post('/skorassessment', async (req, res, dataputs) => {
                         selectacara: selectacara,
                     }
                     let res1 = res;
-                    url =  MAIN_URL + '/skorassessment';
+                    url =  process.env.MAIN_URL + '/skorassessment';
                     var dataputs = await axios.post(url, params)
                     .then(function (res) {
                         var selectacara = res.data.selectacara;

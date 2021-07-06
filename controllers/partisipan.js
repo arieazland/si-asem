@@ -1,9 +1,9 @@
 const Mysql = require("mysql");
 const Path = require("path");
-const Dotenv = require("dotenv");
-const Bcrypt = require('bcrypt');
 const axios = require('axios');
-const MAIN_URL = require ("../urlconfig.js");
+const Dotenv = require("dotenv");
+Dotenv.config({ path: './.env' });
+// process.env.MAIN_URL
 
 /** insert partisipan process */
 exports.register = async (req, res, dataputs) => {
@@ -16,7 +16,7 @@ exports.register = async (req, res, dataputs) => {
                 idacara: selectacara
             }
             var res1 = res;
-            url = MAIN_URL + '/partisipant/regpartisipant';
+            url = process.env.MAIN_URL + '/partisipant/regpartisipant';
             var dataputs = await axios.post(url, params)
             .then(function(res) {
                 var message = res.data.message;
@@ -75,7 +75,7 @@ exports.delete = async (req, res, dataputs) => {
                 idacara: selectacara
             }
             var res1 = res;
-            url = MAIN_URL + '/partisipant/deletepartisipant';
+            url = process.env.MAIN_URL + '/partisipant/deletepartisipant';
             var dataputs = await axios.put(url, params)
             .then(function(res) {
                 var message = res.data.message;

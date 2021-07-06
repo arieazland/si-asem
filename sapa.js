@@ -1,15 +1,13 @@
 const Express = require("express");
-// const Mysql = require("mysql");
-// const Bcrypt = require("bcrypt");
 const Path = require("path");
-// const Dotenv = require("dotenv");
 const Hbs = require("hbs");
 // Set Moment Format engine
 const Moment = require("moment");
 require("moment/locale/id");  // without this line it didn't work
 Moment.locale('id');
-
 const app = Express();
+const Dotenv = require("dotenv");
+Dotenv.config({ path: './.env' });
 
 var session = require("express-session");
 app.use(session({
@@ -32,9 +30,6 @@ app.use(function(req, res, next){
         delete req.session.sessionFlash2;
         next();
     });
-
-// Dotenv.config({ path: './.env' });
-// const Connection = require ("./DBConnection");
 
 // Set Engine
 const publicDirectory = Path.join(__dirname, './public' );
@@ -121,7 +116,7 @@ app.use('/assessment', require('./routes/assessment'));
 app.use('/kesimpulan', require('./routes/kesimpulan'));
 app.use('/kesimpulanprodi', require('./routes/kesimpulanprodi'));
 
-let port = 5026;
+let port = process.env.PORT || 6210;
 app.listen(port, () => {
     console.log(`Server running on port: ${port}`);
 });

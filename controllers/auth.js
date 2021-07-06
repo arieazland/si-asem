@@ -1,9 +1,9 @@
 const Mysql = require("mysql");
 const Path = require("path");
-const Dotenv = require("dotenv");
-const Bcrypt = require('bcrypt');
 const axios = require('axios');
-const MAIN_URL = require ("../urlconfig.js");
+const Dotenv = require("dotenv");
+Dotenv.config({ path: './.env' });
+// process.env.MAIN_URL
 
 /** Login Process */
 exports.login = async (req, res, dataputs) => {
@@ -16,7 +16,7 @@ exports.login = async (req, res, dataputs) => {
                 password: password
               }
             var res1 = res;
-            url =  MAIN_URL + '/auth/login';
+            url =  process.env.MAIN_URL + '/auth/login';
             var dataputs = await axios.post(url, params)
             .then(function (res) {
                 // var message = res.data.message;
@@ -87,7 +87,7 @@ exports.register = async (req, res, dataputs) => {
                         tipeakun: tipeakun
                       }
                     var res1 = res;
-                    url =  MAIN_URL + '/auth/reg'+tipeakun;
+                    url =  process.env.MAIN_URL + '/auth/reg'+tipeakun;
                     var dataputs = await axios.post(url, params)
                     .then(function (res) {
                         var message = res.data.message;
@@ -173,7 +173,7 @@ exports.regMahasiswa = async (req, res, dataputs) => {
                             password2: password2,
                         }
                         // var res2 = res;
-                        url =  MAIN_URL + '/auth/regmahasiswa';
+                        url =  process.env.MAIN_URL + '/auth/regmahasiswa';
                         var dataputs = axios.post(url, params)
                         .then(function(res){
                             var message = res.data.message;
@@ -262,7 +262,7 @@ exports.edit = async (req, res, dataputs) => {
                     tipe: modaltipe
                 }
                 var res1 = res;
-                url =  MAIN_URL + '/auth/edituser';
+                url =  process.env.MAIN_URL + '/auth/edituser';
                 var dataputs = await axios.put(url, params)
                     .then(function (res) {
                         var message = res.data.message;
@@ -306,7 +306,7 @@ exports.delete = async (req, res, dataputs) => {
                 id: modalidhapus
             }
             var res1 = res;
-            url =  MAIN_URL + '/auth/deleteuser';
+            url =  process.env.MAIN_URL + '/auth/deleteuser';
             var dataputs = await axios.put(url, params)
                 .then(function (res) {
                     var message = res.data.message

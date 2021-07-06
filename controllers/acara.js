@@ -1,9 +1,9 @@
 const Mysql = require("mysql");
 const Path = require("path");
-const Dotenv = require("dotenv");
-const Bcrypt = require('bcrypt');
 const axios = require('axios');
-const MAIN_URL = require ("../urlconfig.js");
+const Dotenv = require("dotenv");
+Dotenv.config({ path: './.env' });
+// process.env.MAIN_URL
 
 /** insert acara process */
 exports.register = async (req, res, dataputs) => {
@@ -19,7 +19,7 @@ exports.register = async (req, res, dataputs) => {
                     statusacara: status
                     }
                 var res1 = res;
-                url =  MAIN_URL + '/acara/regacara';
+                url =  process.env.MAIN_URL + '/acara/regacara';
                 var dataputs = await axios.post(url, params)
                 .then(function (res) {
                     var message = res.data.message;
@@ -84,7 +84,7 @@ exports.edit = async (req, res, dataputs) => {
                     statusacara: modalstatusacara
                     }
                 var res1 = res;
-                url =  MAIN_URL + '/acara/editacara';
+                url =  process.env.MAIN_URL + '/acara/editacara';
                 var dataputs = await axios.put(url, params)
                 .then(function (res) {
                     var message = res.data.message;
@@ -144,7 +144,7 @@ exports.delete = async (req, res, dataputs) => {
                 id: modalidacarahapus
                 }
             var res1 = res;
-            url =  MAIN_URL + '/acara/deleteacara';
+            url =  process.env.MAIN_URL + '/acara/deleteacara';
             var dataputs = await axios.put(url, params)
             .then(function (res) {
                 var message = res.data.message;

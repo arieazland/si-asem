@@ -1,11 +1,11 @@
 {
-  "name": "si-asem",
+  "name": "sapa",
   "version": "1.0.0",
   "description": "*Contributors*  :  1. M. Ridwan Zalbina 2. Firly",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "nodemon sapa.js"
   },
   "repository": {
     "type": "git",
