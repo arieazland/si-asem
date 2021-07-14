@@ -30,4 +30,11 @@ $(document).ready(function(){
         $('.modalidhapus').val(id);
         $('.judul').text(nama);
     });
+
+    //tampilkan modal users reset password
+    $('#listUsers').on('click','.reset',function(){
+        var id = $(this).data('id');
+        $('#modalResetpassword').modal('show');
+        $('.peserta').val(id);
+    });
 });

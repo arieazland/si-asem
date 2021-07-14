@@ -132,6 +132,10 @@
                                                     
                                                     <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn delete" data-toggle="tooltip" data-original-title="Hapus" data-id="{{ id }}" data-nama="{{ unama }}"><i class="fa fa-trash" aria-hidden="true"></i></button></a>
                                                     {{/compare}}
+
+                                                    {{#compare utipe 'mahasiswa' operator="=="}}
+                                                    <a href="javascript:void(0);" class=""><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn reset" data-toggle="tooltip" data-original-title="Reset Password" data-id="{{ id }}" ><i class="fa  fa-key" aria-hidden="true"></i></button></a>
+                                                    {{/compare}}
                                                 </td>
                                                 <td>{{ unim }}</td>
                                                 <td>{{ uname }}</td>
@@ -236,6 +240,35 @@
                     </div>
                 </form>
                 <!-- end of modal delete users -->
+                <!-- start of modal reset password -->
+                <form action="/auth/adminresetpassword" method="post">
+                    <div class="modal fade" id="modalResetpassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="exampleModalLabel1">Reset Password</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="password" class="control-label">Password:</label>
+                                        <input type="password" class="form-control password" id="password" name="password">
+                                        <input type="hidden" class="form-control peserta" id="peserta" name="peserta">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password2" class="control-label">Password Konfirmasi:</label>
+                                        <input type="password" class="form-control password2" id="password2" name="password2">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="reset" class="btn btn-warning" data-dismiss="modal">Batal</button>
+                                    <button type="submit" class="btn btn-danger">Reset Password</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- end of modal reset password -->
                 {{!-- start of row --}}
                 <div class="row">
                     <div class="col-lg-12">

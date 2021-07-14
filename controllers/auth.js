@@ -369,7 +369,6 @@ exports.resetPass = async (req, res, dataputs) => {
                         message: message
                     }
                     res1.redirect("/login");
-                    console.log("error disni 1");
                 })
         } else {
             req.session.sessionFlash = {
@@ -384,5 +383,50 @@ exports.resetPass = async (req, res, dataputs) => {
             message: error
         }
         res.redirect("/login");
+    }
+}
+
+exports.adminresetPass = async (req, res) => {
+    try{
+        const { password, password2, peserta } = req.body;
+
+        if(password && password2 && peserta){
+            params = {
+                id: peserta,
+                password: password,
+                password2: password2
+            }
+            var res1 = res;
+            url =  process.env.MAIN_URL + '/auth/adminresetpass';
+            var dataputs = await axios.put(url, params)
+                .then(function (res) {
+                    var message = res.data.message
+                    req.session.sessionFlash2 = {
+                        type: 'success',
+                        message: message
+                    }
+                    res1.redirect('/users');
+                })
+                .catch(function (err) {
+                    var message = err.response.data.message;
+                    req.session.sessionFlash = {
+                        type: 'error',
+                        message: message
+                    }
+                    res1.redirect("/users");
+                })
+        } else {
+            req.session.sessionFlash = {
+                type: 'error',
+                message: 'Field tidak boleh kosong!'
+            }
+            res.redirect("/users");
+        }
+    } catch(err){
+        req.session.sessionFlash = {
+            type: 'error',
+            message: error
+        }
+        res.redirect("/users");
     }
 }
