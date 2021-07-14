@@ -36,13 +36,13 @@ File: scss
 /*Top bar
 *******************/
 .topbar {
-  background: #0178bc;
+  background: #088940 /**#0178bc*/;
   /* Old browsers */
-  background: -moz-linear-gradient(left, #318f94 0%, #5ec58c 100%);
+  background: -moz-linear-gradient(left, #088940 /**#318f94*/ 0%, #5ec58c 100%);
   /* FF3.6-15 */
-  background: -webkit-linear-gradient(left, #318f94 0%, #5ec58c 100%);
+  background: -webkit-linear-gradient(left, #088940 /**#318f94*/ 0%, #5ec58c 100%);
   /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to right, #318f94 0%, #5ec58c 100%);
+  background: linear-gradient(to right, #088940 /**#318f94*/ 0%, #5ec58c 100%);
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
@@ -141,7 +141,7 @@ a.link:hover, a.link:focus {
 .btn-themecolor.active, .btn-themecolor:focus,
 .btn-themecolor.disabled.active,
 .btn-themecolor.disabled:focus {
-  background: #028ee1;
+  background: #088940 /**#028ee1*/;
 }
 
 /*******************

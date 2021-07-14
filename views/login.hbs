@@ -17,7 +17,7 @@
   <div class="login-box card">
     <div class="card-block">
       <form class="form-horizontal form-material" id="loginform" action="/auth/login" method="POST">
-        <a href="javascript:void(0)" class="text-center db"><img src="/images/favicon2.png" alt="Home" /><br/><img src="/images/logo_ecare2.png" alt="Home" /></a>
+        <a href="javascript:void(0)" class="text-center db"><img src="/images/logo_sapa.png" alt="Home" /><br/><img src="/images/text_sapa.png" alt="Home" /></a>
         {{!-- Start of Notifikasi --}}
         {{#if sessionFlash.message}}
             <br>
@@ -70,7 +70,7 @@
           </div>
         </div>
       </form>
-      <form class="form-horizontal" id="recoverform" action="">
+      <form class="form-horizontal" id="recoverform" method="POST" action="/lupapassword">
         <div class="form-group ">
           <div class="col-xs-12">
             <h3>Recover Password</h3>
@@ -79,7 +79,7 @@
         </div>
         <div class="form-group ">
           <div class="col-xs-12">
-            <input class="form-control" type="text" required="" placeholder="Email">
+            <input class="form-control" id="emailfrgtpass" name="emailfrgtpass" type="text" required="" placeholder="Email">
           </div>
         </div>
         <div class="form-group text-center m-t-20">

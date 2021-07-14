@@ -12,7 +12,7 @@ function Table(idtable){
             {
                 extend: 'copy',
                 text: 'Copy',
-                className: '',
+                // className: "btn btn-success",
                 exportOptions: {
                     columns: ':not(.notexport)',
                     //columns: 'th:not(:last-child)'
@@ -21,7 +21,7 @@ function Table(idtable){
             {
                 extend: 'excel',
                 text: 'Excel',
-                className: '',
+                // className: '',
                 exportOptions: {
                     columns: ':not(.notexport)',
                     //columns: 'th:not(:last-child)'

@@ -2,12 +2,26 @@ const Express = require("express");
 const axios = require('axios');
 const Router = Express.Router();
 const Moment = require("moment");
+const nodemailer = require('nodemailer');
 const Dotenv = require("dotenv");
 Dotenv.config({ path: './.env' });
 // process.env.MAIN_URL
 
 require("moment/locale/id");  // without this line it didn't work
 Moment.locale('id');
+
+/** set up mail sender */
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        type: 'OAuth2',
+        user: process.env.MAIL_USERNAME,
+        pass: process.env.MAIL_PASSWORD,
+        clientId: process.env.OAUTH_CLIENTID,
+        clientSecret: process.env.OAUTH_CLIENT_SECRET,
+        refreshToken: process.env.OAUTH_REFRESH_TOKEN
+    }
+});
 
 /** Route for Login */
 Router.get('/login', (req, res) => {
@@ -2126,6 +2140,82 @@ Router.post('/skorassessment', async (req, res, dataputs) => {
         }
     } else {
         /** di redirect ke login */
+        res.redirect("/login");
+    }
+})
+
+/** Route for lupa password */
+Router.post('/lupapassword', async (req, res) => {
+    const { emailfrgtpass } = req.body;
+
+    if(emailfrgtpass){
+        /** get data user berdasarkan email yang di input */
+        params = {
+            email: emailfrgtpass,
+        }
+        let res1 = res;
+        url =  process.env.MAIN_URL + '/lupapassword';
+        var dataputs = await axios.post(url, params)
+        .then(function (res) {
+            email = res.data.results[0].email;
+            peserta = res.data.results[0].id;
+            /** sent email ke peserta */
+            let mailOptions = {
+                from: 'arieazlandfirly@gmail.com',
+                to: 'arieazland@gmail.com',
+                subject: 'Sapa reset Password',
+                html: '<p>Hi, untuk mereset password anda, silahkan klik <a href="http://localhost:6200/resetpassword/'+peserta+'">disni</a> </p>'
+            };
+            
+            transporter.sendMail(mailOptions, function(err, data) {
+                if (err) {
+                    console.log("Error " + err);
+                } else {
+                    console.log("Email sent successfully");
+                }
+            });
+            /** end sent email ke peserta */
+
+
+            req.session.sessionFlash2 = {
+                type: 'success',
+                message: 'Jika email yang digunakan terdaftar, silahkan cek email anda dan ikuti instruksinya'
+            }
+            res1.redirect("/login");
+        })
+        .catch(function (err) {
+            console.log(err.response)
+            var message = err.response.data.message;
+            req.session.sessionFlash = {
+                type: 'error',
+                message: message
+            }
+            res1.redirect("/login");
+        })
+    } else {
+        /** Field kosong */
+        req.session.sessionFlash = {
+            type: 'error',
+            message: 'Email tidak boleh kosong'
+        }
+        res.redirect("/login");
+    }
+})
+
+/** Route for reset password */
+Router.get('/resetpassword/:id', async (req, res) => {
+    var idpeserta = req.params.id;
+
+    if(idpeserta){
+        res.render('resetpass', {
+            idpeserta
+        })
+    } else {
+        /** Field kosong */
+        req.session.sessionFlash = {
+            type: 'error',
+            message: 'id peserta tidak boleh kosong'
+        }
         res.redirect("/login");
     }
 })
