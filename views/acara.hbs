@@ -193,7 +193,7 @@
                         <div class="card">
                             <div class="card-block">
                                 {{!-- start of form tambah data acara --}}
-                                <form action="/acara/register" method="POST">
+                                <form id="tambahacara" action="/acara/register" method="POST">
                                     <div class="form-body">
                                         <h4 class="card-title">Form Input Data Acara</h4>
                                         <hr>
@@ -239,8 +239,8 @@
                                     </div>
                                     <hr>
                                     <div class="form-actions text-right">
-                                        <button type="submit" class="btn btn-block btn-outline-success"> <i class="fa fa-check"></i> Simpan</button>
-                                        <button type="reset" class="btn btn-block btn-outline-warning">Batal</button>
+                                        <button type="submit" id="sumbittambahacara" class="btn btn-block btn-outline-success"> <i class="fa fa-check"></i> Simpan</button>
+                                        <button type="reset" id="resettambahacara" class="btn btn-block btn-outline-warning">Batal</button>
                                     </div>
                                 </form>
                                 {{!-- end of form tambah data acara --}}
@@ -285,6 +285,8 @@
     {{> plugins}}
     <script src="/js/client/datatable/acara.js"></script>
     <script src="/js/client/modal/acara.js"></script>
+    <script src="/js/client/disablebutton/acara.js"></script>
+    </script>
 </body>
 
 </html>

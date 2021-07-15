@@ -113,7 +113,7 @@
                                 <h4 class="m-b-0 text-white">Form Soal</h4>
                             </div> --}}
                             <div class="card-block">
-                                <form 
+                                <form id="simpanjawaban"
                                     {{#compare partpertanyaan '1' operator="=="}}
                                         action="assessment/register1"
                                     {{/compare}}
@@ -269,8 +269,8 @@
                                     {{!-- end of tabel soal --}}
                                     <hr>
                                     <div class="form-actions text-right">
-                                        <button type="submit" class="btn btn-block btn-outline-success"> <i class="fa fa-check"></i> Simpan Jawaban</button>
-                                        <button type="reset" class="btn btn-block btn-outline-warning">Reset</button>
+                                        <button type="submit" id="tombolsimpan" class="btn btn-block btn-outline-success"> <i class="fa fa-check"></i> Simpan Jawaban</button>
+                                        <button type="reset" id="tombolreset" class="btn btn-block btn-outline-warning">Reset</button>
                                     </div>
                                 </form>
                             </div>
@@ -332,6 +332,7 @@
     <!-- ============================================================== -->
     {{> plugins}}
     <script src="/js/client/datatable/assessmentmahasiswa.js"></script>
+    <script src="/js/client/disablebutton/assessmentmahasiswa.js"></script>
 </body>
 
 </html>
