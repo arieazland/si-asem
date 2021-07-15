@@ -2220,6 +2220,12 @@ Router.get('/resetpassword/:id', async (req, res) => {
     }
 })
 
+/** Route for manual book mahasiswa */
+Router.get('/manualbookmhs', function(req, res){
+    const file = `${__dirname}/../public/panduan/manualbookmahasiswa.pdf`;
+    res.download(file); // Set disposition and send it.
+});
+
 /** Route for logout */
 Router.get('/logout', (req, res) =>{
     req.session.destroy((err) => {
