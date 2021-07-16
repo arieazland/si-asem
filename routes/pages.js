@@ -25,12 +25,17 @@ let transporter = nodemailer.createTransport({
 
 /** Route for Login */
 Router.get('/login', (req, res) => {
-    if(req.session.loggedIn){
-        /** jika sudah login di arahkan ke index */
-        res.redirect('/');
-    } else {
-        /** jika belum login di arahkan ke page login */
-        res.render("login");
+    if(process.env.ERROR == 'true'){
+        /** maintenance server */
+        res.redirect('/errorpage');
+    } else if(process.env.ERROR == 'false') {
+        if(req.session.loggedIn){
+            /** jika sudah login di arahkan ke index */
+            res.redirect('/');
+        } else {
+            /** jika belum login di arahkan ke page login */
+            res.render("login");
+        }
     }
 });
 
