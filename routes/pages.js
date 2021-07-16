@@ -34,6 +34,11 @@ Router.get('/login', (req, res) => {
     }
 });
 
+/** Route for errorpage */
+Router.get('/errorpage', (req, res) =>{
+    res.render("pageerror");
+})
+
 /** Route for Register Mahasiswa */
 Router.get('/registermahasiswa', (req, res) => {
     res.render("registerMahasiswa");
