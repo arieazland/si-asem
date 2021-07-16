@@ -2169,7 +2169,7 @@ Router.post('/lupapassword', async (req, res) => {
                 from: 'arieazlandfirly@gmail.com',
                 to: 'arieazland@gmail.com',
                 subject: 'Sapa reset Password',
-                html: '<p>Hi, untuk mereset password anda, silahkan klik <a href="http://localhost:6200/resetpassword/'+peserta+'">disni</a> </p>'
+                html: '<p>Hi, untuk mereset password anda, silahkan klik <a href="'+process.env.URL+'/resetpassword/'+peserta+'">disni</a> </p>'
             };
             
             transporter.sendMail(mailOptions, function(err, data) {
