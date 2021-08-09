@@ -695,18 +695,30 @@ Router.get('/assessmentmahasiswa', async (req, res, dataputs) => {
                     idu: idu,
                 }
                 let res1 = res;
-                url =  process.env.MAIN_URL + '/listpertanyaan';
+                url =  process.env.MAIN_URL + '/listpertanyaan2';
                 var dataputs = await axios.post(url, params)
                 .then(function (res) {
-                    var data = res.data.results;
                     var selectacara = res.data.selectacara;
                     var dataacara = res.data.dataacara;
                     var partpertanyaan = res.data.partpertanyaan;
+                    if(partpertanyaan === '1'){
+                        var data = res.data.pertanyaan_part1;
+                    } else if(partpertanyaan === '2'){
+                        var data = res.data.pertanyaan_part2;
+                    } else if(partpertanyaan === '3'){
+                        var data = res.data.pertanyaan_part3;
+                    } else if(partpertanyaan === '4'){
+                        var data = res.data.pertanyaan_part4;
+                    } else if(partpertanyaan === '5'){
+                        var data = res.data.pertanyaan_part5;
+                    }
                     var message = res.data.message;
                     req.session.sessionFlash2 = {
                         type: 'success',
                         message: message
                     }
+                    console.log(partpertanyaan)
+                    
                     res1.render('assessmentmahasiswa', {
                         idu, username, nama, tipe, fakultas, prodi,
                         data: data,
@@ -714,6 +726,7 @@ Router.get('/assessmentmahasiswa', async (req, res, dataputs) => {
                         dataacara,
                         partpertanyaan
                     })
+                    
                 })
                 .catch(function (err) {
                     // console.log(err.response.data)
@@ -790,18 +803,29 @@ Router.post('/assessmentmahasiswa', async (req, res, dataputs) => {
                         idu: idu,
                     }
                     let res1 = res;
-                    url =  process.env.MAIN_URL + '/listpertanyaan';
+                    url =  process.env.MAIN_URL + '/listpertanyaan2';
                     var dataputs = await axios.post(url, params)
                     .then(function (res) {
-                        var data = res.data.results;
                         var selectacara = res.data.selectacara;
                         var dataacara = res.data.dataacara;
                         var partpertanyaan = res.data.partpertanyaan;
+                        if(partpertanyaan === '1'){
+                            var data = res.data.pertanyaan_part1;
+                        } else if(partpertanyaan === '2'){
+                            var data = res.data.pertanyaan_part2;
+                        } else if(partpertanyaan === '3'){
+                            var data = res.data.pertanyaan_part3;
+                        } else if(partpertanyaan === '4'){
+                            var data = res.data.pertanyaan_part4;
+                        } else if(partpertanyaan === '5'){
+                            var data = res.data.pertanyaan_part5;
+                        }
                         var message = res.data.message;
                         req.session.sessionFlash2 = {
                             type: 'success',
                             message: message
                         }
+                        
                         res1.render('assessmentmahasiswa', {
                             idu, username, nama, tipe, fakultas, prodi,
                             data: data,
