@@ -18,8 +18,12 @@ function Disable(idform, idbutton1, idbutton2){
     });
 }
 
-// form tambah user
 var idform = "simpanjawaban";
 var idbutton1 = "tombolsimpan";
 var idbutton2 = "tombolreset";
+Disable(idform, idbutton1, idbutton2);
+
+var idform = "formpilihacara";
+var idbutton1 = "tombolsimpan2";
+var idbutton2 = "tombolreset2";
 Disable(idform, idbutton1, idbutton2);

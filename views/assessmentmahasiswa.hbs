@@ -78,7 +78,7 @@
                             </div>
                             <div class="card-block">
                                 {{!-- start of form pilih acara --}}
-                                <form action="/assessmentmahasiswa" method="POST">
+                                <form id="formpilihacara" action="/assessmentmahasiswa" method="POST">
                                     <div class="form-body">
                                         <h4 class="card-title">Pilih Acara</h4>
                                         <h6 class="card-subtitle"> Pilih acara terlebih dahulu untuk menampilkan pertanyaan</h6>
@@ -93,8 +93,8 @@
                                     </div>
                                     <hr>
                                     <div class="form-actions text-right">
-                                        <button type="submit" class="btn btn-block btn-outline-success"> <i class="fa fa-check"></i> Pilih</button>
-                                        <button type="reset" class="btn btn-block btn-outline-warning">Batal</button>
+                                        <button type="submit" id="tombolsimpan2" class="btn btn-block btn-outline-success"> <i class="fa fa-check"></i> Pilih</button>
+                                        <button type="reset" id="tombolreset2" class="btn btn-block btn-outline-warning">Batal</button>
                                     </div>
                                 </form>
                                 {{!-- end of form pilih acara --}}
