@@ -717,7 +717,6 @@ Router.get('/assessmentmahasiswa', async (req, res, dataputs) => {
                         type: 'success',
                         message: message
                     }
-                    console.log(partpertanyaan)
                     
                     res1.render('assessmentmahasiswa', {
                         idu, username, nama, tipe, fakultas, prodi,
