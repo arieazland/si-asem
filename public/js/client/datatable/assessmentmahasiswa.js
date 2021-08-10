@@ -3,6 +3,7 @@ function Table(idtable){
         dom: 'Bfrtip',
         "pageLength": 5000,
         "searching": false,
+        "ordering": false,
         // "order": [
         //     [1, 'asc']
         // ],
