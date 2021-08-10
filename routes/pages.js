@@ -100,7 +100,6 @@ Router.get('/users', async (req, res, dataputs) => {
                 })
             })
             .catch(function (err) {
-                // console.log(err);
                 var message = err.response.data.message;
                 req.session.sessionFlash = {
                     type: 'error',
@@ -142,7 +141,6 @@ Router.get('/acara', async (req, res, dataputs) => {
                 })
             })
             .catch(function (err) {
-                // console.log(err);
                 var message = err.response.data.message;
                 req.session.sessionFlash = {
                     type: 'error',
@@ -202,7 +200,6 @@ Router.get('/partisipan', async (req, res, dataputs) => {
                     req.session.idacara = null
                 })
                 .catch(function (err) {
-                    // console.log(err.response.data)
                     // var message = err.response.data.message;
                     req.session.sessionFlash = {
                         type: 'error',
@@ -224,7 +221,6 @@ Router.get('/partisipan', async (req, res, dataputs) => {
                     })
                 })
                 .catch(function (err) {
-                    // console.log(err);
                     var message = err.response.data.message;
                     req.session.sessionFlash = {
                         type: 'error',
@@ -287,7 +283,6 @@ Router.post('/partisipan', async (req, res, dataputs) => {
                         })
                     })
                     .catch(function (err) {
-                        // console.log(err.response.data)
                         var message = err.response.data.message;
                         req.session.sessionFlash = {
                             type: 'error',
@@ -331,7 +326,6 @@ Router.get('/part', async (req, res, dataputs) => {
                 })
             })
             .catch(function (err) {
-                // console.log(err);
                 var message = err.response.data.message;
                 req.session.sessionFlash = {
                     type: 'error',
@@ -389,7 +383,6 @@ Router.get('/aspek', async (req, res) =>{
                     req.session.idpart = null
                 })
                 .catch(function (err) {
-                    // console.log(err.response.data)
                     // var message = err.response.data.message;
                     req.session.sessionFlash = {
                         type: 'error',
@@ -411,7 +404,6 @@ Router.get('/aspek', async (req, res) =>{
                     })
                 })
                 .catch(function (err) {
-                    // console.log(err);
                     var message = err.response.data.message;
                     req.session.sessionFlash = {
                         type: 'error',
@@ -475,7 +467,7 @@ Router.post('/aspek', async (req, res) => {
                             })
                         })
                         .catch(function (err) {
-                            // console.log(err.response.data)
+                            
                             var message = err.response.data.message;
                             req.session.sessionFlash = {
                                 type: 'error',
@@ -572,7 +564,6 @@ Router.get('/soal', async (req, res) =>{
                     })
                 })
                 .catch(function (err) {
-                    // console.log(err);
                     var message = err.response.data.message;
                     req.session.sessionFlash = {
                         type: 'error',
@@ -639,7 +630,6 @@ Router.post('/soal', async (req, res) => {
                             })
                         })
                         .catch(function (err) {
-                            // console.log(err.response.data)
                             var message = err.response.data.message;
                             req.session.sessionFlash = {
                                 type: 'error',
@@ -728,7 +718,6 @@ Router.get('/assessmentmahasiswa', async (req, res, dataputs) => {
                     
                 })
                 .catch(function (err) {
-                    // console.log(err.response.data)
                     var message = err.response.data.message;
                     req.session.sessionFlash = {
                         type: 'error',
@@ -754,8 +743,7 @@ Router.get('/assessmentmahasiswa', async (req, res, dataputs) => {
                         dataacara: acara.data
                     })
                 })
-                .catch(function (err) {
-                    // console.log(err);
+                .catch(function (err) {                    
                     var message = err.response.data.message;
                     req.session.sessionFlash = {
                         type: 'error',
@@ -834,7 +822,6 @@ Router.post('/assessmentmahasiswa', async (req, res, dataputs) => {
                         })
                     })
                     .catch(function (err) {
-                        // console.log(err.response.data)
                         var message = err.response.data.message;
                         req.session.sessionFlash = {
                             type: 'error',
@@ -898,7 +885,6 @@ Router.get('/hasilassessment', async (req, res, dataputs) => {
                     req.session.idacara = null
                 })
                 .catch(function (err) {
-                    // console.log(err.response.data)
                     var message = err.response.data.message;
                     req.session.sessionFlash = {
                         type: 'error',
@@ -922,7 +908,6 @@ Router.get('/hasilassessment', async (req, res, dataputs) => {
                     })
                 })
                 .catch(function (err) {
-                    // console.log(err);
                     var message = err.response.data.message;
                     req.session.sessionFlash = {
                         type: 'error',
@@ -987,7 +972,6 @@ Router.post('/hasilassessment', async (req, res, dataputs) => {
                         })
                     })
                     .catch(function (err) {
-                        // console.log(err.response.data)
                         var message = err.response.data.message;
                         req.session.sessionFlash = {
                             type: 'error',
@@ -1073,7 +1057,6 @@ Router.post('/hasilassessmentmahasiswa', async (req, res, dataputs) => {
                         })
                     })
                     .catch(function (err) {
-                        // console.log(err.response.data)
                         var message = err.response.data.message;
                         req.session.sessionFlash = {
                             type: 'error',
@@ -1138,7 +1121,6 @@ Router.get('/kesimpulanassessment', async (req, res, dataputs) => {
                     req.session.idacara = null
                 })
                 .catch(function (err) {
-                    // console.log(err.response.data)
                     var message = err.response.data.message;
                     req.session.sessionFlash = {
                         type: 'error',
@@ -1160,7 +1142,6 @@ Router.get('/kesimpulanassessment', async (req, res, dataputs) => {
                     })
                 })
                 .catch(function (err) {
-                    // console.log(err);
                     var message = err.response.data.message;
                     req.session.sessionFlash = {
                         type: 'error',
@@ -1225,7 +1206,6 @@ Router.post('/kesimpulanassessment', async (req, res, dataputs) => {
                         })
                     })
                     .catch(function (err) {
-                        // console.log(err.response.data)
                         var message = err.response.data.message;
                         req.session.sessionFlash = {
                             type: 'error',
@@ -1307,7 +1287,6 @@ Router.get('/kesimpulanassessmentmahasiswa', async (req, res, dataputs) => {
                     req.session.idacara = null
                 })
                 .catch(function (err) {
-                    // console.log(err.response.data)
                     var message = err.response.data.message;
                     req.session.sessionFlash = {
                         type: 'error',
@@ -1397,7 +1376,6 @@ Router.post('/kesimpulanassessmentmahasiswa', async (req, res, dataputs) => {
                         })
                     })
                     .catch(function (err) {
-                        // console.log(err.response.data)
                         var message = err.response.data.message;
                         req.session.sessionFlash = {
                             type: 'error',
@@ -1462,7 +1440,6 @@ Router.get('/hasilassessmentprodi', async (req, res, dataputs) => {
                     req.session.idacara = null
                 })
                 .catch(function (err) {
-                    // console.log(err.response.data)
                     var message = err.response.data.message;
                     req.session.sessionFlash = {
                         type: 'error',
@@ -1484,7 +1461,6 @@ Router.get('/hasilassessmentprodi', async (req, res, dataputs) => {
                     })
                 })
                 .catch(function (err) {
-                    // console.log(err);
                     var message = err.response.data.message;
                     req.session.sessionFlash = {
                         type: 'error',
@@ -1549,7 +1525,6 @@ Router.post('/hasilassessmentprodi', async (req, res, dataputs) => {
                         })
                     })
                     .catch(function (err) {
-                        // console.log(err.response.data)
                         var message = err.response.data.message;
                         req.session.sessionFlash = {
                             type: 'error',
@@ -1635,7 +1610,6 @@ Router.post('/hasilassessmentprogramstudi', async (req, res, dataputs) => {
                         })
                     })
                     .catch(function (err) {
-                        // console.log(err.response.data)
                         var message = err.response.data.message;
                         req.session.sessionFlash = {
                             type: 'error',
@@ -1700,7 +1674,6 @@ Router.get('/kesimpulanassessmentprodi', async (req, res, dataputs) => {
                     req.session.idacara = null
                 })
                 .catch(function (err) {
-                    // console.log(err.response.data)
                     var message = err.response.data.message;
                     req.session.sessionFlash = {
                         type: 'error',
@@ -1722,7 +1695,6 @@ Router.get('/kesimpulanassessmentprodi', async (req, res, dataputs) => {
                     })
                 })
                 .catch(function (err) {
-                    // console.log(err);
                     var message = err.response.data.message;
                     req.session.sessionFlash = {
                         type: 'error',
@@ -1787,7 +1759,6 @@ Router.post('/kesimpulanassessmentprodi', async (req, res, dataputs) => {
                         })
                     })
                     .catch(function (err) {
-                        // console.log(err.response.data)
                         var message = err.response.data.message;
                         req.session.sessionFlash = {
                             type: 'error',
@@ -1869,7 +1840,6 @@ Router.get('/kesimpulanassessmentprogramstudi', async (req, res, dataputs) => {
                     req.session.idacara = null
                 })
                 .catch(function (err) {
-                    // console.log(err.response.data)
                     var message = err.response.data.message;
                     req.session.sessionFlash = {
                         type: 'error',
@@ -1960,7 +1930,6 @@ Router.post('/kesimpulanassessmentprogramstudi', async (req, res, dataputs) => {
                         
                     })
                     .catch(function (err) {
-                        // console.log(err.response.data)
                         var message = err.response.data.message;
                         req.session.sessionFlash = {
                             type: 'error',
@@ -2040,7 +2009,6 @@ Router.get('/cetakkesimpulanassessment/:acara/:mahasiswa/', async (req, res, dat
                     })
                 })
                 .catch(function (err) {
-                    // console.log(err.response.data)
                     var message = err.response.data.message;
                     req.session.sessionFlash = {
                         type: 'error',
@@ -2090,7 +2058,6 @@ Router.get('/skorassessment', async (req, res, dataputs) => {
                 })
             })
             .catch(function (err) {
-                // console.log(err);
                 var message = err.response.data.message;
                 req.session.sessionFlash = {
                     type: 'error',
@@ -2146,7 +2113,6 @@ Router.post('/skorassessment', async (req, res, dataputs) => {
                         })
                     })
                     .catch(function (err) {
-                        // console.log(err.response.data)
                         var message = err.response.data.message;
                         req.session.sessionFlash = {
                             type: 'error',
