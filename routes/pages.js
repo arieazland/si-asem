@@ -60,9 +60,10 @@ Router.get('/', async (req, res) => {
         prodi = req.session.prodi
         if(tipe === 'mahasiswa'){
             /** login page di arahkan ke page user */
-            res.render("indexmahasiswa",{
-                username, nama, idu, tipe, fakultas, prodi
-            });
+            // res.render("indexmahasiswa",{
+            //     username, nama, idu, tipe, fakultas, prodi
+            // });
+            res.redirect('/assessmentmahasiswa')
         } else if(tipe === 'psikolog'){
             /** login page di arahkan ke page psikolog */
             res.render("indexpsikolog",{
@@ -2160,8 +2161,8 @@ Router.post('/lupapassword', async (req, res) => {
             peserta = res.data.results[0].id;
             /** sent email ke peserta */
             let mailOptions = {
-                from: 'arieazlandfirly@gmail.com',
-                to: 'arieazland@gmail.com',
+                from: 'sapa@unsri.ac.id',
+                to: email,
                 subject: 'Sapa reset Password',
                 html: '<p>Hi, untuk mereset password anda, silahkan klik <a href="'+process.env.URL+'/resetpassword/'+peserta+'">disni</a> </p>'
             };

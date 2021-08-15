@@ -148,7 +148,7 @@ exports.register = async (req, res, dataputs) => {
 /** Register Mahasiswa Process */
 exports.regMahasiswa = async (req, res, dataputs) => {
     try{
-        const { selectfakultas, nim, password, password2 } = req.body;
+        const { selectfakultas, nim, email, password, password2 } = req.body;
 
         if(selectfakultas && nim && password && password2 ){
             if(password == password2){
@@ -169,6 +169,7 @@ exports.regMahasiswa = async (req, res, dataputs) => {
                             prodi: req.session.prodi,
                             nim: req.session.nim,
                             nama: req.session.nama,
+                            email: email,
                             password: password,
                             password2: password2,
                         }
