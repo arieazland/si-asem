@@ -59,7 +59,7 @@ Router.get('/', async (req, res) => {
         fakultas = req.session.fakultas
         prodi = req.session.prodi
         ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress 
-        ipadd = ip.split(":");
+        ipadd = ip.split(':')[1]
         if(tipe === 'mahasiswa'){
             /** login page di arahkan ke page user */
             // res.render("indexmahasiswa",{
