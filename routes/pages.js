@@ -58,8 +58,8 @@ Router.get('/', async (req, res) => {
         tipe = req.session.type
         fakultas = req.session.fakultas
         prodi = req.session.prodi
-        ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress 
-        ipadd = ip.substr(7)
+        //ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress 
+        // ipadd = ip.substr(7)
         if(tipe === 'mahasiswa'){
             /** login page di arahkan ke page user */
             // res.render("indexmahasiswa",{
@@ -74,7 +74,7 @@ Router.get('/', async (req, res) => {
         } else if(tipe === 'admin'){
             /** login page di arahkan ke page admin */
             res.render("index",{
-                username, nama, idu, tipe, ipadd
+                username, nama, idu, tipe
             });
         }
     } else {
