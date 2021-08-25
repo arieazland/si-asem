@@ -2263,20 +2263,18 @@ Router.post('/tercepat', async (req, res, dataputs) => {
                 url =  process.env.MAIN_URL + '/gptercepat';
                 dataputs = await axios.post(url, params)
                 .then(function (res) {
-                    var dataacara = res.data;
+                    var dataacara = res.data.dataacara;
                     var gptercepat = res.data.get_gptercepat
                     var selectacara = res.data.selectacara
-                    console.log("acara:")
-                    console.log(dataacara)
-                    console.log("gptercepat:")
-                    console.log(gptercepat)
-                    console.log("selectacara:")
-                    console.log(selectacara)
                     /** render page tercepat */
+                    console.log("dataacara")
+                    console.log(dataacara)
+                    console.log("selectacara")
+                    console.log(selectacara)
                     res1.render('tercepat', {
                         username, nama, idu, tipe,
                         gptercepat, selectacara,
-                        dataacara: acara.data,
+                        dataacara
                     })
                 })
                 .catch(function (err) {
