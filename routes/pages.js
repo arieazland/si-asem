@@ -2252,7 +2252,6 @@ Router.post('/tercepat', async (req, res, dataputs) => {
         tipe = req.session.type
         if(tipe == 'admin'){
             const {selectacara} = req.body;
-            console.log(selectacara)
             if(selectacara){
                 /** get data grandprize */
                 /** get parameter */
@@ -2267,10 +2266,6 @@ Router.post('/tercepat', async (req, res, dataputs) => {
                     var gptercepat = res.data.get_gptercepat
                     var selectacara = res.data.selectacara
                     /** render page tercepat */
-                    console.log("dataacara")
-                    console.log(dataacara)
-                    console.log("selectacara")
-                    console.log(selectacara)
                     res1.render('tercepat', {
                         username, nama, idu, tipe,
                         gptercepat, selectacara,
