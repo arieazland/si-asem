@@ -58,7 +58,8 @@ Router.get('/', async (req, res) => {
         tipe = req.session.type
         fakultas = req.session.fakultas
         prodi = req.session.prodi
-        ipadd = req.headers['x-forwarded-for'] || req.socket.remoteAddress 
+        ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress 
+        ipadd = ip.split(":");
         if(tipe === 'mahasiswa'){
             /** login page di arahkan ke page user */
             // res.render("indexmahasiswa",{
