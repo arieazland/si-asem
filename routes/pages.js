@@ -2202,6 +2202,116 @@ Router.post('/lupapassword', async (req, res) => {
     }
 })
 
+/** Route for jawab tercepat */
+Router.get('/tercepat', async (req, res, dataputs) => {
+    if(req.session.loggedIn){
+        idu = req.session.iduser
+        username = req.session.username
+        nama = req.session.nama
+        tipe = req.session.type
+        if(tipe == 'admin'){
+            /** get data acara */
+            let res1 = res;
+            url =  process.env.MAIN_URL + '/acaralist';
+            dataputs = await axios.get(url)
+            .then(function (res) {
+                var acara = res.data;
+                /** render page tercepat */
+                res1.render('tercepat', {
+                    username, nama, idu, tipe,
+                    dataacara: acara.data
+                })
+            })
+            .catch(function (err) {
+                var message = err.response.data.message;
+                req.session.sessionFlash = {
+                    type: 'error',
+                    message: message
+                }
+                res1.redirect("/tercepat");
+            })
+        } else {
+            /** di redirect ke login dengan status unauthorized */
+            req.session.sessionFlash = {
+                type: 'error',
+                message: 'Un-Authorized'
+            }
+            res.redirect("/login");
+        }
+    } else {
+        /** di redirect ke login */
+        res.redirect("/login");
+    }
+})
+
+Router.post('/tercepat', async (req, res, dataputs) => {
+    if(req.session.loggedIn){
+        idu = req.session.iduser
+        username = req.session.username
+        nama = req.session.nama
+        tipe = req.session.type
+        if(tipe == 'admin'){
+            const {selectacara} = req.body;
+            console.log(selectacara)
+            if(selectacara){
+                /** get data grandprize */
+                /** get parameter */
+                params = {
+                    selectacara: selectacara,
+                }
+                let res1 = res;
+                url =  process.env.MAIN_URL + '/gptercepat';
+                dataputs = await axios.post(url, params)
+                .then(function (res) {
+                    var dataacara = res.data;
+                    var gptercepat = res.data.get_gptercepat
+                    var selectacara = res.data.selectacara
+                    console.log("acara:")
+                    console.log(dataacara)
+                    console.log("gptercepat:")
+                    console.log(gptercepat)
+                    console.log("selectacara:")
+                    console.log(selectacara)
+                    /** render page tercepat */
+                    res1.render('tercepat', {
+                        username, nama, idu, tipe,
+                        gptercepat, selectacara,
+                        dataacara: acara.data,
+                    })
+                })
+                .catch(function (err) {
+                    // var message = err.response.data.message;
+                    // req.session.sessionFlash = {
+                    //     type: 'error',
+                    //     message: message
+                    // }
+                    res1.redirect("/tercepat");
+                })
+            } else {
+                /** Field kosong */
+                req.session.sessionFlash = {
+                    type: 'error',
+                    message: 'Field tidak boleh kosong'
+                }
+                res.redirect("/tercepat");
+            }
+        } else {
+            /** di redirect ke login dengan status unauthorized */
+            req.session.sessionFlash = {
+                type: 'error',
+                message: 'Un-Authorized'
+            }
+            res.redirect("/login");
+        }
+    } else {
+        /** di redirect ke login */
+        res.redirect("/login");
+    }
+})
+
+
+
+
 /** Route for reset password */
 Router.get('/resetpassword/:id', async (req, res) => {
     var idpeserta = req.params.id;
