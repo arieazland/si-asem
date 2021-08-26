@@ -2275,11 +2275,11 @@ Router.post('/tercepat', async (req, res, dataputs) => {
                     })
                 })
                 .catch(function (err) {
-                    // var message = err.response.data.message;
-                    // req.session.sessionFlash = {
-                    //     type: 'error',
-                    //     message: message
-                    // }
+                    var message = err.response.data.message;
+                    req.session.sessionFlash = {
+                        type: 'error',
+                        message: message
+                    }
                     res1.redirect("/tercepat");
                 })
             } else {
