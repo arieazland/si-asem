@@ -2110,7 +2110,6 @@ Router.post('/skorassessment', async (req, res, dataputs) => {
                         var dataacara = res.data.getacara;
                         var datapart = res.data.getpart;
                         var part = res.data.part;
-                        console.log(res.data.part)
                         res1.render('skorassessment', {
                             idu, username, nama, tipe,
                             selectacara, selectpart, dataacara, datapart, part
