@@ -2050,14 +2050,16 @@ Router.get('/skorassessment', async (req, res, dataputs) => {
         tipe = req.session.type
         if(tipe == 'admin' || tipe == 'psikolog'){
             let res1 = res;
-            url =  process.env.MAIN_URL + '/acaralistassessment';
+            url =  process.env.MAIN_URL + '/acarapartskorassessment';
             dataputs = await axios.get(url)
             .then(function (res) {
-                var acara = res.data;
+                var acara = res.data.getacara;
+                var part = res.data.getpart;
                 /** render page hasilassessment */
                 res1.render('skorassessment', {
                     username, nama, idu, tipe,
-                    dataacara: acara.data
+                    dataacara: acara,
+                    datapart: part
                 })
             })
             .catch(function (err) {
@@ -2085,7 +2087,8 @@ Router.post('/skorassessment', async (req, res, dataputs) => {
         prodi = req.session.prodi
         if(tipe == 'admin' || tipe == 'psikolog'){
             const { selectacara } = req.body;
-            if( selectacara ){
+            const { selectpart } = req.body;
+            if( selectacara && selectpart ){
                 if(selectacara == "-- Pilih Acara --"){
                     req.session.sessionFlash = {
                         type: 'error',
@@ -2096,23 +2099,21 @@ Router.post('/skorassessment', async (req, res, dataputs) => {
                     /** get data acara berdasarkan id yang di pilih */
                     params = {
                         selectacara: selectacara,
+                        selectpart: selectpart,
                     }
                     let res1 = res;
-                    url =  process.env.MAIN_URL + '/skorassessment';
+                    url =  process.env.MAIN_URL + '/skorassessment2';
                     var dataputs = await axios.post(url, params)
                     .then(function (res) {
                         var selectacara = res.data.selectacara;
-                        var dataacara = res.data.dataacara;
-                        var part1 = res.data.part1;
-                        var part2 = res.data.part2;
-                        var part3 = res.data.part3;
-                        var part4 = res.data.part4;
-                        var part5 = res.data.part5;
+                        var selectpart = res.data.selectpart;
+                        var dataacara = res.data.getacara;
+                        var datapart = res.data.getpart;
+                        var part = res.data.part;
+                        console.log(res.data.part)
                         res1.render('skorassessment', {
                             idu, username, nama, tipe,
-                            part1, part2, part3, part4, part5,
-                            selectacara,
-                            dataacara,
+                            selectacara, selectpart, dataacara, datapart, part
                         })
                     })
                     .catch(function (err) {

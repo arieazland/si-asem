@@ -80,17 +80,23 @@
                                 {{!-- start of form pilih part --}}
                                 <form action="/skorassessment" method="POST">
                                     <div class="form-body">
-                                        <h4 class="card-title">Pilih Acara</h4>
-                                        <h6 class="card-subtitle"> Pilih acara terlebih dahulu untuk menampilkan data skor assessment</h6>
+                                        <h4 class="card-title">Pilih Acara dan Part Pertanyaan</h4>
+                                        <h6 class="card-subtitle"> Pilih acara dan Part pertanyaan terlebih dahulu untuk menampilkan data skor assessment</h6>
                                         <hr>
                                         {{!-- <h5 class="m-t-30">Single select2</h5> --}}
                                         <select class="select2" id="selectacara" name="selectacara" style="width: 100%" required>
-                                            <option>-- Pilih Acara --</option>
                                             {{#each dataacara}}
                                                 <option value="{{ idacara }}" {{#if ../selectacara}}{{#compare idacara ../selectacara operator="=="}}selected{{/compare}}{{/if}}>{{ namaacara }}</option>
                                             {{/each}}
                                         </select>
+                                        <hr>
+                                        <select class="select2" id="selectpart" name="selectpart" style="width: 100%" required>
+                                            {{#each datapart}}
+                                                <option value="{{ id }}" {{#if ../selectpart}}{{#compare id ../selectpart operator="=="}}selected{{/compare}}{{/if}}>{{ nama }}</option>
+                                            {{/each}}
+                                        </select>
                                     </div>
+                                    
                                     <hr>
                                     <div class="form-actions text-right">
                                         <button type="submit" class="btn btn-block btn-outline-success"> <i class="fa fa-check"></i> Pilih</button>
@@ -102,7 +108,8 @@
                         </div>
                     </div>
                 </div>
-                {{#if selectacara}}
+                {{#if selectacara}} {{#if selectpart}}
+                {{#compare "1" selectpart operator="=="}}
                 {{!-- start of row --}}
                 <div class="row">
                     <div class="col-lg-12">
@@ -160,7 +167,7 @@
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                            {{#each part1}}
+                                            {{#each part}}
                                                 <tr>
                                                     <td class="text-center">{{unim}}</td>
                                                     <td>{{ 1 }}</td>
@@ -188,6 +195,10 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                {{/compare}}
+                {{#compare "2" selectpart operator="=="}}
+                <div class="row">
                     <div class="col-lg-12">
                         <div class="card card-outline-info">
                             {{!-- <div class="card-header">
@@ -253,7 +264,7 @@
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                            {{#each part2}}
+                                            {{#each part}}
                                                 <tr>
                                                     <td class="text-center">{{unim}}</td>
                                                     <td>{{ 1 }}</td>
@@ -287,6 +298,8 @@
                         </div>
                     </div>
                 </div>
+                {{/compare}}
+                {{#compare "3" selectpart operator="=="}}
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card card-outline-info">
@@ -341,7 +354,7 @@
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                            {{#each part3}}
+                                            {{#each part}}
                                                 <tr>
                                                     <td class="text-center">{{unim}}</td>
                                                     <td>{{ 1 }}</td>
@@ -368,6 +381,10 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                {{/compare}}
+                {{#compare "4" selectpart operator="=="}}
+                <div class="row">
                     <div class="col-lg-12">
                         <div class="card card-outline-info">
                             {{!-- <div class="card-header">
@@ -433,7 +450,7 @@
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                            {{#each part4}}
+                                            {{#each part}}
                                                 <tr>
                                                     <td class="text-center">{{unim}}</td>
                                                     <td>{{ 1 }}</td>
@@ -467,6 +484,8 @@
                         </div>
                     </div>
                 </div>
+                {{/compare}}
+                {{#compare "5" selectpart operator="=="}}
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card card-outline-info">
@@ -565,7 +584,7 @@
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                            {{#each part5}}
+                                            {{#each part}}
                                                 <tr>
                                                     <td class="text-center">{{unim}}</td>
                                                     <td>{{ 1 }}</td>
@@ -616,7 +635,8 @@
                     </div>
                 </div>
                 {{!-- end of row --}}
-                {{/if}}
+                {{/compare}}
+                {{/if}}{{/if}}
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
@@ -624,7 +644,7 @@
                 <!-- Right sidebar -->
                 <!-- ============================================================== -->
                 <!-- .right-sidebar -->
-                
+
                 <!-- ============================================================== -->
                 <!-- End Right sidebar -->
                 <!-- ============================================================== -->
