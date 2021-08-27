@@ -2304,8 +2304,130 @@ Router.post('/tercepat', async (req, res, dataputs) => {
     }
 })
 
+/** Route for rekap per fakultas */
+Router.get('/rekapfakultas', async (req, res) => {
+    if(req.session.loggedIn){
+        idu = req.session.iduser
+        username = req.session.username
+        nama = req.session.nama
+        tipe = req.session.type
+        if(tipe == 'admin'){
+            /** get data acara */
+            let res1 = res;
+            url =  process.env.MAIN_URL + '/acaralist';
+            dataputs = await axios.get(url)
+            .then(function (res) {
+                var acara = res.data;
+                /** render page tercepat */
+                res1.render('rekapfakultas', {
+                    username, nama, idu, tipe,
+                    dataacara: acara.data
+                })
+            })
+            .catch(function (err) {
+                var message = err.response.data.message;
+                req.session.sessionFlash = {
+                    type: 'error',
+                    message: message
+                }
+                res1.redirect("/rekapfakultas");
+            })
+        } else {
+            /** di redirect ke login dengan status unauthorized */
+            req.session.sessionFlash = {
+                type: 'error',
+                message: 'Un-Authorized'
+            }
+            res.redirect("/login");
+        }
+    } else {
+        /** di redirect ke login */
+        res.redirect("/login");
+    }
+})
+
+Router.post('/rekapfakultas', async (req, res) => {
+    if(req.session.loggedIn){
+        idu = req.session.iduser
+        username = req.session.username
+        nama = req.session.nama
+        tipe = req.session.type
+        if(tipe == 'admin'){
+            const {selectacara} = req.body;
+            if(selectacara){
+                /** get data grandprize */
+                /** get parameter */
+                params = {
+                    selectacara: selectacara,
+                }
+                let res1 = res;
+                url =  process.env.MAIN_URL + '/rekapperfakultas';
+                dataputs = await axios.post(url, params)
+                .then(function (res) {
+                    var dataacara = res.data.dataacara;
+                    var rekapfakultas = res.data.get_rekapperfakultas
+                    var selectacara = res.data.selectacara
+                    /** render page tercepat */
+                    res1.render('rekapfakultas', {
+                        username, nama, idu, tipe,
+                        rekapfakultas, selectacara,
+                        dataacara
+                    })
+                })
+                .catch(function (err) {
+                    var message = err.response.data.message;
+                    req.session.sessionFlash = {
+                        type: 'error',
+                        message: message
+                    }
+                    res1.redirect("/rekapfakultas");
+                })
+            } else {
+                /** Field kosong */
+                req.session.sessionFlash = {
+                    type: 'error',
+                    message: 'Field tidak boleh kosong'
+                }
+                res.redirect("/rekapfakultas");
+            }
 
 
+            /** get data acara */
+            // let res1 = res;
+            // url =  process.env.MAIN_URL + '/acaralist';
+            // dataputs = await axios.get(url)
+            // .then(function (res) {
+            //     var acara = res.data;
+            //     /** render page tercepat */
+            //     res1.render('rekapfakultas', {
+            //         username, nama, idu, tipe,
+            //         dataacara: acara.data
+            //     })
+            // })
+            // .catch(function (err) {
+            //     var message = err.response.data.message;
+            //     req.session.sessionFlash = {
+            //         type: 'error',
+            //         message: message
+            //     }
+            //     res1.redirect("/rekapfakultas");
+            // })
+
+
+
+        } else {
+            /** di redirect ke login dengan status unauthorized */
+            req.session.sessionFlash = {
+                type: 'error',
+                message: 'Un-Authorized'
+            }
+            res.redirect("/login");
+        }
+    } else {
+        /** di redirect ke login */
+        res.redirect("/login");
+    }
+})
 
 /** Route for reset password */
 Router.get('/resetpassword/:id', async (req, res) => {
