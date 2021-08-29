@@ -10,8 +10,16 @@ const Dotenv = require("dotenv");
 Dotenv.config({ path: './.env' });
 
 var session = require("express-session");
+
+/** expired 24jam */
+//const duapuluhempatjam = 1000 * 60 * 60 * 24;
+//const satujam = 1000 * 60 * 60;
+//const satumenit = 1000 * 60;
+//const tigapuluhdetik = 1000 * 30;
+const duajam = 1000 * 60 * 60 * 2;
 app.use(session({
     secret: 'secret',
+    cookie: { maxAge: duajam },
     resave: true,
     saveUninitialized: true
 }));
