@@ -119,7 +119,33 @@
                             </div> --}}
                             <div class="card-block">
                                 {{!-- Start of tabel list aspek --}}
-                                <h4 class="card-title">Part 1</h4>
+                                <h4 class="card-title">
+                                    Part 1
+                                    &nbsp;
+                                    <button type="button" class="btn btn-info" data-target=".modalpart1" data-toggle="modal" data-original-title="Definisi"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
+                                </h4>
+                                {{!-- modal start --}}
+                                <div class="modal fade modalpart1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="myLargeModalLabel">Part 1</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h4>GROWTH MINDSET</h4>
+                                                <p class="text-justify">Growth mindset adalah pola pikir yang meyakini bahwa kecerdasan, bakat dan kemampuan individu dapat dikembangkan dengan cara belajar dan bekerja keras seiring berjalannya waktu. Menurut Dweck dan Master (2009), Individu yang memiliki growth mindset akan memiliki keyakinan yang tinggi terhadap kemampuannya. Urdan dan Tuner (2005) menjelaskan jika individu memiliki growth mindset, biasanya individu tersebut bersedia untuk berpartisipasi dan bertahan dalam melaksanakan tugas, serta melakukan upaya yang lebih sebagai usaha menyelesaikan tugas yang diberikan (Rhew, Piro, Goolkasian & Cosentino, 2018). Selain itu, Individu yang memiliki growth mindset, cenderung mengarah pada pencapaian yang lebih tinggi saat menghadapi kesulitan yang lebih besar (Claro Paunesku & Dweck, 2016).</p>
+                                                <p class="text-justify">Semakin tinggi tingkat growth mindset yang dimiliki, maka akan semakin tinggi pula kegigihan yang muncul dalam diri individu (Wahidah & Royanto, 2019). Sebaliknya jika growth mindset rendah, maka kegigihan dalam diri individu akan rendah pula, serta mudah menyerah. Individu dengan growth mindset juga akan memiliki penyesuaian diri yang baik, namun sebaliknya jika semakin tidak growth mindset, maka semakin rendah pula penyesuaian dirinya (Ainni & Aulia, 2021).</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+                                {{!-- modal end --}}
                                 <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
                                 <hr>
                                 <div class="table-responsive m-t-40">
@@ -143,6 +169,7 @@
                                                 <th class="">14</th>
                                                 <th class="">15</th>
                                                 <th class="">Jumlah</th>
+                                                <th class="">Kategori</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
@@ -164,6 +191,7 @@
                                                 <th class="">14</th>
                                                 <th class="">15</th>
                                                 <th class="">Jumlah</th>
+                                                <th class="">Kategori</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
@@ -186,6 +214,15 @@
                                                     <td>{{ 14 }}</td>
                                                     <td>{{ 15 }}</td>
                                                     <td>{{ Jumlah }}</td>
+                                                    {{#compare Jumlah 45 operator=">="}}
+                                                        <td style="background-color: green;color: white">Tinggi</td>
+                                                    {{/compare}}
+                                                    {{#compare Jumlah 30 operator=">="}} {{#compare Jumlah 45 operator="<="}}
+                                                        <td style="background-color: yellow;color: black">Sedang</td>
+                                                    {{/compare}} {{/compare}}
+                                                    {{#compare Jumlah 30 operator="<"}}
+                                                        <td style="background-color: red;color: white">Rendah</td>
+                                                    {{/compare}}
                                                 </tr>
                                             {{/each}}
                                         </tbody>
@@ -206,7 +243,32 @@
                             </div> --}}
                             <div class="card-block">
                                 {{!-- Start of tabel list aspek --}}
-                                <h4 class="card-title">Part 2</h4>
+                                <h4 class="card-title">
+                                    Part 2
+                                    &nbsp;
+                                    <button type="button" class="btn btn-info" data-target=".modalpart2" data-toggle="modal" data-original-title="Definisi"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
+                                </h4>
+                                {{!-- modal start --}}
+                                <div class="modal fade modalpart2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="myLargeModalLabel">Part 2</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h4>ACADEMIC INTEGRITY</h4>
+                                                <p class="text-justify">Center for Academic Integrity (CAI) mendefinisikan integritas akademik sebagai komitmen, bahkan dalam menghadapi kesulitan, pada lima nilai fundamental: kejujuran, kepercayaan, keadilan, rasa hormat dan tanggung jawab (Keohane, 1999). Individu yang mempunyai integritas akademik yang baik akan menghasilkan aktivitas dan kegiatan yang cenderung mengarah pada nilai-nilai kebaikan. Individu yang memiliki integritas akademik akan mengarah pada suatu kecenderungan untuk berbuat dan berperilaku yang sesuai dengan norma kebenaran (Ramdani, 2018). Individu dengan tingkat integritas yang rendah cenderung menunjukkan perilaku yang melanggar aturan (Suryadi, Nisa, & Sumiati, 2018) (Wiranata, Zamralita & Basaria, 2020).</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+                                {{!-- modal end --}}
                                 <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
                                 <hr>
                                 <div class="table-responsive m-t-40">
@@ -235,6 +297,7 @@
                                                 <th class="">19</th>
                                                 <th class="">20</th>
                                                 <th class="">Jumlah</th>
+                                                <th class="">Kategori</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
@@ -261,6 +324,7 @@
                                                 <th class="">19</th>
                                                 <th class="">20</th>
                                                 <th class="">Jumlah</th>
+                                                <th class="">Kategori</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
@@ -288,6 +352,15 @@
                                                     <td>{{ 19 }}</td>
                                                     <td>{{ 20 }}</td>
                                                     <td>{{ Jumlah }}</td>
+                                                    {{#compare Jumlah 60 operator=">="}}
+                                                        <td style="background-color: green;color: white">Tinggi</td>
+                                                    {{/compare}}
+                                                    {{#compare Jumlah 40 operator=">="}} {{#compare Jumlah 60 operator="<="}}
+                                                        <td style="background-color: yellow;color: black">Sedang</td>
+                                                    {{/compare}} {{/compare}}
+                                                    {{#compare Jumlah 40 operator="<"}}
+                                                        <td style="background-color: red;color: white">Rendah</td>
+                                                    {{/compare}}
                                                 </tr>
                                             {{/each}}
                                         </tbody>
@@ -308,7 +381,33 @@
                             </div> --}}
                             <div class="card-block">
                                 {{!-- Start of tabel list aspek --}}
-                                <h4 class="card-title">Part 3</h4>
+                                <h4 class="card-title">
+                                    Part 3
+                                    &nbsp;
+                                    <button type="button" class="btn btn-info" data-target=".modalpart3" data-toggle="modal" data-original-title="Definisi"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
+                                </h4>
+                                {{!-- modal start --}}
+                                <div class="modal fade modalpart3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="myLargeModalLabel">Part 3</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h4>CRITICAL THINKING DISPOSITION</h4>
+                                                <p class="text-justify">Critical Thinking Disposition merupakan motivasi internal yang konsisten untuk melibatkan masalah dan membuat keputusan dengan menggunakan pemikiran (Facione dan Facione, 1997). Individu yang memiliki Critical Thinking Disposition menunjang rasa ingin tahu yang lebih dalam, mendukung pikiran yang tajam, kontribusi yang kuat untuk mencari alasan yang tepat, keinginan untuk mencari informasi yang akurat dan cenderung menggunakan keterampilan berpikir kritis mereka (Facione, 2007 dalam Qing, dkk, 2010).</p>
+                                                <p class="text-justify">Critical Thinking Disposition tinggi cenderung menunjang kinerja individu pada akademik yang lebih besar, berpartisipasi dalam aksi sosial dan meningkatkan pemikiran kritis mereka. (Astin 1993b; Facione & Facione, 1997 dalam Laird, 2005). Sedangkan, individu dengan Critical Thinking Disposition yang rendah cenderung menjadi kurang untuk mengandalkan berpikir kritis sebagai cara yang layak untuk mengatasi masalah yang mereka hadapi (Facione dan Facione, 1997).</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+                                {{!-- modal end --}}
                                 <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
                                 <hr>
                                 <div class="table-responsive m-t-40">
@@ -331,6 +430,7 @@
                                                 <th class="">13</th>
                                                 <th class="">14</th>
                                                 <th class="">Jumlah</th>
+                                                <th class="">Kategori</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
@@ -351,6 +451,7 @@
                                                 <th class="">13</th>
                                                 <th class="">14</th>
                                                 <th class="">Jumlah</th>
+                                                <th class="">Kategori</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
@@ -372,6 +473,15 @@
                                                     <td>{{ 13 }}</td>
                                                     <td>{{ 14 }}</td>
                                                     <td>{{ Jumlah }}</td>
+                                                    {{#compare Jumlah 42 operator=">="}}
+                                                        <td style="background-color: green;color: white">Tinggi</td>
+                                                    {{/compare}}
+                                                    {{#compare Jumlah 28 operator=">="}} {{#compare Jumlah 42 operator="<="}}
+                                                        <td style="background-color: yellow;color: black">Sedang</td>
+                                                    {{/compare}} {{/compare}}
+                                                    {{#compare Jumlah 28 operator="<"}}
+                                                        <td style="background-color: red;color: white">Rendah</td>
+                                                    {{/compare}}
                                                 </tr>
                                             {{/each}}
                                         </tbody>
@@ -392,7 +502,33 @@
                             </div> --}}
                             <div class="card-block">
                                 {{!-- Start of tabel list aspek --}}
-                                <h4 class="card-title">Part 4</h4>
+                                <h4 class="card-title">
+                                    Part 4
+                                    &nbsp;
+                                    <button type="button" class="btn btn-info" data-target=".modalpart4" data-toggle="modal" data-original-title="Definisi"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
+                                </h4>
+                                {{!-- modal start --}}
+                                <div class="modal fade modalpart4" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="myLargeModalLabel">Part 4</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h4>ACADEMIC BUOYANCY</h4>
+                                                <p class="text-justify">Academic buoyancy merupakan kemampuan individu dalam menghadapi tantangan sehari-hari dalam konteks akademik misalnya seperti performa akademik yang buruk, deadline tugas, tekanan akademik, atau tugas yang sulit dengan efektif. (Martin dan Marsh, 2008).</p>
+                                                <p class="text-justify">Individu dengan academic buoyancy yang tinggi, cenderung akan menunjang agar dapat bangkit dan melakukan upaya dalam menghadapi tantangan akademik sehingga keberhasilan akademik individu dapat tercapai (Collie, Ginn, dkk., 2017 dalam Putwain, D, dkk, 2012 ; Smith & Firth, 2018). Sedangkan individu dengan academic buoyancy yang rendah, memiliki kemungkinan hambatan untuk dapat mengatasi tantangan akademik seharihari dan kemunduran akademik. Kondisi dimana academic buoyancy rendah berkaitan secara signifikan dengan penurunan prestasi akademik (Resetiana, 2017).</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+                                {{!-- modal end --}}
                                 <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
                                 <hr>
                                 <div class="table-responsive m-t-40">
@@ -421,6 +557,7 @@
                                                 <th class="">19</th>
                                                 <th class="">20</th>
                                                 <th class="">Jumlah</th>
+                                                <th class="">kategori</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
@@ -447,6 +584,7 @@
                                                 <th class="">19</th>
                                                 <th class="">20</th>
                                                 <th class="">Jumlah</th>
+                                                <th class="">kategori</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
@@ -474,6 +612,15 @@
                                                     <td>{{ 19 }}</td>
                                                     <td>{{ 20 }}</td>
                                                     <td>{{ Jumlah }}</td>
+                                                    {{#compare Jumlah 60 operator=">="}}
+                                                        <td style="background-color: green;color: white">Tinggi</td>
+                                                    {{/compare}}
+                                                    {{#compare Jumlah 40 operator=">="}} {{#compare Jumlah 60 operator="<="}}
+                                                        <td style="background-color: yellow;color: black">Sedang</td>
+                                                    {{/compare}} {{/compare}}
+                                                    {{#compare Jumlah 40 operator="<"}}
+                                                        <td style="background-color: red;color: white">Rendah</td>
+                                                    {{/compare}}
                                                 </tr>
                                             {{/each}}
                                         </tbody>
@@ -494,7 +641,50 @@
                             </div> --}}
                             <div class="card-block">
                                 {{!-- Start of tabel list aspek --}}
-                                <h4 class="card-title">Part 5</h4>
+                                <h4 class="card-title">
+                                    Part 5
+                                    &nbsp;
+                                    <button type="button" class="btn btn-info" data-target=".modalpart5" data-toggle="modal" data-original-title="Definisi"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
+                                </h4>
+                                {{!-- modal start --}}
+                                <div class="modal fade modalpart5" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="myLargeModalLabel">Part 5 - TRAIT PERSONALITY</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h4>Extraversion</h4>
+                                                <p class="text-justify">Extraversion merupakan sifat kepribadian yang identik dengan adanya semangat dan keantusiasan. Individu yang ekstraver biasanya bersemangat di dalam membangun hubungan dengan orang lain, periang, aktif berbicara, menyenangkan, tidak sungkan berkenalan, dan secara aktif mencari teman baru (Feist & Feist, 2009; Ramdhani, 2012). Tak hanya itu, mereka cenderung tegas dan asertif dalam bersikap. Bila tak setuju, mereka tidak sungkan untuk menyatakan tidak (Ramdhani, 2012).</p>
+                                                <p class="text-justify">Sebaliknya, menurut Goldberg (1992), individu yang memiliki skor ekstraversi yang rendah cenderung lebih tertutup, pemalu, pendiam dan tidak suka berpetualang. Mereka juga cenderung sulit untuk memulai percakapan, menyukai ketenangan, dan tidak senang ketika menjadi pusat perhatian (Cherry, 2021). Individu yang memiliki skor rendah dalam extraversion juga biasanya tidak asertif dalam bersikap dan cenderung diam saja ketika tidak setuju dengan orang lain (John & Srivastava, 1999).</p>
+
+                                                <h4>Agreeableness</h4>
+                                                <p class="text-justify">Agreeableness ditandai oleh mempunyai ciri-ciri ketulusan dalam berbagi, kehalusan perasaan, dan fokus pada hal-hal positif pada orang lain. Orang-orang dengan skor agreeableness yang tinggi cenderung mempercayai orang lain, murah hati, mudah menerima, menghindari konflik, ramah, kooperatif dan hangat. (Feist & Feist, 2009</p>
+                                                <p class="text-justify">Individu yang memiliki skor agreeableness yang tinggi (John & Srivastava, 1999) adalah menekankan deskripsi kualitas terbaik pada individu, suka menghibur orang lain ketika sedang bersedih.</p>
+                                                <p class="text-justify">Sebaliknya, individu yang memiliki skor agreeableness yang rendah akan menunjukkan sifat dingin, tidak bersimpatik, dan cenderung menuntut (Goldberg, 1992). Individu ini menunjukkan sifat ketidakpedulian terhadap orang lain, tidak terlalu tertarik dengan masalah orang lain, dan mungkin saja memanipulasi orang lain untuk mendapat apa yang mereka inginkan (Cherry, 2021).</p>
+
+                                                <h4>Conscientiousness</h4>
+                                                <p class="text-justify">Conscientiousness tinggi diasosiasikan dengan sifat sungguh-sungguh dalam melakukan tugas, bertanggung jawab, dapat diandalkan, dan menyukai keteraturan dan kedisiplinan. Di dalam kehidupan seharihari mereka tampil sebagai seorang yang hadir tepat waktu, berprestasi, teliti, dan suka melakukan pekerjaan tingga tuntas (Ramdhani, 2012).</p>
+                                                <p class="text-justify">Sebaliknya, individu dengan skor conscientiousness rendah cenderung agak sembrono, tidak teratur, dan lalai (Goldberg, 1992). Individu ini juga menunjukkan sifat tidak menyukai struktur dan jadwal, membuat sesuatu berantakan dan tidak dapat membenahinya, dan sering prokrastinasi untuk melakukan suatu hal yang penting (Cherry, 2021).</p>
+
+                                                <h4>Neuroticism (vs. emotional stability)</h4>
+                                                <p class="text-justify">Neuroticism identik dengan kehadiran emosi negatif seperti rasa khawatir, tegang, dan takut. Individu yang dominan sifat pencemasnya mudah gugup dalam menghadapi masalah-masalah yang menurut orang kebanyakan hanya sepele. Mereka biasanya mudah menjadi marah bila berhadapan dengan situasi yang tidak sesuai dengan yang diinginkannya. Secara umum, mereka juga emosional dan kurang mempunyai toleransi terhadap kekecewaan dan konflik (Ramdhani, 2012; Feist & Feist, 2009).</p>
+                                                <p class="text-justify">Sebaliknya, individu dengan skor neuroticism rendah (emotional stability tinggi) memiliki sifat yang tenang, tidak banyak menuntut, lebih stabil secara emosional (Goldberg, 1992) dan menerima baik dan buruk kehidupan tanpa banyak mengeluh (John & Srivastava, 1999).</p>
+
+                                                <h4>Openness/Intellect</h4>
+                                                <p class="text-justify">Openness merupakan sifat yang membedakan antara individu yang memilih variasi dibandingkan dengan individu yang menutup diri serta individu yang mendapatkan kenyamanan dalam hubungan mereka dengan hal-hal dan interaksinya (John & Srivastava, 1999). Individu dengan skor openness yang tinggi cenderung mencari perbedaan dan pengalaman yang bervariasi dan berbeda (Feist & Feist, 2009). Mereka juga umumnya terlihat imajinatif, menyenangkan, kreatif, dan artistik (Friedman & Schustack, dalam Wulandari & Rehulina, 2013). Individu dengan skor yang tinggi di dimensi ini juga siap menerima berbagai stimulus yang ada dengan sudut pandang yang terbuka karena wawasan mereka tidak hanya luas namun juga mendalam (Ramdhani, 2012).</p>
+                                                <p class="text-justify">Sebaliknya, individu yang memiliki skor Openness yang rendah seringkali menunjukkan sifat yang tidak imaginatif, berpikir secara sederhana, tidak terlalu ingin tahu, dan tidak reflektif (Goldberg, 1992). Kecenderungannya, individu ini juga tidak menyukai perubahan, tidak begitu menikmati hal-hal yang baru, dan tidak menyukai konsep yang abstrak (Cherry, 2021).</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+                                {{!-- modal end --}}
                                 <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
                                 <hr>
                                 <div class="table-responsive m-t-40">
@@ -539,6 +729,11 @@
                                                 <th class="">35</th>
                                                 <th class="">36</th>
                                                 <th class="">Jumlah</th>
+                                                <th class="">Extraversion</th>
+                                                <th class="">Agreeableness</th>
+                                                <th class="">Conscientiousness</th>
+                                                <th class="">Neuroticism (vs. emotional stability)</th>
+                                                <th class="">Openness/Intellect</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
@@ -581,6 +776,11 @@
                                                 <th class="">35</th>
                                                 <th class="">36</th>
                                                 <th class="">Jumlah</th>
+                                                <th class="">Extraversion</th>
+                                                <th class="">Agreeableness</th>
+                                                <th class="">Conscientiousness</th>
+                                                <th class="">Neuroticism (vs. emotional stability)</th>
+                                                <th class="">Openness/Intellect</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
@@ -624,6 +824,65 @@
                                                     <td>{{ 35 }}</td>
                                                     <td>{{ 36 }}</td>
                                                     <td>{{ Jumlah }}</td>
+                                                    {{!-- Extraversion --}}
+                                                    {{#compare jumlahE 35 operator=">="}}
+                                                        <td style="background-color: green;color: white">{{jumlahE}} - Tinggi</td>
+                                                    {{/compare}}
+                                                    {{#compare jumlahE 21 operator=">="}} {{#compare jumlahE 35 operator="<="}}
+                                                        <td style="background-color: yellow;color: black">{{jumlahE}} - Sedang</td>
+                                                    {{/compare}} {{/compare}}
+                                                    {{#compare jumlahE 21 operator="<"}}
+                                                        <td style="background-color: red;color: white">{{jumlahE}} - Rendah</td>
+                                                    {{/compare}}
+                                                    {{!-- Extraversion --}}
+
+                                                    {{!-- Agreeableness --}}
+                                                    {{#compare jumlahA 29 operator=">="}}
+                                                        <td style="background-color: green;color: white">{{jumlahA}} - Tinggi</td>
+                                                    {{/compare}}
+                                                    {{#compare jumlahA 19 operator=">="}} {{#compare jumlahA 29 operator="<="}}
+                                                        <td style="background-color: yellow;color: black">{{jumlahA}} - Sedang</td>
+                                                    {{/compare}} {{/compare}}
+                                                    {{#compare jumlahA 19 operator="<"}}
+                                                        <td style="background-color: red;color: white">{{jumlahA}} - Rendah</td>
+                                                    {{/compare}}
+                                                    {{!-- Agreeableness --}}
+
+                                                    {{!-- Conscientiousness --}}
+                                                    {{#compare jumlahC 45 operator=">="}}
+                                                        <td style="background-color: green;color: white">{{jumlahC}} - Tinggi</td>
+                                                    {{/compare}}
+                                                    {{#compare jumlahC 27 operator=">="}} {{#compare jumlahC 45 operator="<="}}
+                                                        <td style="background-color: yellow;color: black">{{jumlahC}} - Sedang</td>
+                                                    {{/compare}} {{/compare}}
+                                                    {{#compare jumlahC 27 operator="<"}}
+                                                        <td style="background-color: red;color: white">{{jumlahC}} - Rendah</td>
+                                                    {{/compare}}
+                                                    {{!-- Conscientiousness --}}
+
+                                                    {{!-- Neuroticism (vs. emotional stability) --}}
+                                                    {{#compare jumlahN 35 operator=">="}}
+                                                        <td style="background-color: green;color: white">{{jumlahN}} - Tinggi</td>
+                                                    {{/compare}}
+                                                    {{#compare jumlahN 21 operator=">="}} {{#compare jumlahN 35 operator="<="}}
+                                                        <td style="background-color: yellow;color: black">{{jumlahN}} - Sedang</td>
+                                                    {{/compare}} {{/compare}}
+                                                    {{#compare jumlahN 21 operator="<"}}
+                                                        <td style="background-color: red;color: white">{{jumlahN}} - Rendah</td>
+                                                    {{/compare}}
+                                                    {{!-- Neuroticism (vs. emotional stability) --}}
+
+                                                    {{!-- Openness/Intellect --}}
+                                                    {{#compare jumlahO 35 operator=">="}}
+                                                        <td style="background-color: green;color: white">{{jumlahO}} - Tinggi</td>
+                                                    {{/compare}}
+                                                    {{#compare jumlahO 21 operator=">="}} {{#compare jumlahO 35 operator="<="}}
+                                                        <td style="background-color: yellow;color: black">{{jumlahO}} - Sedang</td>
+                                                    {{/compare}} {{/compare}}
+                                                    {{#compare jumlahO 21 operator="<"}}
+                                                        <td style="background-color: red;color: white">{{jumlahO}} - Rendah</td>
+                                                    {{/compare}}
+                                                    {{!-- Openness/Intellect --}}
                                                 </tr>
                                             {{/each}}
                                         </tbody>
