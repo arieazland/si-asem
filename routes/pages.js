@@ -2429,6 +2429,117 @@ Router.post('/rekapfakultas', async (req, res) => {
     }
 })
 
+/** Route for rekap per fakultas */
+Router.get('/rekapskor', async (req, res) => {
+    if(req.session.loggedIn){
+        idu = req.session.iduser
+        username = req.session.username
+        nama = req.session.nama
+        tipe = req.session.type
+        if(tipe == 'admin'){
+            /** get data acara */
+            let res1 = res;
+            url =  process.env.MAIN_URL + '/acarapartskorassessment';
+            dataputs = await axios.get(url)
+            .then(function (res) {
+                var acara = res.data.getacara;
+                var part = res.data.getpart;
+                /** render page hasilassessment */
+                res1.render('rekapskor', {
+                    username, nama, idu, tipe,
+                    dataacara: acara,
+                    datapart: part
+                })
+            })
+            .catch(function (err) {
+                var message = err.response.data.message;
+                req.session.sessionFlash = {
+                    type: 'error',
+                    message: message
+                }
+                res1.redirect("/");
+            })
+        } else {
+            /** di redirect ke login dengan status unauthorized */
+            req.session.sessionFlash = {
+                type: 'error',
+                message: 'Un-Authorized'
+            }
+            res.redirect("/login");
+        }
+    } else {
+        /** di redirect ke login */
+        res.redirect("/login");
+    }
+})
+
+/** Route for rekap per fakultas */
+Router.post('/rekapskor', async (req, res) => {
+    if(req.session.loggedIn){
+        idu = req.session.iduser
+        username = req.session.username
+        nama = req.session.nama
+        tipe = req.session.type
+        if(tipe == 'admin'){
+            /** get parameter */
+            const {selectacara,selectpart} = req.body;
+            
+            if(selectacara && selectpart){
+                /** get parameter */
+                params = {
+                    selectacara: selectacara,
+                    selectpart: selectpart,
+                }
+                let res1 = res;
+                url =  process.env.MAIN_URL + '/rekapskor';
+                dataputs = await axios.post(url, params)
+                .then(function (res) {
+                    var acara = res.data.getacara;
+                    var part = res.data.getpart;
+                    var selectacara = res.data.selectacara;
+                    var selectpart = res.data.selectpart;
+                    var rekappart = res.data.rekappart;
+                    /** render page hasilassessment */
+                    res1.render('rekapskor', {
+                        username, nama, idu, tipe,
+                        dataacara: acara,
+                        datapart: part,
+                        selectacara,
+                        selectpart,
+                        rekappart
+                    })
+                })
+                .catch(function (err) {
+                    var message = err.response.data.message;
+                    req.session.sessionFlash = {
+                        type: 'error',
+                        message: message
+                    }
+                    res1.redirect("/rekapskor");
+                })
+            } else {
+                /** Field kosong */
+                req.session.sessionFlash = {
+                    type: 'error',
+                    message: 'Field tidak boleh kosong'
+                }
+                res.redirect("/rekapskor");
+            }
+            
+        } else {
+            /** di redirect ke login dengan status unauthorized */
+            req.session.sessionFlash = {
+                type: 'error',
+                message: 'Un-Authorized'
+            }
+            res.redirect("/login");
+        }
+    } else {
+        /** di redirect ke login */
+        res.redirect("/login");
+    }
+})
+
 /** Route for reset password */
 Router.get('/resetpassword/:id', async (req, res) => {
     var idpeserta = req.params.id;

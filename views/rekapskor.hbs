@@ -41,10 +41,10 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-6 col-8 align-self-center">
-                        <h3 class="text-themecolor m-b-0 m-t-0">Skor Assessment Mahasiswa</h3>
+                        <h3 class="text-themecolor m-b-0 m-t-0">Rekap Rata-rata Skor Mahasiswa per Prodi</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Assessment</a></li>
-                            <li class="breadcrumb-item active">Skor Assessment Mahasiswa</li>
+                            <li class="breadcrumb-item active">Rekap Rata-rata Skor Mahasiswa per Prodi</li>
                         </ol>
                     </div>
                 </div>
@@ -74,14 +74,14 @@
                     <div class="col-lg-12">
                         <div class="card card-outline-info">
                             <div class="card-header">
-                                <h4 class="m-b-0 text-white">Skor Assessment</h4>
+                                <h4 class="m-b-0 text-white">Rekap Rata-rata Skor Mahasiswa per Prodi</h4>
                             </div>
                             <div class="card-block">
                                 {{!-- start of form pilih part --}}
-                                <form action="/skorassessment" method="POST">
+                                <form action="/rekapskor" method="POST">
                                     <div class="form-body">
                                         <h4 class="card-title">Pilih Acara dan Part Pertanyaan</h4>
-                                        <h6 class="card-subtitle"> Pilih acara dan Part pertanyaan terlebih dahulu untuk menampilkan data skor assessment</h6>
+                                        <h6 class="card-subtitle"> Pilih acara dan Part pertanyaan terlebih dahulu untuk menampilkan data rekap rata-rata skor mahasiswa per prodi</h6>
                                         <hr>
                                         {{!-- <h5 class="m-t-30">Single select2</h5> --}}
                                         <select class="select2" id="selectacara" name="selectacara" style="width: 100%" required>
@@ -110,7 +110,7 @@
                 </div>
                 {{#if selectacara}} {{#if selectpart}}
                 {{#compare "1" selectpart operator="=="}}
-                {{!-- start of row --}}
+                {{!-- start row part 1 --}}
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card card-outline-info">
@@ -149,78 +149,45 @@
                                 <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
                                 <hr>
                                 <div class="table-responsive m-t-40">
-                                    <table id="part1" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                    <table id="rekapskor" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
-                                                <th class="">NIM</th>
-                                                <th class="">1</th>
-                                                <th class="">2</th>
-                                                <th class="">3</th>
-                                                <th class="">4</th>
-                                                <th class="">5</th>
-                                                <th class="">6</th>
-                                                <th class="">7</th>
-                                                <th class="">8</th>
-                                                <th class="">9</th>
-                                                <th class="">10</th>
-                                                <th class="">11</th>
-                                                <th class="">12</th>
-                                                <th class="">13</th>
-                                                <th class="">14</th>
-                                                <th class="">15</th>
-                                                <th class="">Jumlah</th>
+                                                <th class="">No.</th>
+                                                <th class="">Fakultas</th>
+                                                <th class="">Prodi</th>
+                                                <th class="">Jumlah Skor</th>
+                                                <th class="">Jumlah Mahasiswa</th>
+                                                <th class="">Rata-rata</th>
                                                 <th class="">Kategori</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th class="">NIM</th>
-                                                <th class="">1</th>
-                                                <th class="">2</th>
-                                                <th class="">3</th>
-                                                <th class="">4</th>
-                                                <th class="">5</th>
-                                                <th class="">6</th>
-                                                <th class="">7</th>
-                                                <th class="">8</th>
-                                                <th class="">9</th>
-                                                <th class="">10</th>
-                                                <th class="">11</th>
-                                                <th class="">12</th>
-                                                <th class="">13</th>
-                                                <th class="">14</th>
-                                                <th class="">15</th>
-                                                <th class="">Jumlah</th>
+                                                <th class="">No.</th>
+                                                <th class="">Fakultas</th>
+                                                <th class="">Prodi</th>
+                                                <th class="">Jumlah Skor</th>
+                                                <th class="">Jumlah Mahasiswa</th>
+                                                <th class="">Rata-rata</th>
                                                 <th class="">Kategori</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                            {{#each part}}
+                                            {{#each rekappart}}
                                                 <tr>
-                                                    <td class="text-center">{{unim}}</td>
-                                                    <td>{{ 1 }}</td>
-                                                    <td>{{ 2 }}</td>
-                                                    <td>{{ 3 }}</td>
-                                                    <td>{{ 4 }}</td>
-                                                    <td>{{ 5 }}</td>
-                                                    <td>{{ 6 }}</td>
-                                                    <td>{{ 7 }}</td>
-                                                    <td>{{ 8 }}</td>
-                                                    <td>{{ 9 }}</td>
-                                                    <td>{{ 10 }}</td>
-                                                    <td>{{ 11 }}</td>
-                                                    <td>{{ 12 }}</td>
-                                                    <td>{{ 13 }}</td>
-                                                    <td>{{ 14 }}</td>
-                                                    <td>{{ 15 }}</td>
+                                                    <td>{{counter @index}}</td>
+                                                    <td>{{ fakultas }}</td>
+                                                    <td>{{ prodi }}</td>
                                                     <td>{{ Jumlah }}</td>
-                                                    {{#compare Jumlah 45 operator=">"}}
+                                                    <td>{{ jumlah_mahasiswa_entry }}</td>
+                                                    <td>{{ rata2 }}</td>
+                                                    {{#compare rata2 45 operator=">"}}
                                                         <td style="background-color: green;color: white">Tinggi</td>
                                                     {{/compare}}
-                                                    {{#compare Jumlah 30 operator=">="}} {{#compare Jumlah 45 operator="<="}}
+                                                    {{#compare rata2 30 operator=">="}} {{#compare rata2 45 operator="<="}}
                                                         <td style="background-color: yellow;color: black">Sedang</td>
                                                     {{/compare}} {{/compare}}
-                                                    {{#compare Jumlah 30 operator="<"}}
+                                                    {{#compare rata2 30 operator="<"}}
                                                         <td style="background-color: red;color: white">Rendah</td>
                                                     {{/compare}}
                                                 </tr>
@@ -233,8 +200,10 @@
                         </div>
                     </div>
                 </div>
+                {{!-- end row part 1 --}}
                 {{/compare}}
                 {{#compare "2" selectpart operator="=="}}
+                {{!-- start row part 2 --}}
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card card-outline-info">
@@ -272,93 +241,45 @@
                                 <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
                                 <hr>
                                 <div class="table-responsive m-t-40">
-                                    <table id="part2" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                    <table id="rekapskor" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
-                                                <th class="">NIM</th>
-                                                <th class="">1</th>
-                                                <th class="">2</th>
-                                                <th class="">3</th>
-                                                <th class="">4</th>
-                                                <th class="">5</th>
-                                                <th class="">6</th>
-                                                <th class="">7</th>
-                                                <th class="">8</th>
-                                                <th class="">9</th>
-                                                <th class="">10</th>
-                                                <th class="">11</th>
-                                                <th class="">12</th>
-                                                <th class="">13</th>
-                                                <th class="">14</th>
-                                                <th class="">15</th>
-                                                <th class="">16</th>
-                                                <th class="">17</th>
-                                                <th class="">18</th>
-                                                <th class="">19</th>
-                                                <th class="">20</th>
-                                                <th class="">Jumlah</th>
+                                                <th class="">No.</th>
+                                                <th class="">Fakultas</th>
+                                                <th class="">Prodi</th>
+                                                <th class="">Jumlah Skor</th>
+                                                <th class="">Jumlah Mahasiswa</th>
+                                                <th class="">Rata-rata</th>
                                                 <th class="">Kategori</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th class="">NIM</th>
-                                                <th class="">1</th>
-                                                <th class="">2</th>
-                                                <th class="">3</th>
-                                                <th class="">4</th>
-                                                <th class="">5</th>
-                                                <th class="">6</th>
-                                                <th class="">7</th>
-                                                <th class="">8</th>
-                                                <th class="">9</th>
-                                                <th class="">10</th>
-                                                <th class="">11</th>
-                                                <th class="">12</th>
-                                                <th class="">13</th>
-                                                <th class="">14</th>
-                                                <th class="">15</th>
-                                                <th class="">16</th>
-                                                <th class="">17</th>
-                                                <th class="">18</th>
-                                                <th class="">19</th>
-                                                <th class="">20</th>
-                                                <th class="">Jumlah</th>
+                                                <th class="">No.</th>
+                                                <th class="">Fakultas</th>
+                                                <th class="">Prodi</th>
+                                                <th class="">Jumlah Skor</th>
+                                                <th class="">Jumlah Mahasiswa</th>
+                                                <th class="">Rata-rata</th>
                                                 <th class="">Kategori</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                            {{#each part}}
+                                            {{#each rekappart}}
                                                 <tr>
-                                                    <td class="text-center">{{unim}}</td>
-                                                    <td>{{ 1 }}</td>
-                                                    <td>{{ 2 }}</td>
-                                                    <td>{{ 3 }}</td>
-                                                    <td>{{ 4 }}</td>
-                                                    <td>{{ 5 }}</td>
-                                                    <td>{{ 6 }}</td>
-                                                    <td>{{ 7 }}</td>
-                                                    <td>{{ 8 }}</td>
-                                                    <td>{{ 9 }}</td>
-                                                    <td>{{ 10 }}</td>
-                                                    <td>{{ 11 }}</td>
-                                                    <td>{{ 12 }}</td>
-                                                    <td>{{ 13 }}</td>
-                                                    <td>{{ 14 }}</td>
-                                                    <td>{{ 15 }}</td>
-                                                    <td>{{ 16 }}</td>
-                                                    <td>{{ 17 }}</td>
-                                                    <td>{{ 18 }}</td>
-                                                    <td>{{ 19 }}</td>
-                                                    <td>{{ 20 }}</td>
+                                                    <td>{{counter @index}}</td>
+                                                    <td>{{ fakultas }}</td>
+                                                    <td>{{ prodi }}</td>
                                                     <td>{{ Jumlah }}</td>
-                                                    {{#compare Jumlah 60 operator=">"}}
+                                                    <td>{{ jumlah_mahasiswa_entry }}</td>
+                                                    <td>{{ rata2 }}</td>
+                                                    {{#compare rata2 60 operator=">"}}
                                                         <td style="background-color: green;color: white">Tinggi</td>
                                                     {{/compare}}
-                                                    {{#compare Jumlah 40 operator=">="}} {{#compare Jumlah 60 operator="<="}}
+                                                    {{#compare rata2 40 operator=">="}} {{#compare rata2 60 operator="<="}}
                                                         <td style="background-color: yellow;color: black">Sedang</td>
                                                     {{/compare}} {{/compare}}
-                                                    {{#compare Jumlah 40 operator="<"}}
+                                                    {{#compare rata2 40 operator="<"}}
                                                         <td style="background-color: red;color: white">Rendah</td>
                                                     {{/compare}}
                                                 </tr>
@@ -371,8 +292,10 @@
                         </div>
                     </div>
                 </div>
+                {{!-- end row part 2 --}}
                 {{/compare}}
                 {{#compare "3" selectpart operator="=="}}
+                {{!-- start row part 3 --}}
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card card-outline-info">
@@ -411,75 +334,45 @@
                                 <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
                                 <hr>
                                 <div class="table-responsive m-t-40">
-                                    <table id="part3" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                    <table id="rekapskor" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
-                                                <th class="">NIM</th>
-                                                <th class="">1</th>
-                                                <th class="">2</th>
-                                                <th class="">3</th>
-                                                <th class="">4</th>
-                                                <th class="">5</th>
-                                                <th class="">6</th>
-                                                <th class="">7</th>
-                                                <th class="">8</th>
-                                                <th class="">9</th>
-                                                <th class="">10</th>
-                                                <th class="">11</th>
-                                                <th class="">12</th>
-                                                <th class="">13</th>
-                                                <th class="">14</th>
-                                                <th class="">Jumlah</th>
+                                                <th class="">No.</th>
+                                                <th class="">Fakultas</th>
+                                                <th class="">Prodi</th>
+                                                <th class="">Jumlah Skor</th>
+                                                <th class="">Jumlah Mahasiswa</th>
+                                                <th class="">Rata-rata</th>
                                                 <th class="">Kategori</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th class="">NIM</th>
-                                                <th class="">1</th>
-                                                <th class="">2</th>
-                                                <th class="">3</th>
-                                                <th class="">4</th>
-                                                <th class="">5</th>
-                                                <th class="">6</th>
-                                                <th class="">7</th>
-                                                <th class="">8</th>
-                                                <th class="">9</th>
-                                                <th class="">10</th>
-                                                <th class="">11</th>
-                                                <th class="">12</th>
-                                                <th class="">13</th>
-                                                <th class="">14</th>
-                                                <th class="">Jumlah</th>
+                                                <th class="">No.</th>
+                                                <th class="">Fakultas</th>
+                                                <th class="">Prodi</th>
+                                                <th class="">Jumlah Skor</th>
+                                                <th class="">Jumlah Mahasiswa</th>
+                                                <th class="">Rata-rata</th>
                                                 <th class="">Kategori</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                            {{#each part}}
+                                            {{#each rekappart}}
                                                 <tr>
-                                                    <td class="text-center">{{unim}}</td>
-                                                    <td>{{ 1 }}</td>
-                                                    <td>{{ 2 }}</td>
-                                                    <td>{{ 3 }}</td>
-                                                    <td>{{ 4 }}</td>
-                                                    <td>{{ 5 }}</td>
-                                                    <td>{{ 6 }}</td>
-                                                    <td>{{ 7 }}</td>
-                                                    <td>{{ 8 }}</td>
-                                                    <td>{{ 9 }}</td>
-                                                    <td>{{ 10 }}</td>
-                                                    <td>{{ 11 }}</td>
-                                                    <td>{{ 12 }}</td>
-                                                    <td>{{ 13 }}</td>
-                                                    <td>{{ 14 }}</td>
+                                                    <td>{{counter @index}}</td>
+                                                    <td>{{ fakultas }}</td>
+                                                    <td>{{ prodi }}</td>
                                                     <td>{{ Jumlah }}</td>
-                                                    {{#compare Jumlah 42 operator=">"}}
+                                                    <td>{{ jumlah_mahasiswa_entry }}</td>
+                                                    <td>{{ rata2 }}</td>
+                                                    {{#compare rata2 42 operator=">"}}
                                                         <td style="background-color: green;color: white">Tinggi</td>
                                                     {{/compare}}
-                                                    {{#compare Jumlah 28 operator=">="}} {{#compare Jumlah 42 operator="<="}}
+                                                    {{#compare rata2 28 operator=">="}} {{#compare rata2 42 operator="<="}}
                                                         <td style="background-color: yellow;color: black">Sedang</td>
                                                     {{/compare}} {{/compare}}
-                                                    {{#compare Jumlah 28 operator="<"}}
+                                                    {{#compare rata2 28 operator="<"}}
                                                         <td style="background-color: red;color: white">Rendah</td>
                                                     {{/compare}}
                                                 </tr>
@@ -492,8 +385,10 @@
                         </div>
                     </div>
                 </div>
+                {{!-- end row part 3 --}}
                 {{/compare}}
                 {{#compare "4" selectpart operator="=="}}
+                {{!-- start row part 4 --}}
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card card-outline-info">
@@ -532,93 +427,45 @@
                                 <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
                                 <hr>
                                 <div class="table-responsive m-t-40">
-                                    <table id="part4" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                    <table id="rekapskor" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
-                                                <th class="">NIM</th>
-                                                <th class="">1</th>
-                                                <th class="">2</th>
-                                                <th class="">3</th>
-                                                <th class="">4</th>
-                                                <th class="">5</th>
-                                                <th class="">6</th>
-                                                <th class="">7</th>
-                                                <th class="">8</th>
-                                                <th class="">9</th>
-                                                <th class="">10</th>
-                                                <th class="">11</th>
-                                                <th class="">12</th>
-                                                <th class="">13</th>
-                                                <th class="">14</th>
-                                                <th class="">15</th>
-                                                <th class="">16</th>
-                                                <th class="">17</th>
-                                                <th class="">18</th>
-                                                <th class="">19</th>
-                                                <th class="">20</th>
-                                                <th class="">Jumlah</th>
-                                                <th class="">kategori</th>
+                                                <th class="">No.</th>
+                                                <th class="">Fakultas</th>
+                                                <th class="">Prodi</th>
+                                                <th class="">Jumlah Skor</th>
+                                                <th class="">Jumlah Mahasiswa</th>
+                                                <th class="">Rata-rata</th>
+                                                <th class="">Kategori</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th class="">NIM</th>
-                                                <th class="">1</th>
-                                                <th class="">2</th>
-                                                <th class="">3</th>
-                                                <th class="">4</th>
-                                                <th class="">5</th>
-                                                <th class="">6</th>
-                                                <th class="">7</th>
-                                                <th class="">8</th>
-                                                <th class="">9</th>
-                                                <th class="">10</th>
-                                                <th class="">11</th>
-                                                <th class="">12</th>
-                                                <th class="">13</th>
-                                                <th class="">14</th>
-                                                <th class="">15</th>
-                                                <th class="">16</th>
-                                                <th class="">17</th>
-                                                <th class="">18</th>
-                                                <th class="">19</th>
-                                                <th class="">20</th>
-                                                <th class="">Jumlah</th>
-                                                <th class="">kategori</th>
+                                                <th class="">No.</th>
+                                                <th class="">Fakultas</th>
+                                                <th class="">Prodi</th>
+                                                <th class="">Jumlah Skor</th>
+                                                <th class="">Jumlah Mahasiswa</th>
+                                                <th class="">Rata-rata</th>
+                                                <th class="">Kategori</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                            {{#each part}}
+                                            {{#each rekappart}}
                                                 <tr>
-                                                    <td class="text-center">{{unim}}</td>
-                                                    <td>{{ 1 }}</td>
-                                                    <td>{{ 2 }}</td>
-                                                    <td>{{ 3 }}</td>
-                                                    <td>{{ 4 }}</td>
-                                                    <td>{{ 5 }}</td>
-                                                    <td>{{ 6 }}</td>
-                                                    <td>{{ 7 }}</td>
-                                                    <td>{{ 8 }}</td>
-                                                    <td>{{ 9 }}</td>
-                                                    <td>{{ 10 }}</td>
-                                                    <td>{{ 11 }}</td>
-                                                    <td>{{ 12 }}</td>
-                                                    <td>{{ 13 }}</td>
-                                                    <td>{{ 14 }}</td>
-                                                    <td>{{ 15 }}</td>
-                                                    <td>{{ 16 }}</td>
-                                                    <td>{{ 17 }}</td>
-                                                    <td>{{ 18 }}</td>
-                                                    <td>{{ 19 }}</td>
-                                                    <td>{{ 20 }}</td>
+                                                    <td>{{counter @index}}</td>
+                                                    <td>{{ fakultas }}</td>
+                                                    <td>{{ prodi }}</td>
                                                     <td>{{ Jumlah }}</td>
-                                                    {{#compare Jumlah 60 operator=">"}}
+                                                    <td>{{ jumlah_mahasiswa_entry }}</td>
+                                                    <td>{{ rata2 }}</td>
+                                                    {{#compare rata2 60 operator=">"}}
                                                         <td style="background-color: green;color: white">Tinggi</td>
                                                     {{/compare}}
-                                                    {{#compare Jumlah 40 operator=">="}} {{#compare Jumlah 60 operator="<="}}
+                                                    {{#compare rata2 40 operator=">="}} {{#compare rata2 60 operator="<="}}
                                                         <td style="background-color: yellow;color: black">Sedang</td>
                                                     {{/compare}} {{/compare}}
-                                                    {{#compare Jumlah 40 operator="<"}}
+                                                    {{#compare rata2 40 operator="<"}}
                                                         <td style="background-color: red;color: white">Rendah</td>
                                                     {{/compare}}
                                                 </tr>
@@ -631,8 +478,10 @@
                         </div>
                     </div>
                 </div>
+                {{!-- end row part 4 --}}
                 {{/compare}}
                 {{#compare "5" selectpart operator="=="}}
+                {{!-- start row part 5 --}}
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card card-outline-info">
@@ -688,47 +537,14 @@
                                 <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
                                 <hr>
                                 <div class="table-responsive m-t-40">
-                                    <table id="part5" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                    <table id="rekapskor" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
-                                                <th class="">NIM</th>
-                                                <th class="">1</th>
-                                                <th class="">2</th>
-                                                <th class="">3</th>
-                                                <th class="">4</th>
-                                                <th class="">5</th>
-                                                <th class="">6</th>
-                                                <th class="">7</th>
-                                                <th class="">8</th>
-                                                <th class="">9</th>
-                                                <th class="">10</th>
-                                                <th class="">11</th>
-                                                <th class="">12</th>
-                                                <th class="">13</th>
-                                                <th class="">14</th>
-                                                <th class="">15</th>
-                                                <th class="">16</th>
-                                                <th class="">17</th>
-                                                <th class="">18</th>
-                                                <th class="">19</th>
-                                                <th class="">20</th>
-                                                <th class="">21</th>
-                                                <th class="">22</th>
-                                                <th class="">23</th>
-                                                <th class="">24</th>
-                                                <th class="">25</th>
-                                                <th class="">26</th>
-                                                <th class="">27</th>
-                                                <th class="">28</th>
-                                                <th class="">29</th>
-                                                <th class="">30</th>
-                                                <th class="">31</th>
-                                                <th class="">32</th>
-                                                <th class="">33</th>
-                                                <th class="">34</th>
-                                                <th class="">35</th>
-                                                <th class="">36</th>
-                                                <th class="">Jumlah</th>
+                                                <th class="">No.</th>
+                                                <th class="">Fakultas</th>
+                                                <th class="">Prodi</th>
+                                                <th class="">Jumlah Skor</th>
+                                                <th class="">Jumlah Mahasiswa</th>
                                                 <th class="">Extraversion</th>
                                                 <th class="">Agreeableness</th>
                                                 <th class="">Conscientiousness</th>
@@ -738,44 +554,11 @@
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th class="">NIM</th>
-                                                <th class="">1</th>
-                                                <th class="">2</th>
-                                                <th class="">3</th>
-                                                <th class="">4</th>
-                                                <th class="">5</th>
-                                                <th class="">6</th>
-                                                <th class="">7</th>
-                                                <th class="">8</th>
-                                                <th class="">9</th>
-                                                <th class="">10</th>
-                                                <th class="">11</th>
-                                                <th class="">12</th>
-                                                <th class="">13</th>
-                                                <th class="">14</th>
-                                                <th class="">15</th>
-                                                <th class="">16</th>
-                                                <th class="">17</th>
-                                                <th class="">18</th>
-                                                <th class="">19</th>
-                                                <th class="">20</th>
-                                                <th class="">21</th>
-                                                <th class="">22</th>
-                                                <th class="">23</th>
-                                                <th class="">24</th>
-                                                <th class="">25</th>
-                                                <th class="">26</th>
-                                                <th class="">27</th>
-                                                <th class="">28</th>
-                                                <th class="">29</th>
-                                                <th class="">30</th>
-                                                <th class="">31</th>
-                                                <th class="">32</th>
-                                                <th class="">33</th>
-                                                <th class="">34</th>
-                                                <th class="">35</th>
-                                                <th class="">36</th>
-                                                <th class="">Jumlah</th>
+                                                <th class="">No.</th>
+                                                <th class="">Fakultas</th>
+                                                <th class="">Prodi</th>
+                                                <th class="">Jumlah Skor</th>
+                                                <th class="">Jumlah Mahasiswa</th>
                                                 <th class="">Extraversion</th>
                                                 <th class="">Agreeableness</th>
                                                 <th class="">Conscientiousness</th>
@@ -784,103 +567,70 @@
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                            {{#each part}}
+                                            {{#each rekappart}}
                                                 <tr>
-                                                    <td class="text-center">{{unim}}</td>
-                                                    <td>{{ 1 }}</td>
-                                                    <td>{{ 2 }}</td>
-                                                    <td>{{ 3 }}</td>
-                                                    <td>{{ 4 }}</td>
-                                                    <td>{{ 5 }}</td>
-                                                    <td>{{ 6 }}</td>
-                                                    <td>{{ 7 }}</td>
-                                                    <td>{{ 8 }}</td>
-                                                    <td>{{ 9 }}</td>
-                                                    <td>{{ 10 }}</td>
-                                                    <td>{{ 11 }}</td>
-                                                    <td>{{ 12 }}</td>
-                                                    <td>{{ 13 }}</td>
-                                                    <td>{{ 14 }}</td>
-                                                    <td>{{ 15 }}</td>
-                                                    <td>{{ 16 }}</td>
-                                                    <td>{{ 17 }}</td>
-                                                    <td>{{ 18 }}</td>
-                                                    <td>{{ 19 }}</td>
-                                                    <td>{{ 20 }}</td>
-                                                    <td>{{ 21 }}</td>
-                                                    <td>{{ 22 }}</td>
-                                                    <td>{{ 23 }}</td>
-                                                    <td>{{ 24 }}</td>
-                                                    <td>{{ 25 }}</td>
-                                                    <td>{{ 26 }}</td>
-                                                    <td>{{ 27 }}</td>
-                                                    <td>{{ 28 }}</td>
-                                                    <td>{{ 29 }}</td>
-                                                    <td>{{ 30 }}</td>
-                                                    <td>{{ 31 }}</td>
-                                                    <td>{{ 32 }}</td>
-                                                    <td>{{ 33 }}</td>
-                                                    <td>{{ 34 }}</td>
-                                                    <td>{{ 35 }}</td>
-                                                    <td>{{ 36 }}</td>
+                                                    <td>{{counter @index}}</td>
+                                                    <td>{{ fakultas }}</td>
+                                                    <td>{{ prodi }}</td>
                                                     <td>{{ Jumlah }}</td>
+                                                    <td>{{ jumlah_mahasiswa_entry }}</td>
                                                     {{!-- Extraversion --}}
-                                                    {{#compare jumlahE 35 operator=">"}}
-                                                        <td style="background-color: green;color: white">{{jumlahE}} - Tinggi</td>
+                                                    {{#compare rata2E 35 operator=">"}}
+                                                        <td style="background-color: green;color: white">{{rata2E}} - Tinggi</td>
                                                     {{/compare}}
-                                                    {{#compare jumlahE 21 operator=">="}} {{#compare jumlahE 35 operator="<="}}
-                                                        <td style="background-color: yellow;color: black">{{jumlahE}} - Sedang</td>
+                                                    {{#compare rata2E 21 operator=">="}} {{#compare rata2E 35 operator="<="}}
+                                                        <td style="background-color: yellow;color: black">{{rata2E}} - Sedang</td>
                                                     {{/compare}} {{/compare}}
-                                                    {{#compare jumlahE 21 operator="<"}}
-                                                        <td style="background-color: red;color: white">{{jumlahE}} - Rendah</td>
+                                                    {{#compare rata2E 21 operator="<"}}
+                                                        <td style="background-color: red;color: white">{{rata2E}} - Rendah</td>
                                                     {{/compare}}
                                                     {{!-- Extraversion --}}
 
                                                     {{!-- Agreeableness --}}
-                                                    {{#compare jumlahA 29 operator=">"}}
-                                                        <td style="background-color: green;color: white">{{jumlahA}} - Tinggi</td>
+                                                    {{#compare rata2A 29 operator=">"}}
+                                                        <td style="background-color: green;color: white">{{rata2A}} - Tinggi</td>
                                                     {{/compare}}
-                                                    {{#compare jumlahA 19 operator=">="}} {{#compare jumlahA 29 operator="<="}}
-                                                        <td style="background-color: yellow;color: black">{{jumlahA}} - Sedang</td>
+                                                    {{#compare rata2A 19 operator=">="}} {{#compare rata2A 29 operator="<="}}
+                                                        <td style="background-color: yellow;color: black">{{rata2A}} - Sedang</td>
                                                     {{/compare}} {{/compare}}
-                                                    {{#compare jumlahA 19 operator="<"}}
-                                                        <td style="background-color: red;color: white">{{jumlahA}} - Rendah</td>
+                                                    {{#compare rata2A 19 operator="<"}}
+                                                        <td style="background-color: red;color: white">{{rata2A}} - Rendah</td>
                                                     {{/compare}}
                                                     {{!-- Agreeableness --}}
 
                                                     {{!-- Conscientiousness --}}
-                                                    {{#compare jumlahC 45 operator=">"}}
-                                                        <td style="background-color: green;color: white">{{jumlahC}} - Tinggi</td>
+                                                    {{#compare rata2C 45 operator=">"}}
+                                                        <td style="background-color: green;color: white">{{rata2C}} - Tinggi</td>
                                                     {{/compare}}
-                                                    {{#compare jumlahC 27 operator=">="}} {{#compare jumlahC 45 operator="<="}}
-                                                        <td style="background-color: yellow;color: black">{{jumlahC}} - Sedang</td>
+                                                    {{#compare rata2C 27 operator=">="}} {{#compare rata2C 45 operator="<="}}
+                                                        <td style="background-color: yellow;color: black">{{rata2C}} - Sedang</td>
                                                     {{/compare}} {{/compare}}
-                                                    {{#compare jumlahC 27 operator="<"}}
-                                                        <td style="background-color: red;color: white">{{jumlahC}} - Rendah</td>
+                                                    {{#compare rata2C 27 operator="<"}}
+                                                        <td style="background-color: red;color: white">{{rata2C}} - Rendah</td>
                                                     {{/compare}}
                                                     {{!-- Conscientiousness --}}
 
                                                     {{!-- Neuroticism (vs. emotional stability) --}}
-                                                    {{#compare jumlahN 35 operator=">"}}
-                                                        <td style="background-color: green;color: white">{{jumlahN}} - Tinggi</td>
+                                                    {{#compare rata2N 35 operator=">"}}
+                                                        <td style="background-color: green;color: white">{{rata2N}} - Tinggi</td>
                                                     {{/compare}}
-                                                    {{#compare jumlahN 21 operator=">="}} {{#compare jumlahN 35 operator="<="}}
-                                                        <td style="background-color: yellow;color: black">{{jumlahN}} - Sedang</td>
+                                                    {{#compare rata2N 21 operator=">="}} {{#compare rata2N 35 operator="<="}}
+                                                        <td style="background-color: yellow;color: black">{{rata2N}} - Sedang</td>
                                                     {{/compare}} {{/compare}}
-                                                    {{#compare jumlahN 21 operator="<"}}
-                                                        <td style="background-color: red;color: white">{{jumlahN}} - Rendah</td>
+                                                    {{#compare rata2N 21 operator="<"}}
+                                                        <td style="background-color: red;color: white">{{rata2N}} - Rendah</td>
                                                     {{/compare}}
                                                     {{!-- Neuroticism (vs. emotional stability) --}}
 
                                                     {{!-- Openness/Intellect --}}
-                                                    {{#compare jumlahO 35 operator=">"}}
-                                                        <td style="background-color: green;color: white">{{jumlahO}} - Tinggi</td>
+                                                    {{#compare rata2O 35 operator=">"}}
+                                                        <td style="background-color: green;color: white">{{rata2O}} - Tinggi</td>
                                                     {{/compare}}
-                                                    {{#compare jumlahO 21 operator=">="}} {{#compare jumlahO 35 operator="<="}}
-                                                        <td style="background-color: yellow;color: black">{{jumlahO}} - Sedang</td>
+                                                    {{#compare rata2O 21 operator=">="}} {{#compare rata2O 35 operator="<="}}
+                                                        <td style="background-color: yellow;color: black">{{rata2O}} - Sedang</td>
                                                     {{/compare}} {{/compare}}
-                                                    {{#compare jumlahO 21 operator="<"}}
-                                                        <td style="background-color: red;color: white">{{jumlahO}} - Rendah</td>
+                                                    {{#compare rata2O 21 operator="<"}}
+                                                        <td style="background-color: red;color: white">{{rata2O}} - Rendah</td>
                                                     {{/compare}}
                                                     {{!-- Openness/Intellect --}}
                                                 </tr>
@@ -893,9 +643,10 @@
                         </div>
                     </div>
                 </div>
-                {{!-- end of row --}}
+                {{!-- end row part 5 --}}
                 {{/compare}}
-                {{/if}}{{/if}}
+                
+                {{/if}} {{/if}}
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
@@ -903,7 +654,7 @@
                 <!-- Right sidebar -->
                 <!-- ============================================================== -->
                 <!-- .right-sidebar -->
-
+                
                 <!-- ============================================================== -->
                 <!-- End Right sidebar -->
                 <!-- ============================================================== -->
@@ -930,7 +681,7 @@
     <!-- All Jquery -->
     <!-- ============================================================== -->
     {{> plugins}}
-    <script src="/js/client/datatable/skorassessment.js"></script>
+    <script src="/js/client/datatable/rekapskor.js"></script>
 </body>
 
 </html>
